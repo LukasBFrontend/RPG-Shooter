@@ -120,7 +120,8 @@ public class NodeManager : Singleton<NodeManager>
             }
         }
 
-        CreateConnections();
+        CreateConnectionsFull();
+        //CreateConnections();
     }
 
     void CreateConnections()
@@ -146,6 +147,41 @@ public class NodeManager : Singleton<NodeManager>
 
                 if (y < rows - 1 && nodeGrid[x][y + 1] != null)
                     node.connections.Add(nodeGrid[x][y + 1]);
+            }
+        }
+    }
+
+    void CreateConnectionsFull()
+    {
+        for (int x = 0; x < columns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                Node node = nodeGrid[x][y];
+                if (node == null) continue;
+
+                node.connections = new List<Node>();
+
+                // Loop through all 8 directions
+                for (int dx = -1; dx <= 1; dx++)
+                {
+                    for (int dy = -1; dy <= 1; dy++)
+                    {
+                        // Skip self
+                        if (dx == 0 && dy == 0) continue;
+
+                        int nx = x + dx;
+                        int ny = y + dy;
+
+                        // Check bounds
+                        if (nx >= 0 && nx < columns && ny >= 0 && ny < rows)
+                        {
+                            Node neighbor = nodeGrid[nx][ny];
+                            if (neighbor != null)
+                                node.connections.Add(neighbor);
+                        }
+                    }
+                }
             }
         }
     }

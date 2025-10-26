@@ -13,31 +13,59 @@ public class NPC_Controller : MonoBehaviour
     BoxCollider2D col;
 
     bool isVisionChange, seesPlayer, pathQued = false;
+    Vector2 lastTrackedPos;
+    float moveThreshold = 2f;
+    float refreshRate = 3f;
+    float pathingTimer = 0f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
+
+        pathingTimer = 1 / refreshRate;
+        SetNode(new(0, 0));
     }
 
     void Update()
     {
-        SetNode();
+        pathingTimer -= Time.deltaTime;
+
         RayCastPlayer();
 
-        if (path == null || path.Count == 0)
+        if (path == null || path.Count == 0 || (!seesPlayer && isVisionChange))
         {
-            ResetPath();
-            CreatePath(PlayerConfig.Instance.Node, seesPlayer);
+            CreatePath(PlayerConfig.Instance.Node);
         }
 
-        FollowPath();
+        if (pathingTimer <= 0f)
+        {
+            float playerMove = Vector2.Distance(lastTrackedPos, PlayerConfig.Instance.ColliderCenter());
+
+            if (!seesPlayer && playerMove > moveThreshold)
+            {
+                pathingTimer = 1 / refreshRate;
+                pathQued = true;
+            }
+        }
+
+        if (seesPlayer)
+        {
+            Vector2 offset = PlayerToNPC().normalized * 1f;
+            SetNode(offset);
+            FollowDirect();
+        }
+        else
+        {
+            FollowPath();
+        }
+
         UpdateRotation();
     }
 
-    public void SetNode()
+    public void SetNode(Vector2 offset)
     {
-        currentNode = NodeManager.Instance.ClosestNode(transform.position);
+        currentNode = NodeManager.Instance.ClosestNode((Vector2)transform.position + offset);
     }
 
     public void UpdateRotation()
@@ -46,6 +74,32 @@ public class NPC_Controller : MonoBehaviour
         transform.rotation = Quaternion.Euler(new(0, 0, angle + 90));
     }
 
+    public void FollowDirect()
+    {
+        Vector2 targetPos = PlayerConfig.Instance.ColliderCenter();
+        Vector2 direction = PlayerToNPC().normalized;
+
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            faceDir = new(Mathf.Sign(direction.x), 0);
+        }
+        else
+        {
+            faceDir = new(0, Mathf.Sign(direction.y));
+        }
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPos,
+            2 * Time.deltaTime
+        );
+
+        if (pathQued)
+        {
+            CreatePath(PlayerConfig.Instance.Node);
+            pathQued = false;
+        }
+    }
     public void FollowPath()
     {
         if (path == null || path.Count == 0)
@@ -81,8 +135,7 @@ public class NPC_Controller : MonoBehaviour
 
             if (pathQued)
             {
-                ResetPath();
-                CreatePath(PlayerConfig.Instance.Node, seesPlayer);
+                CreatePath(PlayerConfig.Instance.Node);
                 pathQued = false;
             }
         }
@@ -90,15 +143,22 @@ public class NPC_Controller : MonoBehaviour
 
     void RayCastPlayer()
     {
-        Vector2 origin = transform.position;
-        Vector2 dir = PlayerToNPC().normalized;
+        Vector2 origin = seesPlayer ? transform.position : NodeManager.Instance.ClosestNode(transform.position).transform.position;
+        Vector2 dir = PlayerToClosest().normalized;
         Vector2 perp = new(-dir.y, dir.x);
 
         float extents = Mathf.Max(col.bounds.extents.x, col.bounds.extents.y);
-        float offsetDist = Mathf.Sqrt(2 * Mathf.Pow(extents, 2));
+        float side = extents;
+        float diagonal = Mathf.Sqrt(2 * Mathf.Pow(extents, 2));
+
+        float axisAlign = Mathf.Abs(dir.x * dir.y) * 4f;
+        axisAlign = Mathf.Clamp01(axisAlign);
+
+        float offsetDist = Mathf.Lerp(side, diagonal, axisAlign);
+
         Vector2 offset = perp * offsetDist;
 
-        float dist = PlayerToNPC().magnitude - offsetDist;
+        float dist = PlayerToClosest().magnitude - offsetDist;
         if (dist <= 0) dist = 0.1f;
 
         RaycastHit2D[] hitsOne = Physics2D.RaycastAll(origin + offset, dir, dist);
@@ -130,12 +190,20 @@ public class NPC_Controller : MonoBehaviour
         isVisionChange = !(seesPlayer == (obstacleCount == 0));
         seesPlayer = obstacleCount == 0;
 
-        if (isVisionChange) pathQued = true;
-
-        if (isVisionChange) Debug.Log("Vision changed");
-        Debug.Log("seesPlayer: " + seesPlayer);
+        if (isVisionChange)
+        {
+            pathingTimer = 1 / refreshRate;
+            pathQued = true;
+        }
     }
 
+    Vector2 PlayerToClosest()
+    {
+        Vector2 playerPos = PlayerConfig.Instance.ColliderCenter();
+        Vector2 pos = NodeManager.Instance.ClosestNode(transform.position).transform.position;
+
+        return playerPos - pos;
+    }
     Vector2 PlayerToNPC()
     {
         Vector2 playerPos = PlayerConfig.Instance.ColliderCenter();
@@ -143,7 +211,7 @@ public class NPC_Controller : MonoBehaviour
 
         return playerPos - pos;
     }
-    public void ResetPath()
+    public void CreatePath(Node targetNode)
     {
         if (path == null)
         {
@@ -151,32 +219,20 @@ public class NPC_Controller : MonoBehaviour
             return;
         }
         path.Clear();
-    }
-    public void CreatePath(Node targetNode, bool followDirect)
-    {
-        if (path.Count > 0)
-        {
-            return;
-        }
+
+        lastTrackedPos = PlayerConfig.Instance.ColliderCenter();
 
         List<Node> nodeGrid = NodeManager.Instance.GetNodes();
 
         if (path == null || path.Count == 0)
         {
             path =
-            !followDirect ?
             Paths.AStar(
                 currentNode,
                 targetNode,
-                NodeManager.Instance.GetNodes(),
+                nodeGrid,
                 MoveBehavior.Stable,
                 GetComponent<BoxCollider2D>()
-            )
-            :
-            Paths.Straight(
-                currentNode,
-                targetNode,
-                NodeManager.Instance.GetNodes()
             );
         }
     }

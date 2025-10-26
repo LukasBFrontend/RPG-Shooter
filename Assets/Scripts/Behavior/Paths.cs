@@ -132,7 +132,7 @@ public static class Paths
                         Vector2 hitDir = (firstValidHit.Value.point - origin).normalized;
 
                         float alignmentWithBlocked = Mathf.Abs(Vector2.Dot(toNeighbor, hitDir));
-                        heldGScore += alignmentWithBlocked * 50f;
+                        //heldGScore += alignmentWithBlocked * 50f;
                     }
                 }
                 else
@@ -142,7 +142,7 @@ public static class Paths
 
                     if (Vector2.Dot(prevDir, newDir) < 0.99f)
                     {
-                        heldGScore += 5f;
+                        //heldGScore += 5f;
                     }
                 }
 
