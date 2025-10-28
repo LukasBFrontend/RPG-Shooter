@@ -21,12 +21,10 @@ public class Flintlock : Weapon
 
     public void Fire()
     {
-        Vector2 aimDirecdtion = GetAimDirection();
-        GameObject bulletInstance = Instantiate(bullet, player.transform.position, quaternion.identity);
-        bulletInstance.GetComponent<Rigidbody2D>().linearVelocity = GetAimDirection() * bulletVelocity;
-
-        Quaternion rotation = GetAimAngle();
-        bulletInstance.transform.rotation = rotation;
+        Vector2 aimDirection = GetAimDirection();
+        GameObject bulletInstance = Instantiate(bullet, aimDirection * 1, GetAimAngle(), transform);
+        bulletInstance.GetComponent<Rigidbody2D>().linearVelocity = aimDirection * bulletVelocity;
+        bulletInstance.transform.position = bulletInstance.transform.position + transform.position;
 
         Recoil();
     }

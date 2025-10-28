@@ -77,9 +77,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2105802505
-  m_SortingLayer: 3
-  m_SortingOrder: -20
+  m_SortingLayerID: -826862247
+  m_SortingLayer: 7
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: dce014b9277fdbd4280a8a89bfb7e003, type: 3}
   m_Color: {r: 0.9385868, g: 0.6084906, b: 1, a: 1}
   m_FlipX: 0
@@ -166,6 +166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 882819f1df24f1e4090bf8f56b1e377c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreCollisionTags:
+  - Player
+  enemyTags:
+  - Enemy
+  damage: 50
 --- !u!1 &8778923935439495996
 GameObject:
   m_ObjectHideFlags: 0
