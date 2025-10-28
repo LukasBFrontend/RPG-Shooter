@@ -58,18 +58,15 @@ public class StairTrigger : Trigger
     void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        Debug.Log("Player exit");
         Direction exitDirection = FromDirection(other);
 
         if (exitDirection == higherLevel.Direction)
         {
             SetZLayer(other.gameObject, higherLevel.ZLvl);
-            Debug.Log("Exit stairs higher lvl, z: " + higherLevel.ZLvl);
         }
         else if (exitDirection == lowerLevel.Direction)
         {
             SetZLayer(other.gameObject, lowerLevel.ZLvl);
-            Debug.Log("Exit stairs lower lvl, z: " + lowerLevel.ZLvl);
         }
     }
 }
