@@ -16,7 +16,6 @@ public class Weapon : MonoBehaviour
         Vector2 mouseToPlayer = mouseWorld - playerToCamera;
         aimDirection = mouseToPlayer.normalized;
         aimAngle = Mathf.Atan2(mouseToPlayer.y, mouseToPlayer.x) * Mathf.Rad2Deg;
-        Debug.Log("Aim angle: " + aimAngle);
     }
 
 

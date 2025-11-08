@@ -14500,9 +14500,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.27493262
+    x: 0.25404313
     y: 0
-    width: 0.44947588
+    width: 0.49164423
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -15318,6 +15318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 536321454}
   - component: {fileID: 536321453}
+  - component: {fileID: 536321455}
   m_Layer: 0
   m_Name: ResourceManager
   m_TagString: Untagged
@@ -15354,6 +15355,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &536321455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536321452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d7ac96df3b5ea46aa450ca28c615d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &538113846
 GameObject:
   m_ObjectHideFlags: 0
@@ -15633,7 +15646,7 @@ GameObject:
   - component: {fileID: 547816839}
   - component: {fileID: 547816838}
   - component: {fileID: 547816837}
-  m_Layer: 3
+  m_Layer: 16
   m_Name: Render
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29419,7 +29432,7 @@ GameObject:
   - component: {fileID: 1021411278}
   - component: {fileID: 1021411277}
   - component: {fileID: 1021411280}
-  m_Layer: 17
+  m_Layer: 16
   m_Name: Flintlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35089,7 +35102,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1 &1217969830
 GameObject:
@@ -50179,7 +50192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1638874104}
-  m_Layer: 17
+  m_Layer: 16
   m_Name: Weapon Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50328,7 +50341,7 @@ GameObject:
   - component: {fileID: 1643298845}
   - component: {fileID: 1643298847}
   - component: {fileID: 1643298846}
-  m_Layer: 17
+  m_Layer: 16
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -56170,8 +56183,8 @@ GameObject:
   - component: {fileID: 1806330188}
   - component: {fileID: 1806330192}
   - component: {fileID: 1806330191}
-  - component: {fileID: 1806330195}
   - component: {fileID: 1806330193}
+  - component: {fileID: 1806330194}
   m_Layer: 16
   m_Name: Slug (Enemy)
   m_TagString: Enemy
@@ -56343,7 +56356,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1806330193
 MonoBehaviour:
@@ -56361,7 +56374,7 @@ MonoBehaviour:
   playerNode: {fileID: 0}
   path: []
   faceDir: {x: 0, y: -1}
---- !u!114 &1806330195
+--- !u!114 &1806330194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56370,11 +56383,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1806330187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4822472268796947a2217446da2a79d, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ccfa2ebece19ba43b07b8b1fd498b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
   hitCollider: {fileID: 0}
+  faceDir: {x: 0, y: -1}
+  damagePerAttack: 50
+  attackSpeed: 1
+  knockbackForce: 10
 --- !u!1 &1808395022
 GameObject:
   m_ObjectHideFlags: 0
