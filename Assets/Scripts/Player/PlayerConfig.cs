@@ -3,7 +3,8 @@ using UnityEngine;
 public enum PlayerStatus
 {
     None,
-    Recoil
+    Recoil,
+    Knockback
 }
 
 public class PlayerConfig : Singleton<PlayerConfig>
@@ -54,7 +55,7 @@ public class PlayerConfig : Singleton<PlayerConfig>
             return;
         }
 
-        if (Status == PlayerStatus.Recoil)
+        if (Status != PlayerStatus.None)
         {
             Status = PlayerStatus.None;
         }

@@ -20,28 +20,18 @@ public class PlayerMove : Singleton<PlayerMove>
 
     void FixedUpdate()
     {
-        SetRotation();
         SetVelocity();
         UpdateAnimator();
     }
 
     private void SetVelocity()
     {
-        if (PlayerConfig.Instance.Status == PlayerStatus.Recoil) return;
+        if (PlayerConfig.Instance.Status != PlayerStatus.None) return;
 
         if (direction.magnitude > 1) direction.Normalize();
         Vector2 velocity = direction * moveSpeed;
 
         rb.linearVelocity = velocity;
-    }
-
-    private void SetRotation()
-    {
-        /*         if (isTurningLeft) currentAngle -= rotationSpeed * 30f * Time.deltaTime;
-                if (isTurningRight) currentAngle += rotationSpeed * 30f * Time.deltaTime;
-                Quaternion newRotation = Quaternion.Euler(0, 0, currentAngle);
-
-                gameObject.GetComponent<Pixelate>().rotation = newRotation; */
     }
 
     private void UpdateAnimator()

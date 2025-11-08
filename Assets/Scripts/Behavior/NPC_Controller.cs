@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(NPC))]
 public class NPC_Controller : MonoBehaviour
 {
     public Node currentNode;
@@ -59,8 +60,6 @@ public class NPC_Controller : MonoBehaviour
         {
             FollowPath();
         }
-
-        UpdateRotation();
     }
 
     public void SetNode(Vector2 offset)
@@ -68,25 +67,22 @@ public class NPC_Controller : MonoBehaviour
         currentNode = NodeManager.Instance.ClosestNode((Vector2)transform.position + offset);
     }
 
-    public void UpdateRotation()
+    void SetFacing(Vector2 direction)
     {
-        float angle = Mathf.Atan2(faceDir.y, faceDir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new(0, 0, angle + 90));
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            GetComponent<NPC>().faceDir = new(Mathf.Sign(direction.x), 0);
+        }
+        else
+        {
+            GetComponent<NPC>().faceDir = new(0, Mathf.Sign(direction.y));
+        }
     }
-
     public void FollowDirect()
     {
         Vector2 targetPos = PlayerConfig.Instance.ColliderCenter();
         Vector2 direction = PlayerToNPC().normalized;
-
-        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-        {
-            faceDir = new(Mathf.Sign(direction.x), 0);
-        }
-        else
-        {
-            faceDir = new(0, Mathf.Sign(direction.y));
-        }
+        SetFacing(direction);
 
         transform.position = Vector3.MoveTowards(
             transform.position,
@@ -110,17 +106,8 @@ public class NPC_Controller : MonoBehaviour
         int x = 0;
 
         Vector3 targetPos = new Vector3(path[x].transform.position.x, path[x].transform.position.y, 0);
-
         Vector2 direction = (targetPos - transform.position).normalized;
-        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-        {
-            faceDir = new(Mathf.Sign(direction.x), 0);
-        }
-        else
-        {
-            faceDir = new(0, Mathf.Sign(direction.y));
-        }
-
+        SetFacing(direction);
 
         transform.position = Vector3.MoveTowards(
             transform.position,

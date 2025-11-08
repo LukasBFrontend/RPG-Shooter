@@ -8,16 +8,14 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Hit Collider")) return;
 
         Debug.Log("Bullet collision");
 
-        Transform parent = other.transform.parent;
         foreach (string tag in enemyTags)
         {
-            if (parent.CompareTag(tag))
+            if (other.CompareTag(tag))
             {
-                Enemy enemy = parent.GetComponent<Enemy>();
+                NPC enemy = other.GetComponent<NPC>();
 
                 if (enemy)
                 {
