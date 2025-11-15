@@ -13,7 +13,7 @@ public class Pixelate : MonoBehaviour
     MeshRenderer quadMesh;
 
 
-    void Awake()
+    void Start()
     {
         pixelateChildren = Instantiate(pixelateChildrenPrefab, transform);
         CreateRenderTexture();

@@ -52,6 +52,18 @@ public class NodeManager : Singleton<NodeManager>
     {
         return nodeGrid.SelectMany(row => row).ToList();
     }
+    public void DestroyChildren()
+    {
+        Transform[] children = gameObject.GetComponentsInChildren<Transform>();
+        foreach (Transform child in children)
+        {
+            if (child == transform)
+            {
+                continue;
+            }
+            DestroyImmediate(child.gameObject);
+        }
+    }
     public void Generate()
     {
         startPoint = transform.position;
@@ -203,7 +215,12 @@ public class NodeManager : Singleton<NodeManager>
             NodeManager generator = (NodeManager)target;
             if (GUILayout.Button("Generate Nodes"))
             {
+                generator.DestroyChildren();
                 generator.Generate();
+            }
+            if (GUILayout.Button("Destroy Nodes"))
+            {
+                generator.DestroyChildren();
             }
         }
     }
