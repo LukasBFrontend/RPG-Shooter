@@ -8,9 +8,6 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-
-        Debug.Log("Bullet collision");
-
         foreach (string tag in enemyTags)
         {
             if (other.CompareTag(tag))

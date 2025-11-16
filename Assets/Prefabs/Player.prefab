@@ -272,6 +272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3509146267959420584}
   - component: {fileID: 1058697600066434790}
+  - component: {fileID: 7438468600784246310}
   - component: {fileID: 1116474325934901914}
   - component: {fileID: 7636204328562689855}
   - component: {fileID: 2295047555192363436}
@@ -319,6 +320,25 @@ MonoBehaviour:
   Animator: {fileID: 5260403279140747566}
   Node: {fileID: 0}
   Layer: 0
+--- !u!114 &7438468600784246310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9167609637897018352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbacda48ca2c8fb4e8e4fa3c18227581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 12
+  alive: 1
+  heartFull: {fileID: 2098336248704118210, guid: c03e318aae3ccaf4f8fe1cb715828a29, type: 3}
+  heartThreeQuarters: {fileID: 1171281842, guid: c03e318aae3ccaf4f8fe1cb715828a29, type: 3}
+  heartHalf: {fileID: 1258091938, guid: c03e318aae3ccaf4f8fe1cb715828a29, type: 3}
+  heartOneQuarter: {fileID: -63492956, guid: c03e318aae3ccaf4f8fe1cb715828a29, type: 3}
+  heartEmpty: {fileID: -950389298, guid: c03e318aae3ccaf4f8fe1cb715828a29, type: 3}
 --- !u!114 &1116474325934901914
 MonoBehaviour:
   m_ObjectHideFlags: 0

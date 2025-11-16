@@ -191,7 +191,7 @@ public class NPC_Controller : MonoBehaviour
 
         return playerPos - pos;
     }
-    Vector2 PlayerToNPC()
+    public Vector2 PlayerToNPC()
     {
         Vector2 playerPos = PlayerConfig.Instance.ColliderCenter();
         Vector2 pos = transform.position;
