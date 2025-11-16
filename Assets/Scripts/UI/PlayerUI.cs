@@ -3,29 +3,35 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    [Header("Heart Sprites")]
+    [Header("Hearts")]
     [SerializeField] private Sprite heartFull;
     [SerializeField] private Sprite heartThreeQuarters;
     [SerializeField] private Sprite heartHalf;
     [SerializeField] private Sprite heartOneQuarter;
     [SerializeField] private Sprite heartEmpty;
-    [Header("Health Target Images")]
     [SerializeField] Image[] heartImages;
+    [Header("Coins")]
+    [SerializeField] Text coinsText;
+
     void Start()
     {
         RenderHearts();
+        RenderCoins();
     }
 
     void Update()
     {
-        if (!PlayerState.Instance.IsDamaged())
+        if (PlayerState.Instance.IsDamaged())
         {
-            return;
+            RenderHearts();
         }
-
-        RenderHearts();
+        RenderCoins();
     }
 
+    void RenderCoins()
+    {
+        coinsText.text = LogicScript.Instance.Coins.ToString();
+    }
     void RenderHearts()
     {
         int healthPerHeart = PlayerState.Instance.healthPerHeart;
