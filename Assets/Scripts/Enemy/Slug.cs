@@ -42,10 +42,9 @@ public class Slug : NPC
         {
             return;
         }
-        PlayerState.TakeDamage(damagePerAttack);
-        PlayerConfig.Instance.Rb.AddForce(faceDir * knockbackForce);
+        PlayerState.Instance.TakeDamage(damagePerAttack);
+        PlayerConfig.Instance.Rb.AddForce(GetComponent<NPC_Controller>().PlayerToNPC().normalized * knockbackForce);
         PlayerConfig.Instance.Status = PlayerStatus.Knockback;
-        Debug.Log(faceDir * knockbackForce);
         hasAttacked = true;
     }
 
@@ -55,7 +54,6 @@ public class Slug : NPC
         {
             return;
         }
-        Debug.Log("Player hit");
         playerInRange = true;
         attackTimer = 0f;
     }
