@@ -1,0 +1,104 @@
+.header {
+    font-size: 40px;
+    -unity-text-align: upper-left;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.button {
+    font-size: 26px;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-right;
+    background-image: none;
+    -unity-background-image-tint-color: rgb(2, 2, 2);
+    flex-direction: row;
+    height: 48px;
+    align-items: center;
+    justify-content: flex-end;
+    transition-property: translate;
+    transition-duration: 0.1s;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+}
+
+.horizontal-line {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    max-width: 0;
+    scale: 0 1;
+    margin-right: 10px;
+}
+
+.button:focus {
+    margin-right: 16px;
+    translate: -32px 0;
+    transition-duration: 0.2s;
+}
+
+.button:hover .horizontal-line {
+    scale: 1 1;
+    max-width: 32px;
+}
+
+.button:focus .horizontal-line {
+    scale: 1 1;
+    max-width: 32px;
+}
+
+.page {
+    flex-grow: 1;
+    width: 60%;
+    margin-right: 0;
+    margin-left: auto;
+    padding-top: 96px;
+    padding-bottom: 96px;
+    justify-content: center;
+    height: 100%;
+    padding-right: 96px;
+    padding-left: 96px;
+    border-top-width: 6px;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    border-left-color: rgb(209, 114, 88);
+    border-right-color: rgb(209, 114, 88);
+    border-top-color: rgb(209, 114, 88);
+    border-bottom-color: rgb(209, 114, 88);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.buttons-container {
+    flex-grow: 1;
+    justify-content: space-evenly;
+    height: auto;
+    max-height: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.unity-slider {
+    color: rgb(255, 255, 255);
+    font-size: 26px;
+}

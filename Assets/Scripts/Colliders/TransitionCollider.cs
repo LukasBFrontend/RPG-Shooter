@@ -31,7 +31,7 @@ public class TransitionCollider : Trigger
 
         Direction fromDirection = FromDirection(other);
         lastDirection = fromDirection;
-        Debug.Log($"Enter: {fromDirection}");
+        //Debug.Log($"Enter: {fromDirection}");
 
 
         MoveCamera(OppositeDirection(fromDirection));
@@ -41,7 +41,7 @@ public class TransitionCollider : Trigger
     {
         if (!other.CompareTag("Player")) return;
         Room newRoom = RoomManager.Instance.GetActiveRoom();
-        Debug.Log("New room position: " + newRoom.transform.position);
+        //Debug.Log("New room position: " + newRoom.transform.position);
 
         Direction fromDirection = FromDirection(other);
         if (fromDirection != lastDirection)
