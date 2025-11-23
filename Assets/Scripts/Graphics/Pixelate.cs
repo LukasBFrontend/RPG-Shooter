@@ -1,9 +1,12 @@
 using UnityEngine;
 public class Pixelate : MonoBehaviour
 {
-    [SerializeField] private int resolution;
     [SerializeField] GameObject pixelateChildrenPrefab;
     [SerializeField] Vector2 offset;
+    [SerializeField] Transform refTransform;
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] bool autoRotationEnabled = false;
+    private int resolution = 128;
     Material materialPrefab;
     GameObject pixelateChildren;
     RenderTexture renderTexture;
@@ -24,6 +27,9 @@ public class Pixelate : MonoBehaviour
         pixelateCamera = pixelateChildren.GetComponentInChildren<Camera>();
         quadMesh = pixelateChildren.GetComponentInChildren<MeshRenderer>();
 
+        SortingLayerSetter sortingSetter = quadMesh.GetComponent<SortingLayerSetter>();
+        /* sortingSetter.sortingLayerID = spriteRenderer.sortingLayerID;
+        sortingSetter.sortingOrder = spriteRenderer.sortingOrder; */
 
         int assignedLayer = PixelateLayerManager.Instance.AssignUnusedLayer(gameObject);
         if (assignedLayer == -1)
@@ -32,21 +38,26 @@ public class Pixelate : MonoBehaviour
         }
         else
         {
-            pixelateCamera.cullingMask = 1 << assignedLayer;
-        }
+            pixelateCamera.cullingMask = (1 << assignedLayer) | (1 << 3);
 
+        }
         pixelateCamera.targetTexture = renderTexture;
         Vector3 cameraPos = pixelateCamera.transform.position;
         pixelateCamera.transform.position = new Vector3(cameraPos.x + offset.x, cameraPos.y + offset.y, cameraPos.z);
         pixelateCamera.Render();
 
         quadMesh.material = material;
-        quadMesh.gameObject.layer = 3;
     }
 
     void Update()
     {
         //SetZLayer();
+        if (!autoRotationEnabled)
+        {
+            return;
+        }
+
+        rotation = Quaternion.Euler(0, 0, -2 * refTransform.rotation.z);
     }
 
     public Quaternion rotation
@@ -93,24 +104,4 @@ public class Pixelate : MonoBehaviour
 
         material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
     }
-
-    /*     private bool SetZLayer()
-        {
-            if (!parent)
-            {
-                parent = transform.parent.gameObject;
-                Debug.Log("Parent found: " + parent.name);
-            }
-
-            if (!parent)
-            {
-                Debug.Log("No parent found");
-                return false;
-            }
-            else if (quadMesh.gameObject.layer == parent.layer)
-            { return false; }
-            quadMesh.gameObject.layer = parent.layer;
-            Debug.Log(quadMesh.gameObject.name + " layer set to " + parent.name + "'s layer: " + parent.layer);
-            return true;
-        } */
 }

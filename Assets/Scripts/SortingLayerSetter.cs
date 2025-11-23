@@ -6,8 +6,8 @@ using UnityEditor;
 [RequireComponent(typeof(MeshRenderer))]
 public class SortingLayerSetter : MonoBehaviour
 {
-    [SerializeField] private int sortingLayerID;
-    [SerializeField] private int sortingOrder;
+    public int sortingLayerID;
+    public int sortingOrder;
 
     void Awake() => Apply();
     void OnValidate() => Apply();
@@ -18,7 +18,7 @@ public class SortingLayerSetter : MonoBehaviour
         if (renderer != null)
         {
             renderer.sortingLayerID = sortingLayerID;
-            renderer.sortingOrder = sortingOrder;
+            renderer.sortingOrder = sortingOrder - 1;
         }
     }
 }

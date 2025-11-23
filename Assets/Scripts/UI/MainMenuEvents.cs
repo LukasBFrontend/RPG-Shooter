@@ -28,7 +28,7 @@ public class MainMenuEvents : MonoBehaviour
 
         buttonActions = new Dictionary<string, EventCallback<ClickEvent>>
         {
-            ["StartButton"] = e => SceneManager.LoadScene("LukasTesting"),
+            ["StartButton"] = e => SceneManager.LoadScene("MainScene"),
             ["OptionsButton"] = e => Navigate(pages!["OptionsPage"], e),
             ["LoadButton"] = e => Navigate(pages!["SavesPage"], e),
             ["BackButton"] = e => { if (currentPage?.Parent != null) Navigate(currentPage.Parent, e); }

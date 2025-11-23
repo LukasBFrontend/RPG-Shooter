@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 238362630633322379}
   - component: {fileID: 9026651528488480859}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Foreground Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

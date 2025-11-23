@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5821020641644994261}
   - component: {fileID: 5393662710638161057}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Global Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,11 +48,11 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
+  m_Color: {r: 0.015263435, g: 0.04651017, b: 0.066037714, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000ffb4e2c4e53755ddb92566909b440c5ae13e3d0909ff837d
+  m_ApplyToSortingLayers: 00000000ffb4e2c4e53755dd09ff837db92566909b440c5ae13e3d095915b7ce
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
