@@ -26,9 +26,10 @@ public class PlayerConfig : Singleton<PlayerConfig>
     }
 
     public Rigidbody2D Rb;
-    public PolygonCollider2D Col;
+    public Collider2D Col;
     public SpriteRenderer SpriteRenderer;
     public Animator Animator;
+    public Weapon Weapon;
     public Node Node;
 
     [HideInInspector] public int Layer;

@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerMove : Singleton<PlayerMove>
 {
-    [SerializeField] private float moveSpeed = 4;
+    public float moveSpeed = 4;
+    [HideInInspector] public bool IsRecievingInput { get; set; }
     [HideInInspector] public Vector2 direction = Vector2.zero;
     [HideInInspector] public bool isTurningRight, isTurningLeft = false;
     private Rigidbody2D rb;
@@ -29,7 +30,10 @@ public class PlayerMove : Singleton<PlayerMove>
         if (PlayerConfig.Instance.Status != PlayerStatus.None) return;
 
         if (direction.magnitude > 1) direction.Normalize();
-        Vector2 velocity = direction * moveSpeed;
+
+        Vector2 velocity = IsRecievingInput ?
+            direction * moveSpeed :
+            Vector2.zero;
 
         rb.linearVelocity = velocity;
     }
