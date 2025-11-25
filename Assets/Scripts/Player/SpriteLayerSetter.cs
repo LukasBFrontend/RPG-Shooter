@@ -7,7 +7,9 @@ public class SpriteLayerSetter : MonoBehaviour
 {
     [SerializeField] GameObject objectToSync;
     [Header("Optional")]
+    [SerializeField] bool syncObjectLayer = true;
     [SerializeField] GameObject[] zLights;
+    int trackedLayer = 0;
     SpriteRenderer sprite;
 
     void Awake()
@@ -16,10 +18,10 @@ public class SpriteLayerSetter : MonoBehaviour
 
     }
 
-    public void Synch()
+    public void Sync()
     {
-
-        switch (gameObject.layer)
+        trackedLayer = objectToSync.layer;
+        switch (trackedLayer)
         {
             case 16:
                 sprite.sortingLayerName = "BottomWall";
@@ -37,8 +39,10 @@ public class SpriteLayerSetter : MonoBehaviour
                 return;
         }
 
-
-
+        if (syncObjectLayer)
+        {
+            gameObject.layer = trackedLayer;
+        }
     }
 
     void SetSelfLight(int zIndex)
@@ -55,12 +59,11 @@ public class SpriteLayerSetter : MonoBehaviour
 
     void Update()
     {
-        if (objectToSync.layer == gameObject.layer)
+        if (objectToSync.layer == trackedLayer)
         {
             return;
         }
 
-        gameObject.layer = objectToSync.layer;
-        Synch();
+        Sync();
     }
 }

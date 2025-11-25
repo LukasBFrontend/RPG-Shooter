@@ -57,20 +57,19 @@ public class StairTrigger : Trigger
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
-
+        if (!other.CompareTag("Player Trigger")) return;
         if (FromDirection(other) == lowerLevel.Direction)
         {
-            SetZLayer(other.gameObject, higherLevel.ZLvl);
+            SetZLayer(other.CompareTag("Player Trigger") ? PlayerConfig.Instance.gameObject : other.gameObject, higherLevel.ZLvl);
         }
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player Trigger")) return;
 
         if (FromDirection(other) == lowerLevel.Direction)
         {
-            SetZLayer(other.gameObject, lowerLevel.ZLvl);
+            SetZLayer(other.CompareTag("Player Trigger") ? PlayerConfig.Instance.gameObject : other.gameObject, lowerLevel.ZLvl);
         }
     }
 }

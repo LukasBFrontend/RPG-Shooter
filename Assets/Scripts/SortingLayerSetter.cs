@@ -4,32 +4,50 @@ using UnityEditor;
 #endif
 
 [RequireComponent(typeof(MeshRenderer))]
-public class SortingLayerSetter : MonoBehaviour
+public class QuadLayerSetter : MonoBehaviour
 {
+    public SpriteRenderer spriteToTrack;
     public int sortingLayerID;
     public int sortingOrder;
+    int currentLayerId = 0;
 
-    void Awake() => Apply();
     void OnValidate() => Apply();
 
+
+    void Update()
+    {
+        if (sortingLayerID == spriteToTrack.sortingLayerID && sortingOrder == spriteToTrack.sortingOrder)
+        {
+            return;
+        }
+
+        Sync();
+    }
     private void Apply()
     {
-        var renderer = GetComponent<MeshRenderer>();
-        if (renderer != null)
+        if (TryGetComponent<MeshRenderer>(out var renderer))
         {
             renderer.sortingLayerID = sortingLayerID;
-            renderer.sortingOrder = sortingOrder - 1;
+            renderer.sortingOrder = sortingOrder;
         }
+    }
+
+    public void Sync()
+    {
+        sortingLayerID = spriteToTrack.sortingLayerID;
+        sortingOrder = spriteToTrack.sortingOrder;
+
+        Apply();
     }
 }
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(SortingLayerSetter))]
+[CustomEditor(typeof(QuadLayerSetter))]
 public class SortingLayerSetterEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        var script = (SortingLayerSetter)target;
+        var script = (QuadLayerSetter)target;
         var renderer = script.GetComponent<MeshRenderer>();
 
         // Build sorting layer list

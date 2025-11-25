@@ -28,7 +28,10 @@ public class Weapon : MonoBehaviour
         bool flipWeapon = aimAngle < 90 && aimAngle > -90;
         if (flipWeapon) pixelate.RotateQuad(0, 180, 0);
         else pixelate.RotateQuad(0, 0, 0);
-        pixelate.SetSortingOrder(behindCharacter ? playerSortOrder - 1 : playerSortOrder + 1);
+        if (TryGetComponent<SpriteRenderer>(out var renderer))
+        {
+            renderer.sortingOrder = behindCharacter ? playerSortOrder - 1 : playerSortOrder + 1;
+        }
         pixelate.rotation = flipWeapon ? GetAimAngle() : GetAimAngleReversed();
     }
     protected Vector2 GetAimDirection()
