@@ -1,5 +1,83 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &477832585742271897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7583108856579464211}
+  - component: {fileID: 6841251793857706891}
+  m_Layer: 16
+  m_Name: PlayerTrigger
+  m_TagString: Player Trigger
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7583108856579464211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477832585742271897}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3509146267959420584}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6841251793857706891
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477832585742271897}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.375}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.75, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1 &585102543940336717
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +174,7 @@ GameObject:
   - component: {fileID: 2176175051986176700}
   - component: {fileID: 4902946085122026504}
   - component: {fileID: 5241547954127551062}
+  - component: {fileID: 3654712071857307638}
   m_Layer: 16
   m_Name: Flintlock
   m_TagString: Untagged
@@ -159,9 +238,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -826862247
-  m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingLayerID: -581617691
+  m_SortingLayer: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: f563da00ff652e24e8a0a961d063f32e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -188,7 +267,7 @@ MonoBehaviour:
   pixelateChildrenPrefab: {fileID: 5579334951649461191, guid: e141338fdac8f5341b6e8b57534a4077, type: 3}
   offset: {x: 0.625, y: 0.125}
   refTransform: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 2176175051986176700}
   autoRotationEnabled: 0
 --- !u!114 &5241547954127551062
 MonoBehaviour:
@@ -206,6 +285,21 @@ MonoBehaviour:
   recoilForce: 6
   bullet: {fileID: 1303844177401522025, guid: 7487a966befb14741a1afd6cc25709de, type: 3}
   bulletVelocity: 8
+--- !u!114 &3654712071857307638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860877003832624409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 698fded09f56bf2428edf30b106e169a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSync: {fileID: 9167609637897018352}
+  syncObjectLayer: 0
+  zLights: []
 --- !u!1 &4422280527088178468
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,7 +707,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -581617691
   m_SortingLayer: 2
-  m_SortingOrder: 5
+  m_SortingOrder: 3
   m_Sprite: {fileID: -4164835284547601552, guid: 5c493cc0470ca0b469bca1f01eaf080c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -660,6 +754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToSync: {fileID: 9167609637897018352}
+  syncObjectLayer: 1
   zLights:
   - {fileID: 4680552176083035226}
   - {fileID: 585102543940336717}
@@ -677,7 +772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
-  m_Priority: 5
+  m_Priority: 3
   m_ComponentVersion: 5
   m_HasRenderer: 1
   m_UseRendererSilhouette: 1
@@ -753,6 +848,7 @@ Transform:
   m_Children:
   - {fileID: 2606313238320136909}
   - {fileID: 3645816637427386752}
+  - {fileID: 7583108856579464211}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1058697600066434790

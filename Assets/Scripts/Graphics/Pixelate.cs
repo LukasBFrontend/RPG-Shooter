@@ -27,9 +27,9 @@ public class Pixelate : MonoBehaviour
         pixelateCamera = pixelateChildren.GetComponentInChildren<Camera>();
         quadMesh = pixelateChildren.GetComponentInChildren<MeshRenderer>();
 
-        SortingLayerSetter sortingSetter = quadMesh.GetComponent<SortingLayerSetter>();
-        /* sortingSetter.sortingLayerID = spriteRenderer.sortingLayerID;
-        sortingSetter.sortingOrder = spriteRenderer.sortingOrder; */
+        QuadLayerSetter sortingSetter = quadMesh.GetComponent<QuadLayerSetter>();
+        sortingSetter.spriteToTrack = spriteRenderer;
+        sortingSetter.Sync();
 
         int assignedLayer = PixelateLayerManager.Instance.AssignUnusedLayer(gameObject);
         if (assignedLayer == -1)
