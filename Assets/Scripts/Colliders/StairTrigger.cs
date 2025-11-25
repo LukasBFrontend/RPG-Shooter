@@ -55,16 +55,20 @@ public class StairTrigger : Trigger
                 break;
         }
     }
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        Direction exitDirection = FromDirection(other);
 
-        if (exitDirection == higherLevel.Direction)
+        if (FromDirection(other) == lowerLevel.Direction)
         {
             SetZLayer(other.gameObject, higherLevel.ZLvl);
         }
-        else if (exitDirection == lowerLevel.Direction)
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        if (FromDirection(other) == lowerLevel.Direction)
         {
             SetZLayer(other.gameObject, lowerLevel.ZLvl);
         }
