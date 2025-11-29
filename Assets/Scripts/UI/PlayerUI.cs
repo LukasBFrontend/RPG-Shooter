@@ -1,6 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UIElements.Image;
 
+[RequireComponent(typeof(UIDocument))]
 public class PlayerUI : MonoBehaviour
 {
     [Header("Hearts")]
@@ -9,12 +13,15 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Sprite heartHalf;
     [SerializeField] private Sprite heartOneQuarter;
     [SerializeField] private Sprite heartEmpty;
-    [SerializeField] Image[] heartImages;
-    [Header("Coins")]
-    [SerializeField] Text coinsText;
+    [SerializeField] UnityEngine.UI.Image[] heartImages;
+    private UIDocument document;
+    List<VisualElement> heartTextures;
+    List<VisualElement> itemImages;
+    Label coinsText;
 
     void Start()
     {
+        Cache();
         RenderHearts();
         RenderCoins();
     }
@@ -28,6 +35,13 @@ public class PlayerUI : MonoBehaviour
         RenderCoins();
     }
 
+    void Cache()
+    {
+        document = GetComponent<UIDocument>();
+        heartTextures = document.rootVisualElement.Query<VisualElement>(className: "heart").ToList();
+        itemImages = document.rootVisualElement.Query<VisualElement>(className: "item-image").ToList();
+        coinsText = document.rootVisualElement.Query<Label>(name: "CoinText");
+    }
     void RenderCoins()
     {
         coinsText.text = LogicScript.Instance.Coins.ToString();
@@ -36,7 +50,7 @@ public class PlayerUI : MonoBehaviour
     {
         int healthPerHeart = PlayerState.Instance.healthPerHeart;
         int health = PlayerState.Instance.health;
-        for (int i = 1; i <= heartImages.Length; i++)
+        for (int i = 1; i <= heartTextures.Count; i++)
         {
             Sprite targetSprite = null;
 
@@ -64,8 +78,7 @@ public class PlayerUI : MonoBehaviour
             {
                 Debug.LogError("Correct target sprite not identified for health graphic");
             }
-
-            heartImages[i - 1].sprite = targetSprite;
+            heartTextures[i - 1].style.backgroundImage = Background.FromSprite(targetSprite);
         }
     }
 }

@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - Hit Collider
   - Player Trigger
+  - Projectile Collider
+  - Map Collider
+  - Player Interact
   layers:
   - Default
   - TransparentFX
@@ -28,12 +31,12 @@ TagManager:
   - Z0
   - Z1
   - Z2
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Z0 Projectile
+  - Z1 Projectile
+  - Z2 Projectile
+  - Z0 Collider
+  - Z1 Collider
+  - Z2 Collider
   - 
   - 
   - 

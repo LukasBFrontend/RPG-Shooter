@@ -23,13 +23,15 @@ public class InputManager : MonoBehaviour
             PlayerMove.Instance.IsRecievingInput = false;
         }
 
-        PlayerAction.Instance.HolsterWeapon(!Input.GetKey(KeyCode.Mouse1));
 
         PlayerMove.Instance.isTurningLeft = Input.GetKey(KeyCode.Q);
         PlayerMove.Instance.isTurningRight = Input.GetKey(KeyCode.E);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) PlayerAction.Instance.FireWeapon();
+        if (Input.GetKeyDown(KeyCode.Mouse0)) PlayerAction.Instance.HeldItemAction();
+        if (Input.GetKeyDown(KeyCode.Alpha1)) PlayerAction.Instance.SetSelectedItemSlot(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) PlayerAction.Instance.SetSelectedItemSlot(1);
 
         if (Input.GetKeyDown(KeyCode.E)) PlayerAction.Instance.Interact();
+        if (Input.GetKeyDown(KeyCode.Escape)) MenuEvents.ToggleLvlMenu();
     }
 }

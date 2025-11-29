@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2660540952690302963}
   - component: {fileID: 1167646285306143668}
   - component: {fileID: -714210502330399859}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,12 +80,12 @@ SpriteRenderer:
   m_SortingLayerID: -826862247
   m_SortingLayer: 7
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: dce014b9277fdbd4280a8a89bfb7e003, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 49f30c6592440164b9b7fb29abaf17e9, type: 3}
   m_Color: {r: 0.9385868, g: 0.6084906, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 2.3984375, y: 2.4023438}
+  m_DrawMode: 1
+  m_Size: {x: 0.77125, y: 0.375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -117,7 +117,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &1167646285306143668
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -148,12 +148,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.275, y: 0}
-  m_Radius: 0.15625
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.3125
 --- !u!114 &-714210502330399859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,11 +166,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 882819f1df24f1e4090bf8f56b1e377c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletType: 0
   ignoreCollisionTags:
   - Player
+  - Player Trigger
+  - Map Collider
+  - Player Interact
   enemyTags:
   - Enemy
-  damage: 50
+  damage: 35
 --- !u!1 &8778923935439495996
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2293404843258423870}
   - component: {fileID: 78412301587436239}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,14 +220,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ComponentVersion: 2
-  m_LightType: 2
+  m_LightType: 1
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 0.76332086, g: 0.5229619, b: 0.9811321, a: 1}
-  m_Intensity: 2
+  m_FalloffIntensity: 0.2
+  m_Color: {r: 1, g: 0.7028302, b: 0.9287808, a: 1}
+  m_Intensity: 0.1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000ffb4e2c4e53755dd09ff837db92566909b440c5a
+  m_ApplyToSortingLayers: 00000000ffb4e2c4e53755dd09ff837db92566909b440c5ae13e3d095915b7ce
   m_LightCookieSprite: {fileID: 21300000, guid: dce014b9277fdbd4280a8a89bfb7e003, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -232,15 +236,15 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.375, y: 0.125, z: 0}
+    m_Center: {x: -0.23205006, y: -0.009649992, z: 0}
+    m_Extent: {x: 3.4723501, y: 2.38145, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -248,10 +252,14 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffSize: 2
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
+  - {x: -1.6890299, y: -0.13663557, z: 0}
+  - {x: -0.16097838, y: -0.38514745, z: 0}
+  - {x: 0.38438883, y: -0.39214167, z: 0}
+  - {x: 1.2410605, y: -0.19710025, z: 0}
+  - {x: 1.2391751, y: 0.1856082, z: 0}
+  - {x: 0.40513137, y: 0.37157172, z: 0}
+  - {x: -0.16331114, y: 0.3706896, z: 0}
+  - {x: -1.7047724, y: 0.07394778, z: 0}

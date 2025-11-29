@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 210396239653824349}
   - component: {fileID: 2848152341260453793}
   - component: {fileID: 1037664512359597822}
+  - component: {fileID: 2652694706968667127}
   m_Layer: 16
   m_Name: Slug (Enemy)
   m_TagString: Enemy
@@ -219,9 +220,24 @@ MonoBehaviour:
   health: 100
   hitCollider: {fileID: 0}
   faceDir: {x: 0, y: -1}
-  damagePerAttack: 50
+  damagePerAttack: 1
   attackSpeed: 1
   knockbackForce: 10
+--- !u!114 &2652694706968667127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326359822869375177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 698fded09f56bf2428edf30b106e169a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSync: {fileID: 326359822869375177}
+  syncObjectLayer: 0
+  zLights: []
 --- !u!1 &6734791793850459828
 GameObject:
   m_ObjectHideFlags: 0
