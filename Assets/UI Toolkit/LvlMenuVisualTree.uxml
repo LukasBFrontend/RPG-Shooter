@@ -1,0 +1,58 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/BaseStyle.uss?fileID=7433441132597879392&amp;guid=2f3e6103764ff5e4b9ae3de2714403e8&amp;type=3#BaseStyle" />
+    <ui:VisualElement name="TopBar" style="height: auto; flex-direction: row; align-items: center; justify-content: space-between; padding-top: 16px; padding-right: 16px; padding-bottom: 16px; padding-left: 16px;">
+        <ui:VisualElement name="HealthContainer" style="flex-grow: initial; flex-direction: row;">
+            <ui:VisualElement name="Heart" class="heart" style="flex-grow: 1;" />
+            <ui:VisualElement name="Heart" class="heart" style="flex-grow: 1;" />
+            <ui:VisualElement name="Heart" class="heart" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Right" style="flex-grow: 1; flex-direction: row; justify-content: flex-end;">
+            <ui:VisualElement name="Coins" style="flex-grow: initial; flex-direction: row;">
+                <ui:VisualElement name="CoinImage" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/coin_large-1.png.png?fileID=21300000&amp;guid=6a06c9591fc70ee41be333e029d23558&amp;type=3#coin_large-1.png&quot;); height: 44px; width: 44px;" />
+                <ui:Label text="0" name="CoinText" style="color: rgb(255, 255, 255); -unity-text-align: middle-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; font-size: 30px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="InventoryContainer" style="flex-grow: 0; height: initial; flex-direction: row; width: auto;">
+                <ui:VisualElement name="ItemSlot" class="item-slot">
+                    <ui:VisualElement name="ItemImage" class="item-image" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ItemSlot" class="item-slot">
+                    <ui:VisualElement name="ItemImage" class="item-image" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ItemSlot" class="item-slot hidden">
+                    <ui:VisualElement name="ItemImage" class="item-image" style="flex-grow: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="PauseMenu" class="hidden" style="flex-grow: 1; width: 100%; height: 100%; position: absolute; align-items: center;">
+        <ui:VisualElement name="StartPage" class="page-small" style="background-color: rgba(52, 65, 51, 0.31);">
+            <ui:Label text="PAUSED" name="Header" class="header" />
+            <ui:VisualElement name="ButtonsContainer" class="buttons-container">
+                <ui:Button name="ResumeButton" class="button">
+                    <ui:VisualElement name="Line" class="horizontal-line" style="flex-grow: 1;" />
+                    <ui:Label text="START" name="Text" />
+                </ui:Button>
+                <ui:Button name="OptionsButton" class="button">
+                    <ui:VisualElement name="Line" class="horizontal-line" style="flex-grow: 1;" />
+                    <ui:Label text="OPTIONS" name="Text" />
+                </ui:Button>
+                <ui:Button name="QuitButton" class="button">
+                    <ui:VisualElement name="Line" class="horizontal-line" style="flex-grow: 1;" />
+                    <ui:Label text="QUIT" name="Text" />
+                </ui:Button>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="OptionsPage" class="hidden page-small" style="background-color: rgb(0, 30, 60);">
+            <ui:Label text="OPTIONS" name="Header" class="header" />
+            <ui:VisualElement name="ButtonsContainer" class="buttons-container">
+                <ui:Button name="BackButton" class="button">
+                    <ui:VisualElement name="Line" class="horizontal-line" style="flex-grow: 1;" />
+                    <ui:Label text="BACK" name="Text" />
+                </ui:Button>
+                <ui:Slider label="MASTER" value="50" high-value="100" name="MasterVolume" />
+                <ui:Slider label="MUSIC" value="50" high-value="100" name="MusicVolume" />
+                <ui:Slider label="SOUND FX" value="50" high-value="100" name="SoundFXVolume" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

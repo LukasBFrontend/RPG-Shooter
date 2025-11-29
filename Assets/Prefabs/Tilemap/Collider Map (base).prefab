@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 7408706202287933484}
   - component: {fileID: 1202348444379016644}
   - component: {fileID: 6724975854422147078}
-  m_Layer: 16
+  m_Layer: 22
   m_Name: Collider Map (base)
-  m_TagString: Untagged
+  m_TagString: Map Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

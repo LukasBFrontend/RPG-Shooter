@@ -200,7 +200,7 @@ public class NPC_Controller : MonoBehaviour
     }
     public void CreatePath(Node targetNode)
     {
-        if (path == null)
+        if (path == null || currentNode == null)
         {
             path = new();
             return;

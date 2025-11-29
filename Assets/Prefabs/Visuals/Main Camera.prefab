@@ -219,10 +219,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.15351562
-    y: 0
-    width: 0.6933333
-    height: 1
+    x: 0
+    y: 0.4763889
+    width: 0.30664062
+    height: 0.30664062
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -231,7 +231,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 458815
+    m_Bits: 4128831
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

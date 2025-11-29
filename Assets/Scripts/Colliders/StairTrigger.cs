@@ -15,24 +15,8 @@ public struct StairLevel
 }
 public class StairTrigger : Trigger
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    /*     [Range(0, 2)][SerializeField] int lowerZ;
-        [Range(0, 2)][SerializeField] int upperZ;
-        [SerializeField] Direction lowerDirection;
-        [SerializeField] Direction upperDirection; */
     [SerializeField] StairLevel lowerLevel;
     [SerializeField] StairLevel higherLevel;
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     void SetZLayer(GameObject obj, int zLvl)
     {
@@ -57,7 +41,7 @@ public class StairTrigger : Trigger
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player Trigger")) return;
+        if (!other.CompareTag("Player Trigger") && !other.CompareTag("Enemy")) return;
         if (FromDirection(other) == lowerLevel.Direction)
         {
             SetZLayer(other.CompareTag("Player Trigger") ? PlayerConfig.Instance.gameObject : other.gameObject, higherLevel.ZLvl);
@@ -65,7 +49,7 @@ public class StairTrigger : Trigger
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player Trigger")) return;
+        if (!other.CompareTag("Player Trigger") && !other.CompareTag("Enemy")) return;
 
         if (FromDirection(other) == lowerLevel.Direction)
         {
