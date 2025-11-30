@@ -11,7 +11,7 @@ public class Coin : MonoBehaviour
             return;
         }
 
-        LogicScript.Instance.AddCoins(value);
+        GameState.AddCoins(value);
         Destroy(gameObject);
     }
 }
