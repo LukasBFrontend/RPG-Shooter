@@ -6,6 +6,7 @@ using System.Linq;
 [RequireComponent(typeof(NPC))]
 public class NPC_Controller : MonoBehaviour
 {
+    string[] raycastIgnoreTags = { "Player", "Player Interact", "Player Trigger", "Hit Collider" };
     public Node currentNode;
     public Node playerNode;
     public List<Node> path = new();
@@ -150,12 +151,15 @@ public class NPC_Controller : MonoBehaviour
 
         RaycastHit2D[] hitsOne = Physics2D.RaycastAll(origin + offset, dir, dist);
         RaycastHit2D[] hitsTwo = Physics2D.RaycastAll(origin - offset, dir, dist);
+        RaycastHit2D[] hitsThree = Physics2D.RaycastAll(origin, dir, dist);
 
         Vector2 endOne = hitsOne.Length > 0 ? hitsOne.Last().point : (origin + offset + dir * dist);
         Vector2 endTwo = hitsTwo.Length > 0 ? hitsTwo.Last().point : (origin - offset + dir * dist);
+        Vector2 endThree = hitsThree.Length > 0 ? hitsThree.Last().point : (origin + dir * dist);
 
         Debug.DrawLine(origin + offset, endOne, Color.red);
         Debug.DrawLine(origin - offset, endTwo, Color.red);
+        Debug.DrawLine(origin, endThree, Color.red);
 
         Debug.DrawLine(origin, origin + offset, Color.yellow);
         Debug.DrawLine(origin, origin - offset, Color.yellow);
@@ -165,13 +169,23 @@ public class NPC_Controller : MonoBehaviour
         for (int i = 0; i < hitsOne.Length; i++)
         {
             if (hitsOne[i].collider == col) continue;
-            else if (!hitsOne[i].collider.CompareTag("Player")) obstacleCount++;
+            else if (!raycastIgnoreTags.Contains(hitsOne[i].collider.tag)) obstacleCount++;
         }
 
         for (int i = 0; i < hitsTwo.Length; i++)
         {
             if (hitsTwo[i].collider == col) continue;
-            else if (!hitsTwo[i].collider.CompareTag("Player")) obstacleCount++;
+            else if (!raycastIgnoreTags.Contains(hitsTwo[i].collider.tag)) obstacleCount++;
+        }
+
+        for (int i = 0; i < hitsThree.Length; i++)
+        {
+            if (hitsThree[i].collider == col) continue;
+            else if (!raycastIgnoreTags.Contains(hitsThree[i].collider.tag))
+            {
+                Debug.Log($"Hit! tag: {hitsThree[i].collider.tag}, name: {hitsThree[i].collider.name}");
+                obstacleCount++;
+            }
         }
 
         isVisionChange = !(seesPlayer == (obstacleCount == 0));

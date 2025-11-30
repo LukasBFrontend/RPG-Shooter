@@ -231,3 +231,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3044535539477845581}
+  col: {fileID: 5030769750309938709}

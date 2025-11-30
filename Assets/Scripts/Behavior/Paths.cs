@@ -103,6 +103,10 @@ public static class Paths
 
             foreach (Node connectedNode in currentNode.connections)
             {
+                if (currentNode.disabled)
+                {
+                    continue;
+                }
                 float baseCost = Vector2.Distance(currentNode.transform.position, connectedNode.transform.position);
                 float heldGScore = currentNode.gScore + baseCost;
 

@@ -6,6 +6,7 @@ public class Node : MonoBehaviour
     public Node cameFrom;
     public List<Node> connections;
     public float gScore, hScore;
+    public bool disabled = false;
 
     public float FScore()
     {

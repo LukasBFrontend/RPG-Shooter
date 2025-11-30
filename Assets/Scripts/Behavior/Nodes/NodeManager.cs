@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class NodeManager : Singleton<NodeManager>
 {
@@ -11,6 +12,7 @@ public class NodeManager : Singleton<NodeManager>
     [SerializeField] float distanceBetweenNodes = 1f;
     [SerializeField] float colliderCullingOffset = .5f;
     [SerializeField] int columns = 4, rows = 4;
+    List<IObstructive> obstructives = new();
 
     Vector2 startPoint, size;
     private List<List<Node>> nodeGrid = new();
@@ -18,6 +20,7 @@ public class NodeManager : Singleton<NodeManager>
     private void Start()
     {
         Generate();
+        DisableObstructed();
     }
 
     public Node ClosestNode(Vector2 position)
@@ -96,25 +99,25 @@ public class NodeManager : Singleton<NodeManager>
             nodeGrid.Add(new List<Node>());
             for (int y = 0; y < rows; y++)
             {
-                Vector2 position = topLeft + new Vector2(x * distanceBetweenNodes, -y * distanceBetweenNodes);
-
-                Vector3 pos3D = new Vector3(position.x, position.y, 0f);
-                Vector2 point2D = pos3D;
+                Vector3 pos3D = (Vector3)(
+                    topLeft + new Vector2(x * distanceBetweenNodes, -y * distanceBetweenNodes)
+                );
+                Vector2 pos2D = pos3D;
 
                 if (tilemapCollider)
                 {
 
-                    if (tilemapCollider.OverlapPoint(point2D))
+                    if (tilemapCollider.OverlapPoint(pos2D))
                     {
                         nodeGrid[x].Add(null);
                         continue;
                     }
 
-                    Vector2 nearest = tilemapCollider.ClosestPoint(point2D);
+                    Vector2 nearest = tilemapCollider.ClosestPoint(pos2D);
 
 
-                    float dx = Mathf.Abs(nearest.x - point2D.x);
-                    float dy = Mathf.Abs(nearest.y - point2D.y);
+                    float dx = Mathf.Abs(nearest.x - pos2D.x);
+                    float dy = Mathf.Abs(nearest.y - pos2D.y);
 
                     if (dx < colliderCullingOffset && dy < colliderCullingOffset)
                     {
@@ -122,9 +125,6 @@ public class NodeManager : Singleton<NodeManager>
                         continue;
                     }
                 }
-
-
-
 
                 GameObject nodeObj = Instantiate(nodePrefab, pos3D, Quaternion.identity, transform);
                 Node node = nodeObj.GetComponent<Node>();
@@ -134,6 +134,44 @@ public class NodeManager : Singleton<NodeManager>
 
         CreateConnectionsFull();
         //CreateConnections();
+    }
+
+    public void DisableObstructed()
+    {
+        obstructives = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IObstructive>().ToList();
+        Debug.Log($"Obstructives count: {obstructives.Count}"); //Outputs "Obstructives count: 1"
+        foreach (Node node in nodeGrid.SelectMany(list => list))
+        {
+            if (!node)
+            {
+                continue;
+            }
+            bool isObstructed = false;
+
+            foreach (IObstructive obstructive in obstructives)
+            {
+                if (obstructive == null) Debug.Log("obstructive is null");
+                if (node == null) Debug.Log("node is null");
+                if (node.transform.position == null) Debug.Log("node.transform.position is null");
+                if (obstructive.OccupationBounds(.5f).Contains(node.transform.position)) //Null reference exception
+                {
+                    isObstructed = true;
+                    break;
+                }
+            }
+            node.disabled = isObstructed;
+            node.gameObject.SetActive(!isObstructed);
+
+            if (isObstructed)
+            {
+                Debug.Log($"Node with position: {node.transform.position} disabled");
+            }
+        }
+    }
+
+    void UpdateConnections(Node node)
+    {
+
     }
 
     void CreateConnections()
