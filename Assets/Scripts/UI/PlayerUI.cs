@@ -44,7 +44,7 @@ public class PlayerUI : MonoBehaviour
     }
     void RenderCoins()
     {
-        coinsText.text = LogicScript.Instance.Coins.ToString();
+        coinsText.text = GameState.Coins.ToString();
     }
     void RenderHearts()
     {

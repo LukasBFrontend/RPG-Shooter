@@ -98,15 +98,20 @@ public class MenuEvents : MonoBehaviour
 
     public static void ToggleLvlMenu()
     {
+        if (pauseMenu == null)
+        {
+            return;
+        }
+
         if (pauseMenu.ClassListContains("hidden"))
         {
             pauseMenu.RemoveFromClassList("hidden");
-            Time.timeScale = 0;
+            GameState.Pause();
         }
         else
         {
             pauseMenu.AddToClassList("hidden");
-            Time.timeScale = 1;
+            GameState.Unpause();
         }
     }
 

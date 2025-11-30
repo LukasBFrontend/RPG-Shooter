@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [Header("Weapon Base")]
     [SerializeField] protected GameObject player;
     [SerializeField] float recoilForce = 0f;
     float aimAngle;
@@ -21,6 +22,11 @@ public class Weapon : MonoBehaviour
 
     protected void SetWeaponRotation()
     {
+        if (GameState.Status != RunState.Running)
+        {
+            return;
+        }
+
         int playerSortOrder = PlayerConfig.Instance.SpriteRenderer.sortingOrder;
         Pixelate pixelate = gameObject.GetComponent<Pixelate>();
 

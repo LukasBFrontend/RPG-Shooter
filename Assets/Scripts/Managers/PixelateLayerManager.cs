@@ -14,6 +14,23 @@ public class PixelateLayerManager : Singleton<PixelateLayerManager>
     };
 
     private Dictionary<int, GameObject> usedLayers = new Dictionary<int, GameObject>();
+    void Update()
+    {
+        UnAssignUnusedLayers();
+    }
+
+    public void UnAssignUnusedLayers()
+    {
+        foreach (var kvp in usedLayers)
+        {
+            if (kvp.Value == null)
+            {
+                usedLayers.Remove(kvp.Key);
+                break;
+            }
+        }
+    }
+
 
     /// <summary>
     /// Assigns the first unused pixelate layer to the object (not recursively).
