@@ -2,79 +2,79 @@ using UnityEngine;
 [System.Serializable]
 public class SoundFXClip
 {
-    public AudioClip audioClip;
-    [Range(0, 100)] public float volume;
+    public AudioClip AudioClip;
+    [Range(0, 100)] public float Volume;
 }
+
 public class SoundFXManager : Singleton<SoundFXManager>
 {
-
-    [SerializeField] private AudioSource soundFXObject;
-    private AudioSource repeatSource = null;
-    private float timer = 0f;
-    private float repeatDelay = 0f;
-    private int iterationsLeft = 0;
+    [SerializeField] AudioSource soundFXObject;
+    AudioSource _repeatSource = null;
+    float _timer = 0f;
+    float _repeatDelay = 0f;
+    int _iterationsLeft = 0;
 
     void Update()
     {
-        if (timer <= 0 && iterationsLeft > 0)
+        if (_timer <= 0 && _iterationsLeft > 0)
         {
-            repeatSource.Play();
-            timer = repeatSource.clip.length + repeatDelay;
-            iterationsLeft--;
+            _repeatSource.Play();
+            _timer = _repeatSource.clip.length + _repeatDelay;
+            _iterationsLeft--;
         }
 
-        timer -= Time.deltaTime;
+        _timer -= Time.deltaTime;
     }
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
     {
-        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        AudioSource _audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
-        audioSource.clip = audioClip;
-        audioSource.volume = Mathf.Log10(volume / 100 + 1);
-        audioSource.Play();
+        _audioSource.clip = audioClip;
+        _audioSource.volume = Mathf.Log10(volume / 100 + 1);
+        _audioSource.Play();
 
-        float clipLength = audioSource.clip.length;
+        float _clipLength = _audioSource.clip.length;
 
-        DontDestroyOnLoad(audioSource.gameObject);
-        Destroy(audioSource.gameObject, clipLength);
+        DontDestroyOnLoad(_audioSource.gameObject);
+        Destroy(_audioSource.gameObject, _clipLength);
     }
 
     public void PlayRandomSoundFXClip(AudioClip[] audioClip, Transform spawnTransform, float volume)
     {
-        int rand = Random.Range(0, audioClip.Length);
+        int _rand = Random.Range(0, audioClip.Length);
 
-        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        AudioSource _audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
-        audioSource.clip = audioClip[rand];
-        audioSource.volume = Mathf.Log10(volume / 100 + 1);
-        audioSource.Play();
+        _audioSource.clip = audioClip[_rand];
+        _audioSource.volume = Mathf.Log10(volume / 100 + 1);
+        _audioSource.Play();
 
-        float clipLength = audioSource.clip.length;
+        float _clipLength = _audioSource.clip.length;
 
-        Destroy(audioSource.gameObject, clipLength);
+        Destroy(_audioSource.gameObject, _clipLength);
     }
 
     public void PlaySoundFXtimes(AudioClip audioClip, Transform spawnTransform, float volume, int iterations, float delay)
     {
-        iterationsLeft = iterations;
-        repeatDelay = delay;
-        repeatSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        _iterationsLeft = iterations;
+        _repeatDelay = delay;
+        _repeatSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
-        repeatSource.clip = audioClip;
-        repeatSource.volume = Mathf.Log10(volume / 100 + 1);
+        _repeatSource.clip = audioClip;
+        _repeatSource.volume = Mathf.Log10(volume / 100 + 1);
 
-        float clipLength = repeatSource.clip.length;
+        float _clipLength = _repeatSource.clip.length;
 
-        Destroy(repeatSource.gameObject, iterations * (clipLength + delay));
+        Destroy(_repeatSource.gameObject, iterations * (_clipLength + delay));
     }
 
     public void PlaySoundFXRepeat(AudioClip audioClip, Transform spawnTransform, float volume)
     {
-        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        AudioSource _audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
-        audioSource.clip = audioClip;
-        audioSource.volume = volume;
-        audioSource.loop = true;
-        audioSource.Play();
+        _audioSource.clip = audioClip;
+        _audioSource.volume = volume;
+        _audioSource.loop = true;
+        _audioSource.Play();
     }
 }

@@ -114,7 +114,7 @@
         <xs:attribute default="null" name="data-source" type="xs:string" use="optional" />
         <xs:attribute default="" name="data-source-path" type="xs:string" use="optional" />
         <xs:attribute default="null" name="data-source-type" type="xs:string" use="optional" />
-        <xs:attribute default="Other" name="text" type="xs:string" use="optional" />
+        <xs:attribute default="other" name="text" type="xs:string" use="optional" />
         <xs:attribute default="" name="background-color-class" type="xs:string" use="optional" />
         <xs:attribute default="false" name="show-used" type="xs:boolean" use="optional" />
         <xs:attribute default="50" name="used-bytes" type="xs:long" use="optional" />

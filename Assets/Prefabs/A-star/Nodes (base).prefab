@@ -46,6 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePrefab: {fileID: 4264010446842464048, guid: 8b460375b70bc214d8074dc84f1c6b7e, type: 3}
   tilemapCollider: {fileID: 0}
+  nodeMapInfo:
+    DistanceBetweenNodes: 0.5
+    ColliderCullingOffset: 0.25
+    Columns: 63
+    Rows: 63
   distanceBetweenNodes: 0.5
   colliderCullingOffset: 0.25
   columns: 63

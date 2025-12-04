@@ -1,10 +1,15 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-interface Interactable
+interface IInteractable
 {
     void Interact();
+}
+
+public interface IInventoryItem
+{
+    string Name { get; }
+    int Count { get; set; }
+    void Use();
 }
 
 interface IObstructive

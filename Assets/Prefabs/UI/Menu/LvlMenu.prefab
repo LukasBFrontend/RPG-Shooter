@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 9197481963319205126, guid: 9f2d23192f8ec4643a7a367923a161f5, type: 3}
     - target: {fileID: 5224835091444665272, guid: 445bbf1985b45cf4fa3061a8debf43c9, type: 3}
       propertyPath: pageStructure.Children.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -91,4 +91,3 @@ MonoBehaviour:
   heartOneQuarter: {fileID: -63492956, guid: c03e318aae3ccaf4f8fe1cb715828a29, type: 3}
   heartEmpty: {fileID: -950389298, guid: c03e318aae3ccaf4f8fe1cb715828a29, type: 3}
   heartImages: []
-  coinsText: {fileID: 0}

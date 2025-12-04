@@ -1,43 +1,41 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerState : Singleton<PlayerState>
 {
-    public int hearts = 3;
-    public int healthPerHeart = 4;
-    [HideInInspector] public int health;
-    public bool alive = true;
-
+    [HideInInspector] public int Health;
+    [HideInInspector] public bool Alive = true;
+    public int Hearts = 3;
+    public int HealthPerHeart = 4;
 
     public void Start()
     {
-        health = hearts * healthPerHeart;
+        Health = Hearts * HealthPerHeart;
     }
     public void TakeDamage(int damage)
     {
-        if (health <= 0)
+        if (Health <= 0)
         {
             Die();
             return;
         }
-        health -= damage;
+        Health -= damage;
 
-        Visuals.Instance.Flicker(PlayerConfig.Instance.SpriteRenderer, 4, .25f);
+        Utils.Flicker(PlayerConfig.Instance.SpriteRenderer, 4, .25f);
     }
 
     public bool IsDamaged()
     {
-        return health != hearts * healthPerHeart;
+        return Health != Hearts * HealthPerHeart;
     }
 
     public void Die()
     {
-        if (!alive)
+        if (!Alive)
         {
             return;
         }
 
-        alive = false;
+        Alive = false;
         Debug.Log("Player dead");
     }
 }

@@ -5,18 +5,18 @@ public class Weapon : MonoBehaviour
     [Header("Weapon Base")]
     [SerializeField] protected GameObject player;
     [SerializeField] float recoilForce = 0f;
-    float aimAngle;
-    Vector2 aimDirection;
+    float _aimAngle;
+    Vector2 _aimDirection;
 
     protected void SetAimAngle()
     {
-        Vector3 mouseScreen = Input.mousePosition;
-        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
-        Vector2 playerToCamera = player.transform.position - Camera.main.transform.position;
+        Vector3 _mouseScreen = Input.mousePosition;
+        Vector2 _mouseWorld = Camera.main.ScreenToWorldPoint(_mouseScreen);
+        Vector2 _playerToCamera = player.transform.position - Camera.main.transform.position;
 
-        Vector2 mouseToPlayer = mouseWorld - playerToCamera;
-        aimDirection = mouseToPlayer.normalized;
-        aimAngle = Mathf.Atan2(mouseToPlayer.y, mouseToPlayer.x) * Mathf.Rad2Deg;
+        Vector2 _mouseToPlayer = _mouseWorld - _playerToCamera;
+        _aimDirection = _mouseToPlayer.normalized;
+        _aimAngle = Mathf.Atan2(_mouseToPlayer.y, _mouseToPlayer.x) * Mathf.Rad2Deg;
     }
 
 
@@ -27,38 +27,46 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        int playerSortOrder = PlayerConfig.Instance.SpriteRenderer.sortingOrder;
-        Pixelate pixelate = gameObject.GetComponent<Pixelate>();
+        int _playerSortOrder = PlayerConfig.Instance.SpriteRenderer.sortingOrder;
+        Pixelate _pixelate = gameObject.GetComponent<Pixelate>();
 
-        bool behindCharacter = aimAngle > 0;
-        bool flipWeapon = aimAngle < 90 && aimAngle > -90;
-        if (flipWeapon) pixelate.RotateQuad(0, 180, 0);
-        else pixelate.RotateQuad(0, 0, 0);
-        if (TryGetComponent<SpriteRenderer>(out var renderer))
+        bool _behindCharacter = _aimAngle > 0;
+        bool _flipWeapon = _aimAngle < 90 && _aimAngle > -90;
+
+        if (_flipWeapon)
         {
-            renderer.sortingOrder = behindCharacter ? playerSortOrder - 1 : playerSortOrder + 1;
+            _pixelate.RotateQuad(0, 180, 0);
         }
-        pixelate.rotation = flipWeapon ? GetAimAngle() : GetAimAngleReversed();
+        else
+        {
+            _pixelate.RotateQuad(0, 0, 0);
+        }
+
+        if (TryGetComponent<SpriteRenderer>(out var _renderer))
+        {
+            _renderer.sortingOrder = _behindCharacter ? _playerSortOrder - 1 : _playerSortOrder + 1;
+        }
+        _pixelate.Rotation = _flipWeapon ? GetAimAngle() : GetAimAngleReversed();
     }
     protected Vector2 GetAimDirection()
     {
-        return aimDirection;
+        return _aimDirection;
     }
 
     protected void Recoil()
     {
-        Vector2 recoilDirection = new(-aimDirection.x, -aimDirection.y);
-        Rigidbody2D rb = PlayerConfig.Instance.Rb;
-        rb.AddForce(recoilDirection * recoilForce);
+        Vector2 _recoilDirection = new(-_aimDirection.x, -_aimDirection.y);
+        Rigidbody2D _rb = PlayerConfig.Instance.Rb;
+        _rb.AddForce(_recoilDirection * recoilForce);
         PlayerConfig.Instance.Status = PlayerStatus.Recoil;
     }
 
     protected Quaternion GetAimAngle()
     {
-        return Quaternion.Euler(0, 0, aimAngle);
+        return Quaternion.Euler(0, 0, _aimAngle);
     }
     protected Quaternion GetAimAngleReversed()
     {
-        return Quaternion.Euler(0, 0, -aimAngle - 180);
+        return Quaternion.Euler(0, 0, -_aimAngle - 180);
     }
 }

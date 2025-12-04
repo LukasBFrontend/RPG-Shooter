@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FogScript : MonoBehaviour
 {
@@ -11,29 +10,26 @@ public class FogScript : MonoBehaviour
     [SerializeField] SpriteRenderer fog2;
     [SerializeField] SpriteRenderer fog3;
 
-    Color[] colors, startColors, targetColors;
-    SpriteRenderer[] filters;
-
-    int zIndex;
-
-    // Transition tracking
-    float transitionDuration = .25f; // default 2 seconds
-    float transitionTimer;
-    bool isTransitioning;
+    Color[] _colors, _startColors, _targetColors;
+    SpriteRenderer[] _filters;
+    int _zIndex;
+    float _transitionDuration = .25f; // default 2 seconds
+    float _transitionTimer;
+    bool _isTransitioning;
 
     void Start()
     {
-        colors = new Color[] { lightColor, middleColor/* , darkColor */ };
-        filters = new SpriteRenderer[] { fog2, fog1/* , fog3 */ };
-        startColors = new Color[filters.Length];
-        targetColors = new Color[filters.Length];
+        _colors = new Color[] { lightColor, middleColor, darkColor };
+        _filters = new SpriteRenderer[] { fog2, fog1, fog3 };
+        _startColors = new Color[_filters.Length];
+        _targetColors = new Color[_filters.Length];
     }
 
     void Update()
     {
         UpdateFog();
 
-        if (isTransitioning)
+        if (_isTransitioning)
         {
             ColorTransitionStep();
         }
@@ -41,23 +37,22 @@ public class FogScript : MonoBehaviour
 
     void UpdateFog()
     {
-        int z0Index = 16;
-        zIndex = player.layer - z0Index;
+        int _z0 = 16;
+        _zIndex = player.layer - _z0;
 
-        int length = colors.Length - 1;
-        var newTargetColors = new Color[colors.Length];
+        int _length = _colors.Length - 1;
+        var _newTargetColors = new Color[_colors.Length];
 
-        for (int i = 0; i < colors.Length; i++)
+        for (int i = 0; i < _colors.Length; i++)
         {
-            newTargetColors[i] = colors[Mathf.Clamp(i - length + zIndex, 0, length)];
+            _newTargetColors[i] = _colors[Mathf.Clamp(i - _length + _zIndex, 0, _length)];
         }
 
-        // If target colors change, start a new transition
-        for (int i = 0; i < newTargetColors.Length; i++)
+        for (int i = 0; i < _newTargetColors.Length; i++)
         {
-            if (newTargetColors[i] != targetColors[i])
+            if (_newTargetColors[i] != _targetColors[i])
             {
-                StartColorTransition(newTargetColors, transitionDuration);
+                StartColorTransition(_newTargetColors, _transitionDuration);
                 break;
             }
         }
@@ -65,31 +60,30 @@ public class FogScript : MonoBehaviour
 
     void StartColorTransition(Color[] newTargets, float time)
     {
-        // Copy current colors as start
-        for (int i = 0; i < filters.Length; i++)
+        for (int i = 0; i < _filters.Length; i++)
         {
-            startColors[i] = filters[i].color;
-            targetColors[i] = newTargets[i];
+            _startColors[i] = _filters[i].color;
+            _targetColors[i] = newTargets[i];
         }
 
-        transitionDuration = time;
-        transitionTimer = 0f;
-        isTransitioning = true;
+        _transitionDuration = time;
+        _transitionTimer = 0f;
+        _isTransitioning = true;
     }
 
     void ColorTransitionStep()
     {
-        transitionTimer += Time.deltaTime;
-        float t = Mathf.Clamp01(transitionTimer / transitionDuration);
+        _transitionTimer += Time.deltaTime;
+        float _t = Mathf.Clamp01(_transitionTimer / _transitionDuration);
 
-        for (int i = 0; i < filters.Length; i++)
+        for (int i = 0; i < _filters.Length; i++)
         {
-            filters[i].color = Color.Lerp(startColors[i], targetColors[i], t);
+            _filters[i].color = Color.Lerp(_startColors[i], _targetColors[i], _t);
         }
 
-        if (t >= 1f)
+        if (_t >= 1f)
         {
-            isTransitioning = false;
+            _isTransitioning = false;
         }
     }
 }

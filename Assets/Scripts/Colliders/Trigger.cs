@@ -8,27 +8,17 @@ public enum Direction
     Down,
     Left,
 }
-public enum Axis
-{
-    Horizontal,
-    Vertical,
-}
 
 public class Trigger : MonoBehaviour
 {
+    enum Axis
+    {
+        Horizontal,
+        Vertical,
+    }
+
     [SerializeField] Axis axis = Axis.Horizontal;
-    protected Direction lastDirection = Direction.None;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    protected Direction _lastDirection = Direction.None;
 
     protected Direction OppositeDirection(Direction direction)
     {
@@ -42,20 +32,20 @@ public class Trigger : MonoBehaviour
         };
     }
 
-    protected Direction FromDirection(Collider2D playerCol)
+    protected Direction FromDirection(Collider2D col)
     {
-        Vector2 pos = transform.position;
-        Vector2 playerPos = playerCol.transform.position;
+        Vector2 _pos = transform.position;
+        Vector2 _playerPos = col.transform.position;
 
         if (axis == Axis.Horizontal)
         {
-            float xDistance = playerPos.x - pos.x;
-            return xDistance > 0 ? Direction.Right : Direction.Left;
+            float _xDistance = _playerPos.x - _pos.x;
+            return _xDistance > 0 ? Direction.Right : Direction.Left;
         }
         else if (axis == Axis.Vertical)
         {
-            float yDistance = playerPos.y - pos.y;
-            return yDistance > 0 ? Direction.Up : Direction.Down;
+            float _yDistance = _playerPos.y - _pos.y;
+            return _yDistance > 0 ? Direction.Up : Direction.Down;
         }
 
         return Direction.None;

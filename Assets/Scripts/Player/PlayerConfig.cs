@@ -6,41 +6,34 @@ public enum PlayerStatus
     Recoil,
     Knockback
 }
-
 public class PlayerConfig : Singleton<PlayerConfig>
 {
-    [SerializeField] private PlayerStatus _status = PlayerStatus.None;
+    [SerializeField] PlayerStatus status = PlayerStatus.None;
     public PlayerStatus Status
     {
-        get => _status;
+        get => status;
         set
         {
-            _status = value;
+            status = value;
 
-            if (_status != PlayerStatus.None)
+            if (status != PlayerStatus.None)
             {
-                statusTimer = 0.5f;
+                _statusTimer = 0.5f;
             }
 
         }
     }
-
+    [HideInInspector] public int Layer;
     public Rigidbody2D Rb;
     public Collider2D Col;
     public SpriteRenderer SpriteRenderer;
     public Animator Animator;
-    public Weapon Weapon;
-    public Node Node;
+    float _statusTimer = 0f;
 
-    [HideInInspector] public int Layer;
-    private GameObject mainCamera;
-    private float statusTimer = 0f;
-
-    void Start()
+    public Node Node()
     {
-        Cache();
+        return NodeManager.Instance.ClosestNode(transform.position);
     }
-
     public Vector2 ColliderCenter()
     {
         return Col.bounds.center;
@@ -48,11 +41,9 @@ public class PlayerConfig : Singleton<PlayerConfig>
 
     void Update()
     {
-        Node = NodeManager.Instance.ClosestNode(transform.position);
-
-        if (statusTimer > 0f)
+        if (_statusTimer > 0f)
         {
-            statusTimer -= Time.deltaTime;
+            _statusTimer -= Time.deltaTime;
             return;
         }
 
@@ -60,10 +51,5 @@ public class PlayerConfig : Singleton<PlayerConfig>
         {
             Status = PlayerStatus.None;
         }
-    }
-
-    private void Cache()
-    {
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
     }
 }

@@ -18,21 +18,21 @@ public class FireArea : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!enemyTags.Contains(other.tag) || !other.gameObject.TryGetComponent<NPC>(out var enemy))
+        if (!enemyTags.Contains(other.tag) || !other.gameObject.TryGetComponent<NPC>(out var _enemy))
         {
             return;
         }
 
-        Targets.Add(enemy);
+        Targets.Add(_enemy);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!enemyTags.Contains(other.tag) || !other.gameObject.TryGetComponent<NPC>(out var enemy))
+        if (!enemyTags.Contains(other.tag) || !other.gameObject.TryGetComponent<NPC>(out var _enemy))
         {
             return;
         }
 
-        Targets.Remove(enemy);
+        Targets.Remove(_enemy);
     }
 }
