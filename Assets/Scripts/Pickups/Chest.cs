@@ -1,37 +1,23 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Chest : MonoBehaviour, Interactable, IObstructive
+public class Chest : MonoBehaviour, IInteractable, IObstructive
 {
     [SerializeField] Animator animator;
     [SerializeField] Collider2D col;
+    bool _isOpen = false;
 
-    bool isOpen = false;
-
-    Vector2 Size
-    {
-        get
-        {
-            return new(2, 2);
-        }
-    }
-
-    /* IObstructive */
     public Bounds OccupationBounds(float offSet = 0f)
     {
-        Bounds bounds = col.bounds;
-        bounds.Expand(offSet);
+        Bounds _bounds = col.bounds;
+        _bounds.Expand(offSet);
 
-        return bounds;
+        return _bounds;
     }
-
-    /* IObstructive */
 
     public void Interact()
     {
-        isOpen = !isOpen;
-        animator.SetBool("IsOpen", isOpen);
+        _isOpen = !_isOpen;
+        animator.SetBool("IsOpen", _isOpen);
     }
     void SpawnLoot()
     {

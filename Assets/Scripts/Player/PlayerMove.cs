@@ -1,22 +1,21 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMove : Singleton<PlayerMove>
 {
-    public float moveSpeed = 4;
-    [HideInInspector] public bool IsRecievingInput { get; set; }
-    [HideInInspector] public Vector2 direction = Vector2.zero;
-    [HideInInspector] public bool isTurningRight, isTurningLeft = false;
-    private Rigidbody2D rb;
-    private Animator animator;
+    [HideInInspector] public Vector2 Direction = Vector2.zero;
+    [HideInInspector] public bool IsTurningRight, IsTurningLeft = false;
+    public bool IsRecievingInput { get; set; }
+    public float MoveSpeed = 4;
+    Rigidbody2D _rb;
+    Animator _animator;
 
-    private const float Deadzone = 0.1f;
+    const float Deadzone = 0.1f;
 
     void Start()
     {
-        rb = PlayerConfig.Instance.Rb;
-        animator = PlayerConfig.Instance.Animator;
-        rb.gravityScale = 0;
+        _rb = PlayerConfig.Instance.Rb;
+        _animator = PlayerConfig.Instance.Animator;
+        _rb.gravityScale = 0;
     }
 
     void FixedUpdate()
@@ -25,38 +24,50 @@ public class PlayerMove : Singleton<PlayerMove>
         UpdateAnimator();
     }
 
-    private void SetVelocity()
+    void SetVelocity()
     {
-        if (PlayerConfig.Instance.Status != PlayerStatus.None) return;
+        if (PlayerConfig.Instance.Status != PlayerStatus.None)
+        {
+            return;
+        }
 
-        if (direction.magnitude > 1) direction.Normalize();
+        if (Direction.magnitude > 1)
+        {
+            Direction.Normalize();
+        }
 
         Vector2 velocity = IsRecievingInput ?
-            direction * moveSpeed :
+            Direction * MoveSpeed :
             Vector2.zero;
 
-        rb.linearVelocity = velocity;
+        _rb.linearVelocity = velocity;
     }
 
-    private void UpdateAnimator()
+    void UpdateAnimator()
     {
-        if (!animator) return;
-
-        float speed = direction.magnitude;
-        animator.SetFloat("Speed", speed);
-
-        if (speed > Deadzone)
+        if (!_animator)
         {
-            Vector2 dir = direction.normalized;
+            return;
+        }
 
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            if (angle < 0) angle += 360f;
+        float _speed = Direction.magnitude;
+        _animator.SetFloat("Speed", _speed);
 
-            float adjusted = (angle + 22.5f) % 360f;
+        if (_speed > Deadzone)
+        {
+            Vector2 _dir = Direction.normalized;
+
+            float _angle = Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg;
+            if (_angle < 0)
+            {
+                _angle += 360f;
+            }
+
+            float adjusted = (_angle + 22.5f) % 360f;
 
             int index = Mathf.FloorToInt(adjusted / 45f);
 
-            animator.SetFloat("DirectionIndex", (float)index);
+            _animator.SetFloat("DirectionIndex", (float)index);
         }
     }
 }

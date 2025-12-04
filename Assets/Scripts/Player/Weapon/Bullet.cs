@@ -2,7 +2,6 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-
 [System.Serializable]
 enum BulletType
 {
@@ -10,6 +9,7 @@ enum BulletType
     Pellet,
 }
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour
 {
     [SerializeField] BulletType bulletType = BulletType.Ball;
@@ -19,28 +19,27 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Collider2D col = other.collider;
-        if (ignoreCollisionTags.Contains(col.tag))
+        Collider2D _col = other.collider;
+        if (ignoreCollisionTags.Contains(_col.tag))
         {
-            Physics2D.IgnoreCollision(col, GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(_col, GetComponent<Collider2D>());
             return;
         }
-        foreach (string tag in enemyTags)
+        foreach (string _tag in enemyTags)
         {
-            if (col.CompareTag(tag))
+            if (_col.CompareTag(_tag))
             {
-                NPC enemy = col.GetComponent<NPC>();
+                NPC _enemy = _col.GetComponent<NPC>();
 
-                if (enemy)
+                if (_enemy)
                 {
-                    enemy.TakeDamage(damage);
+                    _enemy.TakeDamage(damage);
                 }
                 break;
             }
         }
         if (bulletType == BulletType.Ball)
         {
-            /* Debug.Log("Collision with " + col.name + " (tag: " + col.tag + "): gameObject destroyed"); */
             Destroy(gameObject);
         }
         else
@@ -61,16 +60,16 @@ public class Bullet : MonoBehaviour
         {
             if (other.CompareTag(tag))
             {
-                NPC enemy = other.GetComponent<NPC>();
+                NPC _enemy = other.GetComponent<NPC>();
 
-                if (enemy)
+                if (_enemy)
                 {
-                    enemy.TakeDamage(damage);
+                    _enemy.TakeDamage(damage);
                 }
                 break;
             }
         }
-        /* Debug.Log("Trigger with " + other.name + " (tag: " + other.tag + "): gameObject destroyed"); */
+
         Destroy(gameObject);
     }
     IEnumerator DestroyDelayed(float waitTime)

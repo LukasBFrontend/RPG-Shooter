@@ -1,6 +1,7 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using UnityEngine.UIElements;
 
 public class PageNode
@@ -8,21 +9,26 @@ public class PageNode
     public string Name;
     public VisualElement? VisualElement;
     public PageNode? Parent;
-    public List<PageNode> Children = new List<PageNode>();
+    public List<PageNode> Children = new();
 
     public IEnumerable<PageNode> Siblings =>
-        Parent == null ? Enumerable.Empty<PageNode>() : Parent.Children.Where(c => c != this);
+        Parent == null ? Enumerable.Empty<PageNode>() : Parent.Children.Where(c => c != this)
+    ;
 
-    public PageNode(string name, VisualElement? ve)
+    public PageNode(string name, VisualElement? visualElement)
     {
         Name = name;
-        VisualElement = ve;
+        VisualElement = visualElement;
     }
 
     public void AddChild(PageNode child)
     {
         child.Parent = this;
         Children.Add(child);
+        if (child == this)
+        {
+            throw new Exception("A node cannot reference itself.");
+        }
     }
 
     public static Dictionary<string, PageNode> GeneratePageLookup(
@@ -30,23 +36,24 @@ public class PageNode
         PageTree root
     )
     {
-        var lookup = new Dictionary<string, PageNode>();
+        Dictionary<string, PageNode> _lookup = new();
 
         void Build(PageTree tree, PageNode? parent)
         {
             var element = document.rootVisualElement.Q(tree.Name);
             var node = new PageNode(tree.Name, element);
-            lookup[tree.Name] = node;
+            _lookup[tree.Name] = node;
 
-            if (parent != null)
-                parent.AddChild(node);
+            parent?.AddChild(node);
 
             foreach (var child in tree.Children)
+            {
                 Build(child, node);
+            }
         }
 
         Build(root, null);
-        return lookup;
+        return _lookup;
     }
 }
 
@@ -54,6 +61,6 @@ public class PageNode
 [System.Serializable]
 public class PageTree
 {
-    public string Name;
-    public List<PageTree> Children = new List<PageTree>();
+    public string Name = "";
+    public List<PageTree> Children = new();
 }

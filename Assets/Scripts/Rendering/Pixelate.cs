@@ -1,115 +1,150 @@
 using UnityEngine;
 public class Pixelate : MonoBehaviour
 {
+    [System.Serializable]
+    struct TransformSettings
+    {
+        public Transform RefTransform;
+        public bool AutoRotationEnabled;
+    }
+    [System.Serializable]
+    struct RendererOptions
+    {
+        public SpriteRenderer SpriteRenderer;
+        public ParticleSystem ParticleSystem;
+    }
     [SerializeField] GameObject pixelateChildrenPrefab;
     [SerializeField] Vector2 offset;
-    [SerializeField] Transform refTransform;
-    [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] ParticleSystem particleSystem;
-    [SerializeField] bool autoRotationEnabled = false;
-    private int resolution = 128;
-    Material materialPrefab;
-    GameObject pixelateChildren;
-    RenderTexture renderTexture;
-    Material material;
-
-    Camera pixelateCamera;
-    MeshRenderer quadMesh;
-
+    [SerializeField] RendererOptions rendererOptions;
+    [SerializeField] TransformSettings transformSettings;
+    public Quaternion Rotation
+    {
+        get => _pixelateCamera.transform.rotation;
+        set => _pixelateCamera.transform.rotation = value;
+    }
+    readonly int _resolution = 128;
+    bool _wasVisible = false;
+    GameObject _pixelateChildren;
+    Camera _pixelateCamera;
+    MeshRenderer _quadMesh;
+    RenderTexture _renderTexture;
+    Material _materialPrefab;
+    Material _material;
 
     void Awake()
     {
-        pixelateChildren = Instantiate(pixelateChildrenPrefab, transform);
-        CreateRenderTexture();
-        materialPrefab = ResourceManager.Instance.GetMaterial("TransparentRenderGraph");
-        material = Instantiate(materialPrefab);
-        material.SetTexture("_MainTex", renderTexture);
+        Cache();
+        AssignPixelateLayer(_wasVisible);
 
-        pixelateCamera = pixelateChildren.GetComponentInChildren<Camera>();
-        quadMesh = pixelateChildren.GetComponentInChildren<MeshRenderer>();
+        _material.SetTexture("_MainTex", _renderTexture);
+        _quadMesh.material = _material;
 
-        QuadLayerSetter sortingSetter = quadMesh.GetComponent<QuadLayerSetter>();
-        if (spriteRenderer)
+        if (offset.magnitude != 0)
         {
-            sortingSetter.rendererToTrack = spriteRenderer;
+            Vector3 cameraPos = _pixelateCamera.transform.position;
+            _pixelateCamera.transform.position = new Vector3(cameraPos.x + offset.x, cameraPos.y + offset.y, cameraPos.z);
         }
-        else if (particleSystem)
-        {
-            sortingSetter.rendererToTrack = particleSystem.GetComponent<ParticleSystemRenderer>();
-        }
-        sortingSetter.Sync();
+        _pixelateCamera.targetTexture = _renderTexture;
+        _pixelateCamera.Render();
 
-        int assignedLayer = PixelateLayerManager.Instance.AssignUnusedLayer(gameObject);
-        if (assignedLayer == -1)
+        QuadLayerSetter _sortingSetter = _quadMesh.GetComponent<QuadLayerSetter>();
+        if (rendererOptions.SpriteRenderer)
         {
-            Debug.LogError("No available Pixelate layers!");
+            _sortingSetter.RendererToTrack = rendererOptions.SpriteRenderer;
         }
-        else
+        else if (rendererOptions.ParticleSystem)
         {
-            pixelateCamera.cullingMask = (1 << assignedLayer) | (1 << 3);
-
+            _sortingSetter.RendererToTrack = rendererOptions.ParticleSystem.GetComponent<ParticleSystemRenderer>();
         }
-        pixelateCamera.targetTexture = renderTexture;
-        Vector3 cameraPos = pixelateCamera.transform.position;
-        pixelateCamera.transform.position = new Vector3(cameraPos.x + offset.x, cameraPos.y + offset.y, cameraPos.z);
-        pixelateCamera.Render();
-
-        quadMesh.material = material;
     }
 
     void Update()
     {
-        //SetZLayer();
-        if (!autoRotationEnabled)
-        {
-            return;
-        }
+        bool _isVisible = Utils.VisibleToCamera(transform, Camera.main);
 
-        rotation = Quaternion.Euler(0, 0, -2 * refTransform.rotation.z);
+        if (_wasVisible != _isVisible)
+        {
+            AssignPixelateLayer(_isVisible);
+        }
+        _wasVisible = _isVisible;
+
+        if (transformSettings.AutoRotationEnabled)
+        {
+            Rotation = Quaternion.Euler(0, 0, -2 * transformSettings.RefTransform.rotation.z);
+        }
     }
 
-    public Quaternion rotation
+    void Cache()
     {
-        get => pixelateCamera.transform.rotation;
-        set => pixelateCamera.transform.rotation = value;
+        _pixelateChildren = Instantiate(pixelateChildrenPrefab, transform);
+        _pixelateCamera = _pixelateChildren.GetComponentInChildren<Camera>();
+        _quadMesh = _pixelateChildren.GetComponentInChildren<MeshRenderer>();
+        _materialPrefab = ResourceLoader.Instance.GetMaterial("TransparentRenderGraph");
+        _material = Instantiate(_materialPrefab);
+        _wasVisible = Utils.VisibleToCamera(transform, Camera.main);
+
+        CreateRenderTexture();
+    }
+
+    void AssignPixelateLayer(bool isVisible)
+    {
+        if (isVisible)
+        {
+            int _assignedLayer = PixelateLayerManager.Instance.AssignUnusedLayer(gameObject);
+
+            if (_assignedLayer == -1)
+            {
+                Debug.LogError("No available Pixelate layers!");
+            }
+            else
+            {
+                _pixelateCamera.cullingMask = (1 << _assignedLayer) | (1 << 3);
+            }
+        }
+        else
+        {
+            PixelateLayerManager.Instance.ReleaseLayer(gameObject);
+        }
     }
 
     public void SetSortingOrder(int order)
     {
-        quadMesh.sortingOrder = order;
+        _quadMesh.sortingOrder = order;
     }
 
     public void RotateQuad(float x, float y, float z)
     {
-        quadMesh.transform.rotation = Quaternion.Euler(x, y, z);
+        _quadMesh.transform.rotation = Quaternion.Euler(x, y, z);
     }
 
-    private void CreateRenderTexture()
+    void CreateRenderTexture()
     {
-        var rtDesc = new RenderTextureDescriptor(resolution, resolution)
+        var rtDesc = new RenderTextureDescriptor(_resolution, _resolution)
         {
-            graphicsFormat = UnityEngine.Experimental.Rendering.GraphicsFormat.R16G16B16A16_SFloat, // HDR safe
+            graphicsFormat = UnityEngine.Experimental.Rendering.GraphicsFormat.R16G16B16A16_SFloat,
             depthBufferBits = 24,
             dimension = UnityEngine.Rendering.TextureDimension.Tex2D,
             msaaSamples = 1,
             mipCount = 1,
         };
-        renderTexture = new RenderTexture(rtDesc)
+        _renderTexture = new RenderTexture(rtDesc)
         {
             filterMode = FilterMode.Point,
             wrapMode = TextureWrapMode.Clamp,
         };
-        renderTexture.Create();
+        _renderTexture.Create();
     }
 
-    private void CreateMaterial()
+    void CreateMaterial()
     {
-        material = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
-        material.SetFloat("_Surface", 1f);
-        material.renderQueue = 3100;
-        material.SetTexture("_BaseMap", renderTexture);
-        material.SetFloat("_AlphaClip", 0f);
+        _material = new Material(Shader.Find("Universal Render Pipeline/Unlit"))
+        {
+            renderQueue = 3100
+        };
+        _material.SetFloat("_Surface", 1f);
+        _material.SetTexture("_BaseMap", _renderTexture);
+        _material.SetFloat("_AlphaClip", 0f);
 
-        material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+        _material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
     }
 }

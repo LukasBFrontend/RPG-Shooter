@@ -3,14 +3,14 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class NPC : MonoBehaviour
 {
-    public int health = 100;
-    public BoxCollider2D hitCollider;
-    [HideInInspector] public Vector2 faceDir = Vector2.down;
+    [HideInInspector] public Vector2 FaceDir = Vector2.down;
+    public int Health = 100;
+    public BoxCollider2D HitCollider;
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        Visuals.Instance.Flicker(GetComponent<SpriteRenderer>(), 4, .25f);
+        Health -= damage;
+        Utils.Flicker(GetComponent<SpriteRenderer>(), 4, .25f);
     }
 
     public void Die()
@@ -20,7 +20,7 @@ public class NPC : MonoBehaviour
 
     public void UpdateRotation()
     {
-        float angle = Mathf.Atan2(faceDir.y, faceDir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new(0, 0, angle + 90));
+        float _angle = Mathf.Atan2(FaceDir.y, FaceDir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new(0, 0, _angle + 90));
     }
 }

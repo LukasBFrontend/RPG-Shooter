@@ -4,7 +4,10 @@ public class InputManager : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) MenuEvents.ToggleLvlMenu();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            MenuEvents.ToggleLvlMenu();
+        }
 
         if (!(GameState.Status == RunState.Running))
         {
@@ -16,10 +19,25 @@ public class InputManager : MonoBehaviour
             Input.GetAxisRaw("Vertical")
         );
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) PlayerAction.Instance.HeldItemAction();
-        if (Input.GetKeyDown(KeyCode.Alpha1)) PlayerAction.Instance.SetSelectedItemSlot(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) PlayerAction.Instance.SetSelectedItemSlot(1);
-        if (Input.GetKeyDown(KeyCode.E)) PlayerAction.Instance.Interact();
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            PlayerAction.Instance.HeldItemAction();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayerAction.Instance.SetSelectedItemSlot(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayerAction.Instance.SetSelectedItemSlot(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PlayerAction.Instance.Interact();
+        }
     }
 
     void PlayerMoveInput(float inputX, float inputY)
@@ -27,7 +45,7 @@ public class InputManager : MonoBehaviour
         if (inputX != 0 || inputY != 0)
         {
             PlayerMove.Instance.IsRecievingInput = true;
-            PlayerMove.Instance.direction = new Vector2(inputX, inputY);
+            PlayerMove.Instance.Direction = new Vector2(inputX, inputY);
         }
         else
         {

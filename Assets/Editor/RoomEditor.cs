@@ -31,7 +31,7 @@ public class RoomEditor : Editor
             serializedObject.ApplyModifiedProperties();
         } */
 
-    private void DrawHandles(SceneView sceneView)
+    void DrawHandles(SceneView sceneView)
     {
         if (!showHandles) return;
 

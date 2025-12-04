@@ -3,27 +3,34 @@ using UnityEngine;
 
 public class NPC_Healthbar : MonoBehaviour
 {
-    public NPC npc;
     [SerializeField] RectTransform healthFill;
     [SerializeField] Vector2 positionOffset = new(0, 1);
-    int maxHealth;
+    public NPC NPC;
+    int _maxHealth;
 
-    public void Initialize(NPC npc)
+
+    /// <summary>
+    /// Assigns the healthbar to track target NPC
+    /// </summary>
+    /// <param name="npc">The non player character to track</param>
+    public void AssignToNPC(NPC npc)
     {
-        this.npc = npc;
-        maxHealth = npc.health;
+        NPC = npc;
+        _maxHealth = npc.Health;
         RenderHealth();
     }
 
     void Update()
     {
-        if (!npc)
+        if (!NPC)
         {
             Destroy(transform.gameObject);
             return;
         }
-        transform.position = (Vector2)npc.transform.position + positionOffset;
-        if (npc.health == maxHealth)
+
+        transform.position = (Vector2)NPC.transform.position + positionOffset;
+
+        if (NPC.Health == _maxHealth)
         {
             return;
         }
@@ -32,8 +39,8 @@ public class NPC_Healthbar : MonoBehaviour
 
     void RenderHealth()
     {
-        float healthActual = (float)npc.health / (float)maxHealth;
+        float _healthActual = (float)NPC.Health / (float)_maxHealth;
 
-        healthFill.anchorMax = new(healthActual, healthFill.anchorMax.y);
+        healthFill.anchorMax = new(_healthActual, healthFill.anchorMax.y);
     }
 }

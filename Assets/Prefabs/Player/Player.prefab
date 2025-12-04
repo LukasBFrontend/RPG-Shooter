@@ -284,10 +284,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pixelateChildrenPrefab: {fileID: 5579334951649461191, guid: e141338fdac8f5341b6e8b57534a4077, type: 3}
   offset: {x: 0.625, y: 0.125}
-  refTransform: {fileID: 0}
-  spriteRenderer: {fileID: 4787341220817011754}
-  particleSystem: {fileID: 0}
-  autoRotationEnabled: 0
+  rendererOptions:
+    SpriteRenderer: {fileID: 4787341220817011754}
+    ParticleSystem: {fileID: 0}
+  transformSettings:
+    RefTransform: {fileID: 0}
+    AutoRotationEnabled: 0
 --- !u!114 &8187110100100138403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698fded09f56bf2428edf30b106e169a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4787341220817011754}
   objectToSync: {fileID: 9167609637897018352}
   syncObjectLayer: 0
   zLights: []
@@ -424,10 +427,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pixelateChildrenPrefab: {fileID: 5579334951649461191, guid: e141338fdac8f5341b6e8b57534a4077, type: 3}
   offset: {x: 0.625, y: 0.125}
-  refTransform: {fileID: 0}
-  spriteRenderer: {fileID: 2176175051986176700}
-  particleSystem: {fileID: 0}
-  autoRotationEnabled: 0
+  rendererOptions:
+    SpriteRenderer: {fileID: 2176175051986176700}
+    ParticleSystem: {fileID: 0}
+  transformSettings:
+    RefTransform: {fileID: 0}
+    AutoRotationEnabled: 0
 --- !u!114 &3654712071857307638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,6 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698fded09f56bf2428edf30b106e169a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 2176175051986176700}
   objectToSync: {fileID: 9167609637897018352}
   syncObjectLayer: 0
   zLights: []
@@ -852,10 +858,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 2.75, y: -1.25}
+    - - {x: 3, y: -1.5}
       - {x: 1.25, y: -0.25}
       - {x: 1.25, y: 0.25}
-      - {x: 2.75, y: 1.25}
+      - {x: 3, y: 1.5}
   m_UseDelaunayMesh: 0
 --- !u!114 &6578498940208647449
 MonoBehaviour:
@@ -998,6 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698fded09f56bf2428edf30b106e169a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 3411375398216578535}
   objectToSync: {fileID: 9167609637897018352}
   syncObjectLayer: 1
   zLights:
@@ -1113,7 +1120,6 @@ MonoBehaviour:
   Col: {fileID: 4227889763849028932}
   SpriteRenderer: {fileID: 3411375398216578535}
   Animator: {fileID: 5260403279140747566}
-  Weapon: {fileID: 0}
   Node: {fileID: 0}
   Layer: 0
 --- !u!114 &7438468600784246310

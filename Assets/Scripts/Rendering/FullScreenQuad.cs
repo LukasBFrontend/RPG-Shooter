@@ -5,13 +5,11 @@ public class FullscreenQuad : MonoBehaviour
 {
     void Start()
     {
-        Camera cam = Camera.main;
-        float height = 2f * cam.orthographicSize;
-        float width = height * cam.aspect;
-        transform.localScale = new Vector3(width, height, 1f);
+        Camera _cam = Camera.main;
+        float _height = 2f * _cam.orthographicSize;
+        float _width = _height * _cam.aspect;
 
-        // Put quad just in front of the camera
-        transform.position = cam.transform.position + cam.transform.forward * 1f;
-        transform.rotation = cam.transform.rotation;
+        transform.localScale = new Vector3(_width, _height, 1f);
+        transform.SetPositionAndRotation(_cam.transform.position + _cam.transform.forward * 1f, _cam.transform.rotation);
     }
 }

@@ -5,47 +5,43 @@ public class Slug : NPC
     [SerializeField] int damagePerAttack = 20;
     [SerializeField] float attackSpeed = 1f;
     [SerializeField] float knockbackForce = 6f;
-    float attackTimer = 0f;
-    bool hasAttacked = false;
-    bool playerInRange = false;
-    void Start()
-    {
-
-    }
+    float _attackTimer = 0f;
+    bool _hasAttacked = false;
+    bool _playerInRange = false;
 
     void Update()
     {
-        if (health <= 0)
+        if (Health <= 0)
         {
             Die();
         }
 
-        if (attackTimer % (1 / attackSpeed) < 1 / (2 * attackSpeed))
+        if (_attackTimer % (1 / attackSpeed) < 1 / (2 * attackSpeed))
         {
-            if (!hasAttacked)
+            if (!_hasAttacked)
             {
                 Attack();
             }
         }
         else
         {
-            hasAttacked = false;
+            _hasAttacked = false;
         }
 
         UpdateRotation();
-        attackTimer += Time.deltaTime;
+        _attackTimer += Time.deltaTime;
     }
 
     void Attack()
     {
-        if (!playerInRange)
+        if (!_playerInRange)
         {
             return;
         }
         PlayerState.Instance.TakeDamage(damagePerAttack);
         PlayerConfig.Instance.Rb.AddForce(GetComponent<NPC_Controller>().PlayerToNPC().normalized * knockbackForce);
         PlayerConfig.Instance.Status = PlayerStatus.Knockback;
-        hasAttacked = true;
+        _hasAttacked = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -54,8 +50,8 @@ public class Slug : NPC
         {
             return;
         }
-        playerInRange = true;
-        attackTimer = 0f;
+        _playerInRange = true;
+        _attackTimer = 0f;
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -64,6 +60,6 @@ public class Slug : NPC
         {
             return;
         }
-        playerInRange = false;
+        _playerInRange = false;
     }
 }

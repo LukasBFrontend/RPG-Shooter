@@ -8,16 +8,16 @@ using Image = UnityEngine.UIElements.Image;
 public class PlayerUI : MonoBehaviour
 {
     [Header("Hearts")]
-    [SerializeField] private Sprite heartFull;
-    [SerializeField] private Sprite heartThreeQuarters;
-    [SerializeField] private Sprite heartHalf;
-    [SerializeField] private Sprite heartOneQuarter;
-    [SerializeField] private Sprite heartEmpty;
+    [SerializeField] Sprite heartFull;
+    [SerializeField] Sprite heartThreeQuarters;
+    [SerializeField] Sprite heartHalf;
+    [SerializeField] Sprite heartOneQuarter;
+    [SerializeField] Sprite heartEmpty;
     [SerializeField] UnityEngine.UI.Image[] heartImages;
-    private UIDocument document;
-    List<VisualElement> heartTextures;
-    List<VisualElement> itemImages;
-    Label coinsText;
+    UIDocument _document;
+    List<VisualElement> _heartTextures;
+    List<VisualElement> _itemImages;
+    Label _coinsText;
 
     void Start()
     {
@@ -37,48 +37,49 @@ public class PlayerUI : MonoBehaviour
 
     void Cache()
     {
-        document = GetComponent<UIDocument>();
-        heartTextures = document.rootVisualElement.Query<VisualElement>(className: "heart").ToList();
-        itemImages = document.rootVisualElement.Query<VisualElement>(className: "item-image").ToList();
-        coinsText = document.rootVisualElement.Query<Label>(name: "CoinText");
+        _document = GetComponent<UIDocument>();
+        _heartTextures = _document.rootVisualElement.Query<VisualElement>(className: "heart").ToList();
+        _itemImages = _document.rootVisualElement.Query<VisualElement>(className: "item-image").ToList();
+        _coinsText = _document.rootVisualElement.Query<Label>(name: "CoinText");
     }
     void RenderCoins()
     {
-        coinsText.text = GameState.Coins.ToString();
+        _coinsText.text = GameState.Coins.ToString();
     }
     void RenderHearts()
     {
-        int healthPerHeart = PlayerState.Instance.healthPerHeart;
-        int health = PlayerState.Instance.health;
-        for (int i = 1; i <= heartTextures.Count; i++)
-        {
-            Sprite targetSprite = null;
+        int _healthPerHeart = PlayerState.Instance.HealthPerHeart;
+        int _health = PlayerState.Instance.Health;
 
-            if (health >= i * healthPerHeart)
+        for (int i = 1; i <= _heartTextures.Count; i++)
+        {
+            Sprite _targetSprite = null;
+
+            if (_health >= i * _healthPerHeart)
             {
-                targetSprite = heartFull;
+                _targetSprite = heartFull;
             }
-            else if (health <= healthPerHeart * i - healthPerHeart)
+            else if (_health <= _healthPerHeart * i - _healthPerHeart)
             {
-                targetSprite = heartEmpty;
+                _targetSprite = heartEmpty;
             }
-            else if (health % healthPerHeart == 3)
+            else if (_health % _healthPerHeart == 3)
             {
-                targetSprite = heartThreeQuarters;
+                _targetSprite = heartThreeQuarters;
             }
-            else if (health % healthPerHeart == 2)
+            else if (_health % _healthPerHeart == 2)
             {
-                targetSprite = heartHalf;
+                _targetSprite = heartHalf;
             }
-            else if (health % healthPerHeart == 1)
+            else if (_health % _healthPerHeart == 1)
             {
-                targetSprite = heartOneQuarter;
+                _targetSprite = heartOneQuarter;
             }
             else
             {
                 Debug.LogError("Correct target sprite not identified for health graphic");
             }
-            heartTextures[i - 1].style.backgroundImage = Background.FromSprite(targetSprite);
+            _heartTextures[i - 1].style.backgroundImage = Background.FromSprite(_targetSprite);
         }
     }
 }

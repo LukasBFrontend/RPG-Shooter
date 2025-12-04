@@ -8,16 +8,16 @@ using UnityEngine.UIElements;
 public class MenuEvents : MonoBehaviour
 {
     [Header("Pages")]
-    [SerializeField] PageTree pageStructure = new();
+    [SerializeField] PageTree pageStructure;
     [Header("Sound")]
     [SerializeField] AudioClip clip;
     [Range(0f, 100f)][SerializeField] float volume = 50f;
-    private UIDocument document;
-    private Dictionary<string, PageNode> pages;
-    private Dictionary<string, EventCallback<ClickEvent>> buttonActions;
-    private List<Button> menuButtons;
-    private static VisualElement pauseMenu;
-    private PageNode currentPage;
+    UIDocument document;
+    Dictionary<string, PageNode> pages;
+    Dictionary<string, EventCallback<ClickEvent>> buttonActions;
+    List<Button> menuButtons;
+    static VisualElement pauseMenu;
+    PageNode currentPage;
 
     void Awake()
     {

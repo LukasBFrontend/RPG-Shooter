@@ -8,8 +8,7 @@ public enum RunState
 }
 public static class GameState
 {
-    public static RunState Status { get { return status; } }
-    static RunState status = RunState.Running;
+    public static RunState Status { get; private set; } = RunState.Running;
     public static int Coins { get; set; }
 
     public static void AddCoins(int coins)
@@ -24,23 +23,23 @@ public static class GameState
 
     public static void Pause()
     {
-        if (status != RunState.Running)
+        if (Status != RunState.Running)
         {
             return;
         }
 
-        status = RunState.Paused;
+        Status = RunState.Paused;
         Time.timeScale = 0;
     }
 
     public static void Unpause()
     {
-        if (status != RunState.Paused)
+        if (Status != RunState.Paused)
         {
             return;
         }
 
-        status = RunState.Running;
+        Status = RunState.Running;
         Time.timeScale = 1;
     }
 }

@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865c5a8fb5f6b4941bbccdb6b39d97ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 3169781852126179503}
   currentNode: {fileID: 0}
   playerNode: {fileID: 0}
   path: []
@@ -235,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698fded09f56bf2428edf30b106e169a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 2978092480142965334}
   objectToSync: {fileID: 326359822869375177}
   syncObjectLayer: 0
   zLights: []

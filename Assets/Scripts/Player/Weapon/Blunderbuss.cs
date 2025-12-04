@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Blunderbuss : Weapon, IInventoryItem
@@ -10,10 +8,8 @@ public class Blunderbuss : Weapon, IInventoryItem
     [Header("Attack")]
     [SerializeField] GameObject fireVFX;
     [SerializeField] FireArea fireArea;
-
-
     public int Count { get; set; }
-    public string Name { get; } = "Boomstick";
+    public string Name { get; } = "Blunderbuss";
 
     void Start()
     {

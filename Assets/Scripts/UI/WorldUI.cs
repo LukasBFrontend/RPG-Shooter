@@ -3,41 +3,35 @@ using UnityEngine;
 
 public class WorldUI : MonoBehaviour
 {
-    List<NPC> NPCs;
-    Dictionary<NPC, GameObject> healthbars = new Dictionary<NPC, GameObject>();
-
     [SerializeField] GameObject healthBarPrefab;
+    List<NPC> _npcs;
+    Dictionary<NPC, GameObject> _healthbars = new();
 
     void Start()
     {
-        NPCs = new List<NPC>(FindObjectsByType<NPC>(FindObjectsSortMode.None));
+        _npcs = new List<NPC>(FindObjectsByType<NPC>(FindObjectsSortMode.None));
 
         AssignHealthBars();
     }
 
-    public void AssignHealthBars()
+    void AssignHealthBars()
     {
-        foreach (NPC npc in NPCs)
+        foreach (NPC npc in _npcs)
         {
-            // If NPC already has a healthbar assigned, skip it
-            if (healthbars.ContainsKey(npc))
+            if (_healthbars.ContainsKey(npc))
+            {
                 continue;
+            }
+            GameObject _bar = Instantiate(healthBarPrefab, transform);
+            _healthbars[npc] = _bar;
 
-            // Spawn new bar
-            GameObject bar = Instantiate(healthBarPrefab, transform);
-
-            // Store association
-            healthbars[npc] = bar;
-
-            // Optional: initialize script on bar
-            bar.GetComponent<NPC_Healthbar>().Initialize(npc);
+            _bar.GetComponent<NPC_Healthbar>().AssignToNPC(npc);
         }
     }
 
-    // Optional helper method
     public GameObject GetHealthBar(NPC npc)
     {
-        if (healthbars.TryGetValue(npc, out GameObject bar))
+        if (_healthbars.TryGetValue(npc, out GameObject bar))
             return bar;
 
         return null;

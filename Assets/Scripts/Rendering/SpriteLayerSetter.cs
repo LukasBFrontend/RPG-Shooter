@@ -1,38 +1,41 @@
-using System;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class SpriteLayerSetter : MonoBehaviour
 {
+    [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] GameObject objectToSync;
     [Header("Optional")]
     [SerializeField] bool syncObjectLayer = true;
     [SerializeField] GameObject[] zLights;
     int trackedLayer = 0;
-    SpriteRenderer sprite;
 
-    void Awake()
+    void Update()
     {
-        sprite = GetComponent<SpriteRenderer>();
+        if (objectToSync.layer == trackedLayer)
+        {
+            return;
+        }
 
+        Sync();
     }
 
     public void Sync()
     {
         trackedLayer = objectToSync.layer;
+
         switch (trackedLayer)
         {
             case 16:
-                sprite.sortingLayerName = "BottomWall";
+                spriteRenderer.sortingLayerName = "BottomWall";
                 SetSelfLight(0);
                 break;
             case 17:
-                sprite.sortingLayerName = "MiddleWall";
+                spriteRenderer.sortingLayerName = "MiddleWall";
                 SetSelfLight(1);
                 break;
             case 18:
-                sprite.sortingLayerName = "UpperWall";
+                spriteRenderer.sortingLayerName = "UpperWall";
                 SetSelfLight(2);
                 break;
             default:
@@ -55,15 +58,5 @@ public class SpriteLayerSetter : MonoBehaviour
         {
             zLights[i].SetActive(i == zIndex);
         }
-    }
-
-    void Update()
-    {
-        if (objectToSync.layer == trackedLayer)
-        {
-            return;
-        }
-
-        Sync();
     }
 }

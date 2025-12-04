@@ -1,21 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInventoryItem
-{
-    string Name { get; }
-    int Count { get; set; }
-    void Use();
-}
 public class PlayerAction : Singleton<PlayerAction>
 {
     [SerializeField] Weapon[] weapons;
     [SerializeField] Collider2D interactCollider;
-    List<IInventoryItem> inventory;
-    List<GameObject> inventoryObjects;
-    List<Interactable> interactablesInRange = new();
-    bool interactionQued;
-    int heldIndex = 0;
+    List<IInventoryItem> _inventory;
+    List<IInteractable> _interactablesInRange = new();
+    List<GameObject> _inventoryObjects;
+    bool _interactionQued;
+    int _heldIndex = 0;
     public void HeldItemAction()
     {
         HeldItem().Use();
@@ -23,72 +17,72 @@ public class PlayerAction : Singleton<PlayerAction>
 
     public IInventoryItem HeldItem()
     {
-        return inventory[heldIndex];
+        return _inventory[_heldIndex];
     }
 
     public void Interact()
     {
-        interactionQued = true;
+        _interactionQued = true;
     }
 
     public void SetSelectedItemSlot(int index)
     {
-        if (index < 0 || index >= inventory.Count)
+        if (index < 0 || index >= _inventory.Count)
         {
             return;
         }
 
-        heldIndex = index;
+        _heldIndex = index;
     }
 
-    void MakeInteraction(Interactable interactable)
+    void MakeInteraction(IInteractable interactable)
     {
-        if (!interactionQued)
+        if (!_interactionQued)
         {
             return;
         }
 
         interactable.Interact();
-        interactionQued = false;
+        _interactionQued = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.gameObject.TryGetComponent<Interactable>(out var interactable))
+        if (!other.gameObject.TryGetComponent<IInteractable>(out var interactable))
         {
             return;
         }
-        interactablesInRange.Add(interactable);
+        _interactablesInRange.Add(interactable);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.gameObject.TryGetComponent<Interactable>(out var interactable))
+        if (!other.gameObject.TryGetComponent<IInteractable>(out var interactable))
         {
             return;
         }
-        interactablesInRange.Remove(interactable);
+        _interactablesInRange.Remove(interactable);
     }
     void RenderHeldItem()
     {
-        for (int i = 0; i < inventoryObjects.Count; i++)
+        for (int i = 0; i < _inventoryObjects.Count; i++)
         {
-            inventoryObjects[i].SetActive(i == heldIndex);
+            _inventoryObjects[i].SetActive(i == _heldIndex);
         }
     }
 
     void CacheInventory()
     {
-        if (inventory == null || inventory.Count <= 0)
+        if (_inventory == null || _inventory.Count <= 0)
         {
-            inventory = new();
-            inventoryObjects = new();
+            _inventory = new();
+            _inventoryObjects = new();
             foreach (Weapon weapon in weapons)
             {
                 if (weapon.TryGetComponent<IInventoryItem>(out var item))
                 {
-                    inventory.Add(item);
-                    inventoryObjects.Add(weapon.gameObject);
+                    _inventory.Add(item);
+                    _inventoryObjects.Add(weapon.gameObject);
                 }
                 else
                 {
@@ -107,12 +101,12 @@ public class PlayerAction : Singleton<PlayerAction>
     {
         RenderHeldItem();
 
-        interactCollider.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(PlayerMove.Instance.direction.y, PlayerMove.Instance.direction.x) * Mathf.Rad2Deg);
+        interactCollider.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(PlayerMove.Instance.Direction.y, PlayerMove.Instance.Direction.x) * Mathf.Rad2Deg);
 
-        if (interactablesInRange.Count > 0)
+        if (_interactablesInRange.Count > 0)
         {
-            MakeInteraction(interactablesInRange[0]);
+            MakeInteraction(_interactablesInRange[0]);
         }
-        interactionQued = false;
+        _interactionQued = false;
     }
 }

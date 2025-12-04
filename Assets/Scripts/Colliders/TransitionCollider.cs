@@ -1,79 +1,60 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-
-
-
-[System.Serializable]
-public struct TransitionConnection
-{
-    public Direction origin;
-    public Room room;
-}
 
 public class TransitionCollider : Trigger
 {
-    [SerializeField] Camera mainCamera;
+    [Serializable]
+    struct TransitionConnection
+    {
+        public Direction Origin;
+        public Room Room;
+    }
+
     [SerializeField] TransitionConnection connectA;
     [SerializeField] TransitionConnection connectB;
-    //[SerializeField] Vector2 translateDistance;
-
-
-
-    void Start()
-    {
-        mainCamera = Camera.main;
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
 
-        Direction fromDirection = FromDirection(other);
-        lastDirection = fromDirection;
-        //Debug.Log($"Enter: {fromDirection}");
+        Direction _fromDirection = FromDirection(other);
+        _lastDirection = _fromDirection;
 
-
-        MoveCamera(OppositeDirection(fromDirection));
+        Room targetRoom = TargetRoom(OppositeDirection(_fromDirection));
+        RoomManager.ActiveRoom = targetRoom;
+        CameraMove.Instance.MoveToRoom(targetRoom);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
-        Room newRoom = RoomManager.Instance.GetActiveRoom();
-        //Debug.Log("New room position: " + newRoom.transform.position);
-
-        Direction fromDirection = FromDirection(other);
-        if (fromDirection != lastDirection)
+        if (!other.CompareTag("Player"))
         {
-            lastDirection = Direction.None;
             return;
         }
 
-        Debug.Log($"Exit: {fromDirection}");
+        Direction fromDirection = FromDirection(other);
+        if (fromDirection != _lastDirection)
+        {
+            _lastDirection = Direction.None;
+            return;
+        }
 
-        MoveCamera(fromDirection);
-        lastDirection = Direction.None;
-    }
-
-    void MoveCamera(Direction direction)
-    {
-        Room targetRoom = TargetRoom(direction);
-        RoomManager.Instance.SetActiveRoom(targetRoom);
-        /*
-                Vector2 translate = DirectionToVector(direction);
-                Vector3 pos = mainCamera.transform.position;
-                Vector3 newPos = new(pos.x + translate.x, pos.y + translate.y, pos.z); */
-
+        Room targetRoom = TargetRoom(fromDirection);
+        RoomManager.ActiveRoom = targetRoom;
         CameraMove.Instance.MoveToRoom(targetRoom);
+
+        _lastDirection = Direction.None;
     }
 
     Room TargetRoom(Direction direction)
     {
         try
         {
-            if (connectA.origin == direction) return connectA.room;
-            else if (connectB.origin == direction) return connectB.room;
+            if (connectA.Origin == direction) return connectA.Room;
+            else if (connectB.Origin == direction) return connectB.Room;
 
             throw new SystemException("No room connection for direction: " + direction);
         }
@@ -83,18 +64,4 @@ public class TransitionCollider : Trigger
             return null;
         }
     }
-
-    /*     Vector2 DirectionToVector(Direction direction)
-        {
-            return direction switch
-            {
-                Direction.Right => Vector2.right * translateDistance.x,
-                Direction.Left => Vector2.left * translateDistance.x,
-                Direction.Up => Vector2.up * translateDistance.y,
-                Direction.Down => Vector2.down * translateDistance.y,
-                _ => Vector2.zero,
-            };
-        } */
-
-
 }
