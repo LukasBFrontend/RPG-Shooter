@@ -34,7 +34,7 @@ public class Flintlock : Weapon, IInventoryItem
     {
         Vector2 _aimDirection = GetAimDirection();
         GameObject _bulletInstance = Instantiate(bullet, (Vector2)gameObject.transform.position + _aimDirection * 1, GetAimAngle(), null);
-        _bulletInstance.layer = PlayerConfig.Instance.gameObject.layer + 3;
+        _bulletInstance.layer = Player.Config.gameObject.layer + 3;
         _bulletInstance.GetComponent<Rigidbody2D>().linearVelocity = _aimDirection * bulletVelocity;
 
         Recoil();

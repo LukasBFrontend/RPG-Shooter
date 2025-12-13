@@ -160,7 +160,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
 --- !u!50 &210396239653824349
 Rigidbody2D:
@@ -202,10 +202,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 3169781852126179503}
-  currentNode: {fileID: 0}
-  playerNode: {fileID: 0}
-  path: []
-  faceDir: {x: 0, y: -1}
+  CurrentNode: {fileID: 0}
+  PlayerNode: {fileID: 0}
+  Path: []
+  FaceDir: {x: 0, y: -1}
 --- !u!114 &1037664512359597822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,9 +218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ccfa2ebece19ba43b07b8b1fd498b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  hitCollider: {fileID: 0}
-  faceDir: {x: 0, y: -1}
+  characterFields:
+    Collider: {fileID: 3169781852126179503}
+    SpriteRenderer: {fileID: 2978092480142965334}
+    Health: 12
   damagePerAttack: 1
   attackSpeed: 1
   knockbackForce: 10
@@ -251,7 +252,7 @@ GameObject:
   - component: {fileID: 451471324209617415}
   - component: {fileID: 7682100977546583106}
   m_Layer: 16
-  m_Name: HitCollider
+  m_Name: Body
   m_TagString: Hit Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

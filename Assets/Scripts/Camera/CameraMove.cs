@@ -92,7 +92,10 @@ public class CameraMove : Singleton<CameraMove>
         );
 
         Vector2 _newPos = TrackPlayerSmooth();
-        if (_playerReached) return;
+        if (_playerReached)
+        {
+            return;
+        }
 
         float _clampedX = Mathf.Clamp(_newPos.x, _xMin, _xMax);
         float _clampedY = Mathf.Clamp(_newPos.y, _yMin, _yMax);

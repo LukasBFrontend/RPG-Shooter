@@ -13,7 +13,7 @@ public class NodeManager : Singleton<NodeManager>
     }
 
     [SerializeField] GameObject nodePrefab;
-    [SerializeField] CompositeCollider2D tilemapCollider;
+    [SerializeField] CompositeCollider2D[] tilemapColliders;
     [SerializeField] NodeMapInfo nodeMapInfo;
     List<IObstructive> _obstructives = new();
     Vector2 _startPoint, _size;
@@ -108,18 +108,7 @@ public class NodeManager : Singleton<NodeManager>
                 );
                 Vector2 _pos2D = _pos3D;
 
-                if (tilemapCollider.OverlapPoint(_pos2D))
-                {
-                    _nodeGrid[x].Add(null);
-                    continue;
-                }
-
-                Vector2 _nearest = tilemapCollider.ClosestPoint(_pos2D);
-
-                float _dx = Mathf.Abs(_nearest.x - _pos2D.x);
-                float _dy = Mathf.Abs(_nearest.y - _pos2D.y);
-
-                if (_dx < nodeMapInfo.ColliderCullingOffset && _dy < nodeMapInfo.ColliderCullingOffset)
+                if (IsObstructedByTilemaps(_pos2D))
                 {
                     _nodeGrid[x].Add(null);
                     continue;
@@ -132,6 +121,29 @@ public class NodeManager : Singleton<NodeManager>
         }
 
         CreateConnectionsFull();
+    }
+
+    bool IsObstructedByTilemaps(Vector2 point)
+    {
+        foreach (CompositeCollider2D col in tilemapColliders)
+        {
+            if (Utils.CompositeColliderVertices(col).Count == 0)
+            {
+                continue;
+            }
+
+            Vector2 _nearest = col.ClosestPoint(point);
+
+            float _dx = Mathf.Abs(_nearest.x - point.x);
+            float _dy = Mathf.Abs(_nearest.y - point.y);
+
+            if (_dx < nodeMapInfo.ColliderCullingOffset && _dy < nodeMapInfo.ColliderCullingOffset || col.OverlapPoint(point))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void DisableObstructed()

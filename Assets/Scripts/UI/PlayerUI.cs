@@ -18,6 +18,7 @@ public class PlayerUI : MonoBehaviour
     List<VisualElement> _heartTextures;
     List<VisualElement> _itemImages;
     Label _coinsText;
+    const int HEALTH_PER_HEART = 4;
 
     void Start()
     {
@@ -28,7 +29,7 @@ public class PlayerUI : MonoBehaviour
 
     void Update()
     {
-        if (PlayerState.Instance.IsDamaged())
+        if (Player.State.IsDamaged())
         {
             RenderHearts();
         }
@@ -48,30 +49,29 @@ public class PlayerUI : MonoBehaviour
     }
     void RenderHearts()
     {
-        int _healthPerHeart = PlayerState.Instance.HealthPerHeart;
-        int _health = PlayerState.Instance.Health;
+        int _health = Player.State.Health;
 
         for (int i = 1; i <= _heartTextures.Count; i++)
         {
             Sprite _targetSprite = null;
 
-            if (_health >= i * _healthPerHeart)
+            if (_health >= i * HEALTH_PER_HEART)
             {
                 _targetSprite = heartFull;
             }
-            else if (_health <= _healthPerHeart * i - _healthPerHeart)
+            else if (_health <= HEALTH_PER_HEART * i - HEALTH_PER_HEART)
             {
                 _targetSprite = heartEmpty;
             }
-            else if (_health % _healthPerHeart == 3)
+            else if (_health % HEALTH_PER_HEART == 3)
             {
                 _targetSprite = heartThreeQuarters;
             }
-            else if (_health % _healthPerHeart == 2)
+            else if (_health % HEALTH_PER_HEART == 2)
             {
                 _targetSprite = heartHalf;
             }
-            else if (_health % _healthPerHeart == 1)
+            else if (_health % HEALTH_PER_HEART == 1)
             {
                 _targetSprite = heartOneQuarter;
             }
