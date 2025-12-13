@@ -22,6 +22,12 @@ public class Pixelate : MonoBehaviour
         get => _pixelateCamera.transform.rotation;
         set => _pixelateCamera.transform.rotation = value;
     }
+
+    public float OrtographicSize
+    {
+        get => _pixelateCamera.orthographicSize;
+        set => _pixelateCamera.orthographicSize = value;
+    }
     readonly int _resolution = 128;
     bool _wasVisible = false;
     GameObject _pixelateChildren;

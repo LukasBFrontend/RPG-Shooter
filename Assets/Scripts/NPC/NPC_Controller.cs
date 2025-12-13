@@ -13,13 +13,15 @@ public class NPC_Controller : MonoBehaviour
     bool _isVisionChange, _seesPlayer, _pathQued = false;
     Vector2 _lastTrackedPos;
     float _pathingTimer = 0f;
-    readonly string[] RAYCAST_IGNORE_TAGS = { "Player", "Player Interact", "Player Trigger", "Hit Collider" };
+    NPC _npc;
+    readonly string[] RAYCAST_IGNORE_TAGS = { "Player", "Player Interact", "Player", "Hit Collider" };
     const float MOVE_THRESHOLD = 2f;
     const float REFRESH_RATE = 3f;
 
     void Start()
     {
         _pathingTimer = 1 / REFRESH_RATE;
+        _npc = GetComponent<NPC>();
         SetNode(new(0, 0));
     }
 
@@ -31,12 +33,12 @@ public class NPC_Controller : MonoBehaviour
 
         if (Path == null || Path.Count == 0 || (!_seesPlayer && _isVisionChange))
         {
-            CreatePath(PlayerConfig.Instance.Node());
+            CreatePath(Player.State.CurrentNode());
         }
 
         if (_pathingTimer <= 0f)
         {
-            float _playerMove = Vector2.Distance(_lastTrackedPos, PlayerConfig.Instance.ColliderCenter());
+            float _playerMove = Vector2.Distance(_lastTrackedPos, Player.Config.ColliderCenter());
 
             if (!_seesPlayer && _playerMove > MOVE_THRESHOLD)
             {
@@ -57,28 +59,16 @@ public class NPC_Controller : MonoBehaviour
         }
     }
 
-    public void SetNode(Vector2 _offset)
+    public void SetNode(Vector2 offset)
     {
-        CurrentNode = NodeManager.Instance.ClosestNode((Vector2)transform.position + _offset);
-    }
-
-    void SetFacing(Vector2 _direction)
-    {
-        if (Mathf.Abs(_direction.x) > Mathf.Abs(_direction.y))
-        {
-            GetComponent<NPC>().FaceDir = new(Mathf.Sign(_direction.x), 0);
-        }
-        else
-        {
-            GetComponent<NPC>().FaceDir = new(0, Mathf.Sign(_direction.y));
-        }
+        CurrentNode = NodeManager.Instance.ClosestNode((Vector2)transform.position + offset);
     }
 
     public void FollowDirect()
     {
-        Vector2 _targetPos = PlayerConfig.Instance.ColliderCenter();
+        Vector2 _targetPos = Player.Config.ColliderCenter();
         Vector2 _direction = PlayerToNPC().normalized;
-        SetFacing(_direction);
+        _npc.SetFacing(_direction);
 
         transform.position = Vector3.MoveTowards(
             transform.position,
@@ -88,7 +78,7 @@ public class NPC_Controller : MonoBehaviour
 
         if (_pathQued)
         {
-            CreatePath(PlayerConfig.Instance.Node());
+            CreatePath(Player.State.CurrentNode());
             _pathQued = false;
         }
     }
@@ -104,7 +94,7 @@ public class NPC_Controller : MonoBehaviour
 
         Vector3 _targetPos = new(Path[x].transform.position.x, Path[x].transform.position.y, 0);
         Vector2 _direction = (_targetPos - transform.position).normalized;
-        SetFacing(_direction);
+        _npc.SetFacing(_direction);
 
         transform.position = Vector3.MoveTowards(
             transform.position,
@@ -119,7 +109,7 @@ public class NPC_Controller : MonoBehaviour
 
             if (_pathQued)
             {
-                CreatePath(PlayerConfig.Instance.Node());
+                CreatePath(Player.State.CurrentNode());
                 _pathQued = false;
             }
         }
@@ -149,9 +139,11 @@ public class NPC_Controller : MonoBehaviour
         float _dist = PlayerToClosest().magnitude - _offsetDist;
         if (_dist <= 0) _dist = 0.1f;
 
+        Physics2D.queriesHitTriggers = true;
         RaycastHit2D[] _hitsOne = Physics2D.RaycastAll(_origin + _offset, _dir, _dist);
         RaycastHit2D[] _hitsTwo = Physics2D.RaycastAll(_origin - _offset, _dir, _dist);
         RaycastHit2D[] _hitsThree = Physics2D.RaycastAll(_origin, _dir, _dist);
+        Physics2D.queriesHitTriggers = false;
 
         Vector2 _endOne = _hitsOne.Length > 0 ? _hitsOne.Last().point : (_origin + _offset + _dir * _dist);
         Vector2 _endTwo = _hitsTwo.Length > 0 ? _hitsTwo.Last().point : (_origin - _offset + _dir * _dist);
@@ -214,7 +206,7 @@ public class NPC_Controller : MonoBehaviour
 
     Vector2 PlayerToClosest()
     {
-        Vector2 _playerPos = PlayerConfig.Instance.ColliderCenter();
+        Vector2 _playerPos = Player.Config.ColliderCenter();
         Vector2 _pos = NodeManager.Instance.ClosestNode(transform.position).transform.position;
 
         return _playerPos - _pos;
@@ -222,7 +214,7 @@ public class NPC_Controller : MonoBehaviour
 
     public Vector2 PlayerToNPC()
     {
-        Vector2 _playerPos = PlayerConfig.Instance.ColliderCenter();
+        Vector2 _playerPos = Player.Config.ColliderCenter();
         Vector2 _pos = transform.position;
 
         return _playerPos - _pos;
@@ -237,7 +229,7 @@ public class NPC_Controller : MonoBehaviour
         }
         Path.Clear();
 
-        _lastTrackedPos = PlayerConfig.Instance.ColliderCenter();
+        _lastTrackedPos = Player.Config.ColliderCenter();
 
         List<Node> nodeGrid = NodeManager.Instance.GetNodes();
 

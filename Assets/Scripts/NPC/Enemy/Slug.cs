@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(NPC_Controller))]
 public class Slug : NPC
 {
     [SerializeField] int damagePerAttack = 20;
@@ -7,7 +9,15 @@ public class Slug : NPC
     [SerializeField] float knockbackForce = 6f;
     float _attackTimer = 0f;
     bool _hasAttacked = false;
-    bool _playerInRange = false;
+    List<Character> _charactersInRange = new();
+
+    void Start()
+    {
+        OnDeath = () =>
+        {
+            Destroy(gameObject);
+        };
+    }
 
     void Update()
     {
@@ -34,32 +44,40 @@ public class Slug : NPC
 
     void Attack()
     {
-        if (!_playerInRange)
+        if (_charactersInRange.Count == 0)
         {
             return;
         }
-        PlayerState.Instance.TakeDamage(damagePerAttack);
-        PlayerConfig.Instance.Rb.AddForce(GetComponent<NPC_Controller>().PlayerToNPC().normalized * knockbackForce);
-        PlayerConfig.Instance.Status = PlayerStatus.Knockback;
+
+        foreach (Character character in _charactersInRange)
+        {
+            character.TakeDamage(damagePerAttack);
+            Player.Config.Rigidbody.AddForce(GetComponent<NPC_Controller>().PlayerToNPC().normalized * knockbackForce);
+            Player.State.Status = PlayerStatus.Knockback;
+        }
         _hasAttacked = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
+        Player player = other.GetComponent<Player>();
+
+        if (!player)
         {
             return;
         }
-        _playerInRange = true;
+        _charactersInRange.Add(player);
         _attackTimer = 0f;
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
+        Player player = other.GetComponent<Player>();
+
+        if (!player)
         {
             return;
         }
-        _playerInRange = false;
+        _charactersInRange.Remove(player);
     }
 }

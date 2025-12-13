@@ -4,13 +4,13 @@ using UnityEditor;
 [CustomEditor(typeof(Room))]
 public class RoomEditor : Editor
 {
-    SerializedProperty sizeProp;
-    const float minSize = 0.5f;
-    bool showHandles = true;
+    SerializedProperty _sizeProp;
+    const float MIN_SIZE = 0.5f;
+    bool _showHandles = true;
 
     void OnEnable()
     {
-        sizeProp = serializedObject.FindProperty("size");
+        _sizeProp = serializedObject.FindProperty("Size");
         SceneView.duringSceneGui += DrawHandles;
     }
 
@@ -19,28 +19,22 @@ public class RoomEditor : Editor
         SceneView.duringSceneGui -= DrawHandles;
     }
 
-    /*     public override void OnInspectorGUI()
-        {
-            serializedObject.Update();
-
-            EditorGUILayout.LabelField("Room Size (Width × Height)", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(sizeProp);
-
-            showHandles = EditorGUILayout.Toggle("Show Scene Handles", showHandles);
-
-            serializedObject.ApplyModifiedProperties();
-        } */
-
     void DrawHandles(SceneView sceneView)
     {
-        if (!showHandles) return;
+        if (!_showHandles)
+        {
+            return;
+        }
 
-        Room room = (Room)target;
-        if (room == null) return;
+        Room _room = (Room)target;
+        if (_room == null)
+        {
+            return;
+        }
 
-        Transform t = room.transform;
+        Transform t = _room.transform;
         serializedObject.Update();
-        Vector2 size = sizeProp.vector2Value;
+        Vector2 size = _sizeProp.vector2Value;
         Vector3 pos = t.position;
 
         float halfW = size.x * 0.5f;
@@ -49,29 +43,29 @@ public class RoomEditor : Editor
         EditorGUI.BeginChangeCheck();
 
         // Edge handles
-        Vector3 worldLeft = t.TransformPoint(new Vector3(-halfW, 0, 0));
-        Vector3 worldRight = t.TransformPoint(new Vector3(halfW, 0, 0));
-        Vector3 worldBottom = t.TransformPoint(new Vector3(0, -halfH, 0));
-        Vector3 worldTop = t.TransformPoint(new Vector3(0, halfH, 0));
+        Vector3 _worldLeft = t.TransformPoint(new Vector3(-halfW, 0, 0));
+        Vector3 _worldRight = t.TransformPoint(new Vector3(halfW, 0, 0));
+        Vector3 _worldBottom = t.TransformPoint(new Vector3(0, -halfH, 0));
+        Vector3 _worldTop = t.TransformPoint(new Vector3(0, halfH, 0));
 
-        float handleSize = HandleUtility.GetHandleSize(pos) * 0.1f;
+        float _handleSize = HandleUtility.GetHandleSize(pos) * 0.1f;
 
-        worldLeft = Handles.Slider(worldLeft, -t.right, handleSize, Handles.CubeHandleCap, 0);
-        worldRight = Handles.Slider(worldRight, t.right, handleSize, Handles.CubeHandleCap, 0);
-        worldBottom = Handles.Slider(worldBottom, -t.up, handleSize, Handles.CubeHandleCap, 0);
-        worldTop = Handles.Slider(worldTop, t.up, handleSize, Handles.CubeHandleCap, 0);
+        _worldLeft = Handles.Slider(_worldLeft, -t.right, _handleSize, Handles.CubeHandleCap, 0);
+        _worldRight = Handles.Slider(_worldRight, t.right, _handleSize, Handles.CubeHandleCap, 0);
+        _worldBottom = Handles.Slider(_worldBottom, -t.up, _handleSize, Handles.CubeHandleCap, 0);
+        _worldTop = Handles.Slider(_worldTop, t.up, _handleSize, Handles.CubeHandleCap, 0);
 
         if (EditorGUI.EndChangeCheck())
         {
-            float newWidth = t.InverseTransformPoint(worldRight).x - t.InverseTransformPoint(worldLeft).x;
-            float newHeight = t.InverseTransformPoint(worldTop).y - t.InverseTransformPoint(worldBottom).y;
+            float newWidth = t.InverseTransformPoint(_worldRight).x - t.InverseTransformPoint(_worldLeft).x;
+            float newHeight = t.InverseTransformPoint(_worldTop).y - t.InverseTransformPoint(_worldBottom).y;
 
             // Snap & clamp
-            newWidth = Mathf.Max(minSize, Mathf.Round(newWidth * 2f) / 2f);
-            newHeight = Mathf.Max(minSize, Mathf.Round(newHeight * 2f) / 2f);
+            newWidth = Mathf.Max(MIN_SIZE, Mathf.Round(newWidth * 2f) / 2f);
+            newHeight = Mathf.Max(MIN_SIZE, Mathf.Round(newHeight * 2f) / 2f);
 
-            Undo.RecordObject(room, "Resize Room");
-            sizeProp.vector2Value = new Vector2(newWidth, newHeight);
+            Undo.RecordObject(_room, "Resize Room");
+            _sizeProp.vector2Value = new Vector2(newWidth, newHeight);
             serializedObject.ApplyModifiedProperties();
         }
 

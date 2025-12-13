@@ -21,22 +21,22 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            PlayerAction.Instance.HeldItemAction();
+            Actions.Instance.HeldItemAction();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            PlayerAction.Instance.SetSelectedItemSlot(0);
+            Actions.Instance.SetSelectedItemSlot(0);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            PlayerAction.Instance.SetSelectedItemSlot(1);
+            Actions.Instance.SetSelectedItemSlot(1);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            PlayerAction.Instance.Interact();
+            Actions.Instance.Interact();
         }
     }
 
@@ -44,12 +44,12 @@ public class InputManager : MonoBehaviour
     {
         if (inputX != 0 || inputY != 0)
         {
-            PlayerMove.Instance.IsRecievingInput = true;
-            PlayerMove.Instance.Direction = new Vector2(inputX, inputY);
+            Player.Movement.IsRecievingInput = true;
+            Player.Movement.Direction = new Vector2(inputX, inputY);
         }
         else
         {
-            PlayerMove.Instance.IsRecievingInput = false;
+            Player.Movement.IsRecievingInput = false;
         }
     }
 }

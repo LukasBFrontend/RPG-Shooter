@@ -5,7 +5,22 @@ using UnityEngine;
 public static class RoomManager
 {
     public static Room[] Rooms { get; set; }
-    public static Room ActiveRoom { get; set; }
+    static Room activeRoom;
+    public static Room ActiveRoom
+    {
+        get
+        {
+            if (!activeRoom)
+            {
+                CacheRooms();
+            }
+            return activeRoom;
+        }
+        set
+        {
+            activeRoom = value;
+        }
+    }
 
     public static void CacheRooms()
     {
@@ -17,7 +32,7 @@ public static class RoomManager
         {
             if (PlayerWithinBounds(room))
             {
-                ActiveRoom = room;
+                activeRoom = room;
             }
         }
     }
@@ -38,7 +53,7 @@ public static class RoomManager
 
     public static bool PlayerWithinBounds(Room room)
     {
-        Vector2 _playerPos = PlayerConfig.Instance.transform.position;
+        Vector2 _playerPos = Player.Config.transform.position;
         Vector2 _mapPos = room.transform.position;
         float _width = room.Size.x;
         float _height = room.Size.y;

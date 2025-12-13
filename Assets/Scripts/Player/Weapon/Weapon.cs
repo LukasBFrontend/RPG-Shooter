@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        int _playerSortOrder = PlayerConfig.Instance.SpriteRenderer.sortingOrder;
+        int _playerSortOrder = Player.Config.SpriteRenderer.sortingOrder;
         Pixelate _pixelate = gameObject.GetComponent<Pixelate>();
 
         bool _behindCharacter = _aimAngle > 0;
@@ -56,9 +56,9 @@ public class Weapon : MonoBehaviour
     protected void Recoil()
     {
         Vector2 _recoilDirection = new(-_aimDirection.x, -_aimDirection.y);
-        Rigidbody2D _rb = PlayerConfig.Instance.Rb;
+        Rigidbody2D _rb = Player.Config.Rigidbody;
         _rb.AddForce(_recoilDirection * recoilForce);
-        PlayerConfig.Instance.Status = PlayerStatus.Recoil;
+        Player.State.Status = PlayerStatus.Recoil;
     }
 
     protected Quaternion GetAimAngle()

@@ -1,32 +1,26 @@
 using UnityEngine;
 
-public class PlayerMove : Singleton<PlayerMove>
+[RequireComponent(typeof(Player))]
+public class Movement : Singleton<Movement>
 {
     [HideInInspector] public Vector2 Direction = Vector2.zero;
     [HideInInspector] public bool IsTurningRight, IsTurningLeft = false;
     public bool IsRecievingInput { get; set; }
-    public float MoveSpeed = 4;
-    Rigidbody2D _rb;
-    Animator _animator;
-
+    public float MoveSpeed { get; private set; } = 6;
     const float Deadzone = 0.1f;
-
-    void Start()
-    {
-        _rb = PlayerConfig.Instance.Rb;
-        _animator = PlayerConfig.Instance.Animator;
-        _rb.gravityScale = 0;
-    }
 
     void FixedUpdate()
     {
-        SetVelocity();
+        if (IsMovementEnabled())
+        {
+            SetVelocity();
+        }
         UpdateAnimator();
     }
 
     void SetVelocity()
     {
-        if (PlayerConfig.Instance.Status != PlayerStatus.None)
+        if (Player.State.Status != PlayerStatus.None && Player.State.Status != PlayerStatus.Falling)
         {
             return;
         }
@@ -40,18 +34,22 @@ public class PlayerMove : Singleton<PlayerMove>
             Direction * MoveSpeed :
             Vector2.zero;
 
-        _rb.linearVelocity = velocity;
+        if (Player.State.Status == PlayerStatus.Falling)
+        {
+            velocity = Vector2.zero;
+        }
+        Player.Config.Rigidbody.linearVelocity = velocity;
     }
 
     void UpdateAnimator()
     {
-        if (!_animator)
+        if (!Player.Config.Animator)
         {
             return;
         }
 
         float _speed = Direction.magnitude;
-        _animator.SetFloat("Speed", _speed);
+        Player.Config.Animator.SetFloat("Speed", _speed);
 
         if (_speed > Deadzone)
         {
@@ -67,7 +65,22 @@ public class PlayerMove : Singleton<PlayerMove>
 
             int index = Mathf.FloorToInt(adjusted / 45f);
 
-            _animator.SetFloat("DirectionIndex", (float)index);
+            Player.Config.Animator.SetFloat("DirectionIndex", (float)index);
         }
+    }
+
+    bool IsMovementEnabled()
+    {
+        switch (Player.State.Status)
+        {
+            case PlayerStatus.Recoil:
+                return false;
+            case PlayerStatus.Falling:
+                return false;
+            default:
+                break;
+        }
+
+        return true;
     }
 }

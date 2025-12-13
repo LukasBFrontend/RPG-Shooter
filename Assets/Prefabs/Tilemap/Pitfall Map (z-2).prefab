@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8084252872014551768
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4686861024867286556, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4686861024867286556, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1510753435
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954572047572783923, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617672627603344695, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_Name
+      value: Pitfall Map (z-2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617672627603344695, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 256ca02641a6c134cb4ea4844dd65a89, type: 3}

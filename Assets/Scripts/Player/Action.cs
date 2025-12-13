@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAction : Singleton<PlayerAction>
+[RequireComponent(typeof(Player))]
+public class Actions : Singleton<Actions>
 {
-    [SerializeField] Weapon[] weapons;
     [SerializeField] Collider2D interactCollider;
+    [SerializeField] Weapon[] weapons;
     List<IInventoryItem> _inventory;
     List<IInteractable> _interactablesInRange = new();
     List<GameObject> _inventoryObjects;
@@ -101,7 +102,7 @@ public class PlayerAction : Singleton<PlayerAction>
     {
         RenderHeldItem();
 
-        interactCollider.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(PlayerMove.Instance.Direction.y, PlayerMove.Instance.Direction.x) * Mathf.Rad2Deg);
+        interactCollider.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(Player.Movement.Direction.y, Player.Movement.Direction.x) * Mathf.Rad2Deg);
 
         if (_interactablesInRange.Count > 0)
         {
