@@ -6,11 +6,11 @@ TagManager:
   tags:
   - Room
   - Enemy
-  - Hit Collider
-  - Player Trigger
   - Projectile Collider
   - Map Collider
   - Player Interact
+  - Player Body
+  - Enemy Body
   layers:
   - Default
   - TransparentFX
@@ -48,22 +48,22 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Bottom
+  - name: A
     uniqueID: 3303191807
     locked: 0
-  - name: BottomWall
+  - name: B
     uniqueID: 3713349605
     locked: 0
-  - name: Middle
+  - name: C
     uniqueID: 2105802505
     locked: 0
-  - name: MiddleWall
+  - name: Character A
     uniqueID: 2422613433
     locked: 0
-  - name: Upper
+  - name: Character B
     uniqueID: 1510753435
     locked: 0
-  - name: UpperWall
+  - name: Character C
     uniqueID: 155008737
     locked: 0
   - name: Last

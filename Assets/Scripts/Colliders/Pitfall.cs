@@ -6,6 +6,7 @@ public class Pitfall : Trigger
 {
     [SerializeField] CompositeCollider2D col;
     [SerializeField] GameObject skullPrefab;
+    [SerializeField] bool DrawDebugLines;
 
     const float FALL_SPEED = 2.25f;
     const float FALL_DURATION = .8f;
@@ -23,84 +24,39 @@ public class Pitfall : Trigger
 
     void Update()
     {
-        for (int i = 0; i < _colVertices.Count; i++)
+        if (DrawDebugLines)
         {
-            Vector2 edgeA = _colVertices[i];
-            Vector2 edgeB = _colVertices[(i + 1) % _colVertices.Count];
-            Debug.DrawLine(edgeA, edgeB);
+            DrawColliders();
         }
-
-        for (int i = 0; i < _insetVertices.Count; i++)
-        {
-            Vector2 edgeA = _insetVertices[i];
-            Vector2 edgeB = _insetVertices[(i + 1) % _insetVertices.Count];
-            Debug.DrawLine(edgeA, edgeB);
-        }
-
-        Vector2 playerPos = Player.Config.SpriteCenter();
-        Vector2 pointA = Utils.ClosestPointOnPolygon(_insetVertices, playerPos);
-        Debug.DrawLine(pointA, playerPos);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Player.State.LastValidRespawn = new Vector2(10, 0);
+        Character _character = other.GetComponent<Character>();
 
-        Character character = other.GetComponent<Character>();
-        if (!character || _fallTriggered)
+        if (_character is Player)
+        {
+            Player.LastValidRespawn = NodeManager.Instance.ClosestNode((Vector2)other.transform.position).transform.position;
+        }
+
+        if (!_character || _fallTriggered)
         {
             return;
         }
 
-        InitiateDirectionalFall(character);
+        InitiateFall(_character);
     }
 
-    void InitiateDirectionalFall(Character character)
-    {
-        _fallTriggered = true;
-
-        Player.State.SetStatusFalling(FALL_DURATION + .5f);
-        Vector2 _target = Utils.ClosestPointOnPolygon(_insetVertices, character.SpriteCenter());
-        Vector2 _dir = (_target - character.SpriteCenter()).normalized;
-
-        Vector2 _fallVelocity = CalculateFallVelocity(_dir, FALL_SPEED);
-
-        character.Rigidbody.linearVelocity = _fallVelocity;
-
-        StartCoroutine(FallSequence(character.transform));
-    }
-
-    Vector2 CalculateFallVelocity(Vector2 direction, float baseFallSpeed)
-    {
-        Vector2 _velocityScale = direction;
-
-        _velocityScale.x = Mathf.Clamp(
-            _velocityScale.x,
-            -.475f,
-            .475f
-        );
-
-        _velocityScale.y = Mathf.Clamp(
-            Mathf.Sign(_velocityScale.y) *
-            Mathf.Pow(_velocityScale.y, 2),
-            -1f,
-            .1f
-        );
-
-        return _velocityScale * baseFallSpeed;
-    }
-
-
-    IEnumerator FallSequence(Transform targetTransform)
+    IEnumerator FallSequence(Character character)
     {
         const float CAMERA_SIZE_DELTA = 3f;
         const float TIME_STEP = .1f;
 
         float _elapsed = 0f;
 
-        Pixelate[] _pixelates = targetTransform.GetComponentsInChildren<Pixelate>();
+        Pixelate[] _pixelates = character.GetComponentsInChildren<Pixelate>();
 
-        SpriteRenderer[] _sprites = targetTransform.GetComponentsInChildren<SpriteRenderer>();
+        SpriteRenderer[] _sprites = character.GetComponentsInChildren<SpriteRenderer>();
 
         float _cameraStartSize = 0f;
         float _cameraTargetSize = 0f;
@@ -143,7 +99,7 @@ public class Pitfall : Trigger
             {
                 Instantiate(
                     skullPrefab,
-                    (Vector2)targetTransform.position + Vector2.up / 2f,
+                    (Vector2)character.transform.position + Vector2.up / 2f,
                     Quaternion.identity
                 );
             }
@@ -152,9 +108,33 @@ public class Pitfall : Trigger
             _elapsed += TIME_STEP;
         }
 
+        ResetFall(character, _cameraStartSize);
+        _fallTriggered = false;
+    }
+
+    void InitiateFall(Character character)
+    {
+        _fallTriggered = true;
+
+        character.State.SetStatus(CharacterStatus.Falling, FALL_DURATION + .5f);
+        Vector2 _target = Utils.ClosestPointOnPolygon(_insetVertices, character.SpriteCenter());
+        Vector2 _dir = (_target - character.SpriteCenter()).normalized;
+
+        Vector2 _fallVelocity = CalculateFallVelocity(_dir, FALL_SPEED);
+
+        character.Rigidbody.linearVelocity = _fallVelocity;
+
+        StartCoroutine(FallSequence(character));
+    }
+
+    void ResetFall(Character character, float cameraStartSize)
+    {
+        Pixelate[] _pixelates = character.GetComponentsInChildren<Pixelate>();
+        SpriteRenderer[] _sprites = character.GetComponentsInChildren<SpriteRenderer>();
+
         foreach (Pixelate pixelate in _pixelates)
         {
-            pixelate.OrtographicSize = _cameraStartSize;
+            pixelate.OrtographicSize = cameraStartSize;
         }
 
         foreach (SpriteRenderer sprite in _sprites)
@@ -162,7 +142,52 @@ public class Pitfall : Trigger
             sprite.color = Color.white;
         }
 
-        Player.State.Respawn();
-        _fallTriggered = false;
+        if (character is Player _player)
+        {
+            _player.Respawn();
+        }
+
+        character.Rigidbody.linearVelocity = Vector2.zero;
+    }
+
+    Vector2 CalculateFallVelocity(Vector2 direction, float baseFallSpeed)
+    {
+        Vector2 _velocityScale = direction;
+
+        _velocityScale.x = Mathf.Clamp(
+            _velocityScale.x,
+            -.475f,
+            .475f
+        );
+
+        _velocityScale.y = Mathf.Clamp(
+            Mathf.Sign(_velocityScale.y) *
+            Mathf.Pow(_velocityScale.y, 2),
+            -1f,
+            .1f
+        );
+
+        return _velocityScale * baseFallSpeed;
+    }
+
+    void DrawColliders()
+    {
+        for (int i = 0; i < _colVertices.Count; i++)
+        {
+            Vector2 edgeA = _colVertices[i];
+            Vector2 edgeB = _colVertices[(i + 1) % _colVertices.Count];
+            Debug.DrawLine(edgeA, edgeB);
+        }
+
+        for (int i = 0; i < _insetVertices.Count; i++)
+        {
+            Vector2 edgeA = _insetVertices[i];
+            Vector2 edgeB = _insetVertices[(i + 1) % _insetVertices.Count];
+            Debug.DrawLine(edgeA, edgeB);
+        }
+
+        Vector2 playerPos = Player.Config.SpriteCenter();
+        Vector2 pointA = Utils.ClosestPointOnPolygon(_insetVertices, playerPos);
+        Debug.DrawLine(pointA, playerPos);
     }
 }
