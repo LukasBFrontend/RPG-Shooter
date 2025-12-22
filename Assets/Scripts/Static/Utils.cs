@@ -1,23 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public static class Utils
 {
     public static List<string> CharacterTags { get; } = new() { "Enemy", "Player", };
-    public static List<string> PlayerTags { get; } = new() { "Player", "Player Interact", "Player Trigger" };
+    public static List<string> EnemyTags { get; } = new() { "Enemy" };
+    public static List<string> PlayerTags { get; } = new() { "Player", "Player Interact", "Player Trigger", "Player Body" };
     class Runner : MonoBehaviour { }
     static Runner _runner;
     static Runner GetRunner()
     {
         if (!_runner)
         {
-            var go = new GameObject("VisualsRunner");
-            Object.DontDestroyOnLoad(go);
-            _runner = go.AddComponent<Runner>();
+            var _go = new GameObject("VisualsRunner");
+            Object.DontDestroyOnLoad(_go);
+            _runner = _go.AddComponent<Runner>();
         }
         return _runner;
     }
+    static Dictionary<SpriteRenderer, Coroutine> _spriteRoutines = new();
 
 
     public static bool VisibleToCamera(Transform transform, Camera camera)
@@ -55,6 +59,7 @@ public static class Utils
             _elapsed += _interval;
         }
 
+        _spriteRoutines.Remove(sprite);
         sprite.color = _baseColor;
     }
 
@@ -78,6 +83,7 @@ public static class Utils
             _elapsed += _interval;
         }
 
+        _spriteRoutines.Remove(sprite);
         if (destroyAfter)
         {
             Object.Destroy(sprite.gameObject);
@@ -86,20 +92,24 @@ public static class Utils
 
     public static void FlickerSprite(SpriteRenderer sprite, Color color, float frequency, float duration)
     {
-        GetRunner().StartCoroutine(ExecuteFlicker(sprite, color, frequency, duration));
+        if (_spriteRoutines.ContainsKey(sprite))
+        {
+            return;
+        }
+        Coroutine _coroutine = GetRunner().StartCoroutine(ExecuteFlicker(sprite, color, frequency, duration));
+        _spriteRoutines.Add(sprite, _coroutine);
     }
 
-    /// <summary>
-    /// Fades the sprite color from it's current color to clear
-    /// </summary>
-    /// <param name="sprite">The target sprite</param>
-    /// <param name="frequency">Determines how many color transition steps ther are per second</param>
-    /// <param name="duration">The total time during which the color transition takes place</param>
-    /// <param name="destroyAfter">Whether to destroy the associated GameObject after the transition</param>
-    /// <returns></returns>
     public static void TransitionSpriteColor(SpriteRenderer sprite, Color targetColor, float frequency, float duration, bool destroyAfter = true)
     {
-        GetRunner().StartCoroutine(ExecuteSpriteColorTransition(sprite, targetColor, frequency, duration, destroyAfter));
+        if (_spriteRoutines.ContainsKey(sprite))
+        {
+            GetRunner().StopCoroutine(_spriteRoutines[sprite]);
+            _spriteRoutines.Remove(sprite);
+        }
+
+        Coroutine _coroutine = GetRunner().StartCoroutine(ExecuteSpriteColorTransition(sprite, targetColor, frequency, duration, destroyAfter));
+        _spriteRoutines.Add(sprite, _coroutine);
     }
 
     public static List<Vector2> GetSamplePoints(Collider2D col)
@@ -264,7 +274,19 @@ public static class Utils
         return _bestNormal;
     }
 
+    public static Vector2 PlayerToClosestNode(Transform transform)
+    {
+        Vector2 _playerPos = Player.Config.ColliderCenter();
+        Vector2 _pos = NodeManager.Instance.ClosestNode(transform.position).transform.position;
 
+        return _playerPos - _pos;
+    }
 
+    public static Vector2 PlayerToTransform(Transform transform)
+    {
+        Vector2 _playerPos = Player.Config.ColliderCenter();
+        Vector2 _pos = transform.position;
 
+        return _playerPos - _pos;
+    }
 }

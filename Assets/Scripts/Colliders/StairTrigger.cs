@@ -20,26 +20,26 @@ public class StairTrigger : Trigger
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player") && !other.CompareTag("Enemy"))
+        if (!other.TryGetComponent<Character>(out var character))
         {
             return;
         }
         if (FromDirection(other) == lowerLevel.Direction)
         {
-            SetZLayer(other.CompareTag("Player") ? Player.Config.gameObject : other.gameObject, higherLevel.ZLvl);
+            SetZLayer(other.gameObject, higherLevel.ZLvl);
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player") && !other.CompareTag("Enemy"))
+        if (!other.TryGetComponent<Character>(out var character))
         {
             return;
         }
 
         if (FromDirection(other) == lowerLevel.Direction)
         {
-            SetZLayer(other.CompareTag("Player") ? Player.Config.gameObject : other.gameObject, lowerLevel.ZLvl);
+            SetZLayer(other.gameObject, lowerLevel.ZLvl);
         }
     }
 

@@ -42,14 +42,6 @@ public class InputManager : MonoBehaviour
 
     void PlayerMoveInput(float inputX, float inputY)
     {
-        if (inputX != 0 || inputY != 0)
-        {
-            Player.Movement.IsRecievingInput = true;
-            Player.Movement.Direction = new Vector2(inputX, inputY);
-        }
-        else
-        {
-            Player.Movement.IsRecievingInput = false;
-        }
+        Player.Movement.Input = new Vector2(inputX, inputY);
     }
 }

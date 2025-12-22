@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
-using Image = UnityEngine.UIElements.Image;
 
 [RequireComponent(typeof(UIDocument))]
 public class PlayerUI : MonoBehaviour
@@ -29,10 +27,7 @@ public class PlayerUI : MonoBehaviour
 
     void Update()
     {
-        if (Player.State.IsDamaged())
-        {
-            RenderHearts();
-        }
+        RenderHearts();
         RenderCoins();
     }
 
@@ -49,7 +44,7 @@ public class PlayerUI : MonoBehaviour
     }
     void RenderHearts()
     {
-        int _health = Player.State.Health;
+        int _health = GameState.Player.Health;
 
         for (int i = 1; i <= _heartTextures.Count; i++)
         {

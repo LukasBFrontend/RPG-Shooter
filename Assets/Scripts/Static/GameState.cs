@@ -8,6 +8,19 @@ public enum RunState
 }
 public static class GameState
 {
+    public static Player Player
+    {
+        get
+        {
+            if (!_player)
+            {
+                _player = GameObject.FindAnyObjectByType<Player>();
+            }
+            return _player;
+        }
+    }
+
+    static Player _player;
     public static RunState Status { get; private set; } = RunState.Running;
     public static int Coins { get; set; }
 

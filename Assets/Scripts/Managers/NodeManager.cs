@@ -27,12 +27,19 @@ public class NodeManager : Singleton<NodeManager>
 
     public Node ClosestNode(Vector2 pos)
     {
+        if (_nodeGrid.Count == 0)
+        {
+
+        }
+        int _cols = _nodeGrid.Count;
+        int _rows = _nodeGrid.First().Count;
+
         Node _closestCurrent = null;
         float _closestDistance = float.MaxValue;
 
-        for (int x = 0; x < nodeMapInfo.Columns; x++)
+        for (int x = 0; x < _cols; x++)
         {
-            for (int y = 0; y < nodeMapInfo.Rows; y++)
+            for (int y = 0; y < _rows; y++)
             {
                 Node _node = _nodeGrid[x][y];
 

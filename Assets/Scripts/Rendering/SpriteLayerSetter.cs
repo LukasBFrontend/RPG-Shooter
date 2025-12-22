@@ -27,15 +27,15 @@ public class SpriteLayerSetter : MonoBehaviour
         switch (trackedLayer)
         {
             case 16:
-                spriteRenderer.sortingLayerName = "BottomWall";
+                spriteRenderer.sortingLayerName = "Character A";
                 SetSelfLight(0);
                 break;
             case 17:
-                spriteRenderer.sortingLayerName = "MiddleWall";
+                spriteRenderer.sortingLayerName = "Character B";
                 SetSelfLight(1);
                 break;
             case 18:
-                spriteRenderer.sortingLayerName = "UpperWall";
+                spriteRenderer.sortingLayerName = "Character C";
                 SetSelfLight(2);
                 break;
             default:

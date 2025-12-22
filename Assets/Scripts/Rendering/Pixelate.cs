@@ -76,7 +76,7 @@ public class Pixelate : MonoBehaviour
 
         if (transformSettings.AutoRotationEnabled)
         {
-            Rotation = Quaternion.Euler(0, 0, -2 * transformSettings.RefTransform.rotation.z);
+            Rotation = Quaternion.Euler(0, 0, transformSettings.RefTransform.rotation.z);
         }
     }
 
