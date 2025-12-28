@@ -5,35 +5,44 @@ using UnityEngine;
 public class Actions : Singleton<Actions>
 {
     [SerializeField] Collider2D interactCollider;
-    [SerializeField] Weapon[] weapons;
-    List<IInventoryItem> _inventory;
     List<IInteractable> _interactablesInRange = new();
-    List<GameObject> _inventoryObjects;
     bool _interactionQued;
-    int _heldIndex = 0;
-    public void HeldItemAction()
+    Player _player;
+
+    void Start()
     {
-        HeldItem().Use();
+        _player = GetComponent<Player>();
+    }
+    void Update()
+    {
+        float _rotation = Mathf.Atan2(_player.FaceDir.y, _player.FaceDir.x) * Mathf.Rad2Deg;
+        interactCollider.transform.rotation = Quaternion.Euler(0, 0, _rotation);
+
+        if (_interactablesInRange.Count > 0)
+        {
+            MakeInteraction(_interactablesInRange[0]);
+        }
+        _interactionQued = false;
     }
 
-    public IInventoryItem HeldItem()
+    public void HeldItemAction()
     {
-        return _inventory[_heldIndex];
+        Player.Inventory.HeldItem().Use();
+    }
+
+    public void HeldItemFocus()
+    {
+        Player.Inventory.HeldItem().Focus();
+    }
+
+    public void SetSelectedItemSlot(int index)
+    {
+        Player.Inventory.SetSelectedItemSlot(index);
     }
 
     public void Interact()
     {
         _interactionQued = true;
-    }
-
-    public void SetSelectedItemSlot(int index)
-    {
-        if (index < 0 || index >= _inventory.Count)
-        {
-            return;
-        }
-
-        _heldIndex = index;
     }
 
     void MakeInteraction(IInteractable interactable)
@@ -63,51 +72,5 @@ public class Actions : Singleton<Actions>
             return;
         }
         _interactablesInRange.Remove(interactable);
-    }
-    void RenderHeldItem()
-    {
-        for (int i = 0; i < _inventoryObjects.Count; i++)
-        {
-            _inventoryObjects[i].SetActive(i == _heldIndex);
-        }
-    }
-
-    void CacheInventory()
-    {
-        if (_inventory == null || _inventory.Count <= 0)
-        {
-            _inventory = new();
-            _inventoryObjects = new();
-            foreach (Weapon weapon in weapons)
-            {
-                if (weapon.TryGetComponent<IInventoryItem>(out var item))
-                {
-                    _inventory.Add(item);
-                    _inventoryObjects.Add(weapon.gameObject);
-                }
-                else
-                {
-                    Debug.LogError("No IInventoryItem found on GameObject " + weapon.name);
-                }
-            }
-        }
-    }
-
-    void Start()
-    {
-        CacheInventory();
-    }
-
-    void Update()
-    {
-        RenderHeldItem();
-
-        interactCollider.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(Player.Movement.Input.y, Player.Movement.Input.x) * Mathf.Rad2Deg);
-
-        if (_interactablesInRange.Count > 0)
-        {
-            MakeInteraction(_interactablesInRange[0]);
-        }
-        _interactionQued = false;
     }
 }

@@ -35,6 +35,10 @@ public class Movement : MonoBehaviour
         {
             _input.Normalize();
         }
+        if (_input.sqrMagnitude != 0)
+        {
+            _character.SetFacing(_input);
+        }
         _velocity = _input * moveSpeed * MovespeedMultiplier;
 
         _character.Rigidbody.linearVelocity = _velocity;

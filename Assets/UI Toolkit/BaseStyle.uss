@@ -167,10 +167,17 @@
     border-bottom-left-radius: 4px;
     margin-right: 0;
     margin-left: 16px;
+    opacity: 0.4;
 }
 
 .item-image {
     flex-grow: 1;
     background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=5923138177525885446&guid=003e05a8364206145a43d54890de9b43&type=3#Remove@2x");
     background-size: contain;
+}
+
+.item-slot-selected {
+    opacity: 1;
+    width: 64px;
+    height: 64px;
 }

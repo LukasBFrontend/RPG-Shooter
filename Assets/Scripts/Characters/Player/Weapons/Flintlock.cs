@@ -6,28 +6,44 @@ public class Flintlock : Weapon, IInventoryItem
 {
     [SerializeField] Attack attack;
     [Header("Inventory Item Info")]
+    [SerializeField] Sprite sprite;
     [Range(0, 1)]
     [SerializeField] int count = 1;
-    public int Count { get; set; }
-    public string Name { get; } = "Flintlock";
-
-    void Start()
+    public string Name
     {
-        Cache();
+        get => gameObject.name;
     }
-
-    void Cache()
+    public int Count
     {
-        Count = count;
+        get => count;
+        set => count = value;
     }
-
-    void Update()
+    public GameObject GameObject
     {
-        SetAimAngle();
+        get => gameObject;
+    }
+    public Sprite UI_Sprite
+    {
+        get => sprite;
+    }
+    bool _isFocusing;
+
+
+    void LateUpdate()
+    {
+        if (!_isFocusing)
+        {
+            AimWithMove();
+        }
         SetWeaponRotation();
+        _isFocusing = false;
     }
 
-
+    public void Focus()
+    {
+        AimWithMouse();
+        _isFocusing = true;
+    }
 
     public void Use()
     {

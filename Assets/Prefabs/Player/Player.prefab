@@ -116,6 +116,7 @@ MonoBehaviour:
     cooldown: 0.5
   fireVFX: {fileID: 163807421182032349, guid: f4443d992ccae014cb2ed55357049f4a, type: 3}
   fireArea: {fileID: 6578498940208647449}
+  sprite: {fileID: 21300000, guid: 73b80e102ecca6c4b936a5e146c6b4dd, type: 3}
   count: 1
 --- !u!114 &6600929148920137533
 MonoBehaviour:
@@ -266,6 +267,7 @@ MonoBehaviour:
     damage: 2
     knockbackForce: 0
     cooldown: 0.5
+  sprite: {fileID: 21300000, guid: f563da00ff652e24e8a0a961d063f32e, type: 3}
   count: 1
 --- !u!114 &4902946085122026504
 MonoBehaviour:
@@ -355,7 +357,7 @@ MonoBehaviour:
   m_Intensity: 0.1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000ffb4e2c4e53755dd09ff837d5915b7ce
+  m_ApplyToSortingLayers: 00000000ffb4e2c4e53755dd09ff837db92566909b440c5ae13e3d095915b7ce
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -700,6 +702,7 @@ GameObject:
   - component: {fileID: 6299526467477832276}
   - component: {fileID: 8248167513655738421}
   - component: {fileID: 6664886944606008142}
+  - component: {fileID: 1091288649982983849}
   m_Layer: 16
   m_Name: Render
   m_TagString: Untagged
@@ -888,6 +891,20 @@ MonoBehaviour:
   objectToSync: {fileID: 9167609637897018352}
   syncObjectLayer: 0
   zLights: []
+--- !u!114 &1091288649982983849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8390651231939526973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5470dd92ee6980f4daebaf670f099201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IncludeInPerLayerSorting: 1
+  SpriteRenderer: {fileID: 3411375398216578535}
 --- !u!1 &9167609637897018352
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,6 +921,7 @@ GameObject:
   - component: {fileID: 8221779649133618376}
   - component: {fileID: 7438468600784246310}
   - component: {fileID: 1116474325934901914}
+  - component: {fileID: 2751773168325970177}
   m_Layer: 16
   m_Name: Player
   m_TagString: Player
@@ -1056,9 +1074,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactCollider: {fileID: 3046752204005943712}
-  weapons:
-  - {fileID: 5241547954127551062}
-  - {fileID: 8597877650993835453}
 --- !u!114 &7438468600784246310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1085,3 +1100,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   animator: {fileID: 5260403279140747566}
+--- !u!114 &2751773168325970177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9167609637897018352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86676efa3cb23a459be9dc0ff4ddbeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 5241547954127551062}
+  - {fileID: 8597877650993835453}

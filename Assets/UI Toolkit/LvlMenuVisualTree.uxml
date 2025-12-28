@@ -6,13 +6,13 @@
             <ui:VisualElement name="Heart" class="heart" style="flex-grow: 1;" />
             <ui:VisualElement name="Heart" class="heart" style="flex-grow: 1;" />
         </ui:VisualElement>
-        <ui:VisualElement name="Right" class="hidden" style="flex-grow: 1; flex-direction: row; justify-content: flex-end;">
-            <ui:VisualElement name="Coins" style="flex-grow: initial; flex-direction: row;">
+        <ui:VisualElement name="Right" style="flex-grow: 1; flex-direction: row; justify-content: flex-end;">
+            <ui:VisualElement name="Coins" class="hidden" style="flex-grow: initial; flex-direction: row;">
                 <ui:VisualElement name="CoinImage" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/coin_large-1.png.png?fileID=21300000&amp;guid=6a06c9591fc70ee41be333e029d23558&amp;type=3#coin_large-1.png&quot;); height: 44px; width: 44px;" />
                 <ui:Label text="0" name="CoinText" style="color: rgb(255, 255, 255); -unity-text-align: middle-center; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; font-size: 30px;" />
             </ui:VisualElement>
             <ui:VisualElement name="InventoryContainer" style="flex-grow: 0; height: initial; flex-direction: row; width: auto;">
-                <ui:VisualElement name="ItemSlot" class="item-slot">
+                <ui:VisualElement name="ItemSlot" class="item-slot item-slot-selected">
                     <ui:VisualElement name="ItemImage" class="item-image" />
                 </ui:VisualElement>
                 <ui:VisualElement name="ItemSlot" class="item-slot">
