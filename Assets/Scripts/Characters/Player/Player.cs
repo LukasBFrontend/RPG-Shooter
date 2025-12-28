@@ -6,6 +6,7 @@ public class Player : Character
     public static Config Config { get; private set; }
     public static Movement Movement { get; private set; }
     public static Actions Actions { get; private set; }
+    public static Inventory Inventory { get; private set; }
 
     public static Vector2 LastValidRespawn;
 
@@ -18,8 +19,9 @@ public class Player : Character
     void Cache()
     {
         Config = Config.Instance;
-        Actions = Actions.Instance;
         Movement = GetComponent<Movement>();
+        Actions = Actions.Instance;
+        Inventory = Inventory.Instance;
 
         CollisionIgnoreTags = Utils.PlayerTags;
         OnDeath = () =>

@@ -24,6 +24,11 @@ public class InputManager : MonoBehaviour
             Actions.Instance.HeldItemAction();
         }
 
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            Actions.Instance.HeldItemFocus();
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Actions.Instance.SetSelectedItemSlot(0);

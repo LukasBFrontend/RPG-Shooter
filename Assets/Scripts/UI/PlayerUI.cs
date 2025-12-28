@@ -5,15 +5,18 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class PlayerUI : MonoBehaviour
 {
-    [Header("Hearts")]
+    [Header("Item Sprites")]
+    [SerializeField] Sprite flintlock;
+    [SerializeField] Sprite blunderbuss;
+    [Header("Heart Sprites")]
     [SerializeField] Sprite heartFull;
     [SerializeField] Sprite heartThreeQuarters;
     [SerializeField] Sprite heartHalf;
     [SerializeField] Sprite heartOneQuarter;
     [SerializeField] Sprite heartEmpty;
-    [SerializeField] UnityEngine.UI.Image[] heartImages;
     UIDocument _document;
     List<VisualElement> _heartTextures;
+    List<VisualElement> _itemSlots;
     List<VisualElement> _itemImages;
     Label _coinsText;
     const int HEALTH_PER_HEART = 4;
@@ -22,12 +25,14 @@ public class PlayerUI : MonoBehaviour
     {
         Cache();
         RenderHearts();
+        RenderItems();
         RenderCoins();
     }
 
     void Update()
     {
         RenderHearts();
+        RenderItems();
         RenderCoins();
     }
 
@@ -35,12 +40,37 @@ public class PlayerUI : MonoBehaviour
     {
         _document = GetComponent<UIDocument>();
         _heartTextures = _document.rootVisualElement.Query<VisualElement>(className: "heart").ToList();
+        _itemSlots = _document.rootVisualElement.Query<VisualElement>(className: "item-slot").ToList();
         _itemImages = _document.rootVisualElement.Query<VisualElement>(className: "item-image").ToList();
         _coinsText = _document.rootVisualElement.Query<Label>(name: "CoinText");
+
     }
     void RenderCoins()
     {
         _coinsText.text = GameState.Coins.ToString();
+    }
+
+    void RenderItems()
+    {
+        List<IInventoryItem> _inventoryItems = Player.Inventory.Items;
+        int _heldItemIndex = Player.Inventory.HeldIndex;
+        for (int i = 0; i < _inventoryItems.Count; i++)
+        {
+            Sprite _itemSprite = _inventoryItems[i].UI_Sprite;
+            _itemImages[i].style.backgroundImage = Background.FromSprite(_itemSprite);
+
+            VisualElement _itemSlot = _itemSlots[i];
+            string _selectedClass = "item-slot-selected";
+
+            if (i == _heldItemIndex)
+            {
+                _itemSlot.AddToClassList(_selectedClass);
+            }
+            else
+            {
+                _itemSlot.RemoveFromClassList(_selectedClass);
+            }
+        }
     }
     void RenderHearts()
     {
