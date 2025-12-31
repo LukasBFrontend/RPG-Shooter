@@ -1,8 +1,10 @@
 using UnityEngine;
 
-interface IInteractable
+public interface IInteractable
 {
     void Interact();
+    void Focus();
+    void UnFocus();
 }
 
 public interface IInventoryItem
