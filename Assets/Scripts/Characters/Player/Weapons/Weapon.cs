@@ -19,11 +19,8 @@ public class Weapon : MonoBehaviour
     }
     protected void AimWithMouse()
     {
-        Vector3 _mouseScreen = Input.mousePosition;
-        Vector2 _mouseWorld = Camera.main.ScreenToWorldPoint(_mouseScreen);
-        Vector2 _wielderToCamera = Wielder.transform.position - Camera.main.transform.position;
-
-        Vector2 _mouseToPlayer = _mouseWorld - _wielderToCamera;
+        Vector2 _mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 _mouseToPlayer = _mouseWorld - Wielder.SpriteCenter();
 
         float _targetAngle = Mathf.Atan2(_mouseToPlayer.y, _mouseToPlayer.x) * Mathf.Rad2Deg;
 

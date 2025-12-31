@@ -5,9 +5,10 @@ using UnityEngine;
 public class Actions : Singleton<Actions>
 {
     [SerializeField] Collider2D interactCollider;
-    List<IInteractable> _interactablesInRange = new();
+    List<IInteractable> _interactablesCurrent = new();
     bool _interactionQued;
     Player _player;
+    const float INTERACT_RANGE = 1.25f;
 
     void Start()
     {
@@ -18,11 +19,13 @@ public class Actions : Singleton<Actions>
         float _rotation = Mathf.Atan2(_player.FaceDir.y, _player.FaceDir.x) * Mathf.Rad2Deg;
         interactCollider.transform.rotation = Quaternion.Euler(0, 0, _rotation);
 
-        if (_interactablesInRange.Count > 0)
+        if (_interactablesCurrent.Count > 0)
         {
-            MakeInteraction(_interactablesInRange[0]);
+            MakeInteraction(_interactablesCurrent[0]);
         }
         _interactionQued = false;
+
+        FocusInteractables();
     }
 
     public void HeldItemAction()
@@ -45,6 +48,48 @@ public class Actions : Singleton<Actions>
         _interactionQued = true;
     }
 
+    void FocusInteractables()
+    {
+        Vector2 _mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        List<IInteractable> _interactablesNew = InteracteablesAtPoint(_mouseWorld);
+
+        foreach (IInteractable interactable in _interactablesCurrent)
+        {
+            if (_interactablesNew.Contains(interactable))
+            {
+                continue;
+            }
+
+            interactable.UnFocus();
+        }
+
+        _interactablesCurrent.Clear();
+        _interactablesCurrent.AddRange(_interactablesNew);
+    }
+
+    List<IInteractable> InteracteablesAtPoint(Vector2 position)
+    {
+        const float RADIUS = .5f;
+        Collider2D[] _results = new Collider2D[5];
+
+        Physics2D.OverlapCircle(position, RADIUS, new ContactFilter2D().NoFilter(), _results);
+        List<IInteractable> _interactables = new();
+
+        foreach (Collider2D collider in _results)
+        {
+            if (!collider || (_player.SpriteCenter() - (Vector2)collider.transform.position).magnitude > INTERACT_RANGE || !collider.TryGetComponent<IInteractable>(out var interactable))
+            {
+                continue;
+            }
+
+            interactable.Focus();
+            _interactables.Add(interactable);
+        }
+
+        return _interactables;
+    }
+
     void MakeInteraction(IInteractable interactable)
     {
         if (!_interactionQued)
@@ -54,23 +99,5 @@ public class Actions : Singleton<Actions>
 
         interactable.Interact();
         _interactionQued = false;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!other.gameObject.TryGetComponent<IInteractable>(out var interactable))
-        {
-            return;
-        }
-        _interactablesInRange.Add(interactable);
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (!other.gameObject.TryGetComponent<IInteractable>(out var interactable))
-        {
-            return;
-        }
-        _interactablesInRange.Remove(interactable);
     }
 }

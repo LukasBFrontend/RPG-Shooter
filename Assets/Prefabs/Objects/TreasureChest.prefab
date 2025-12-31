@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 5030769750309938709}
   - component: {fileID: 8549186456753305894}
   - component: {fileID: 8181478928964361721}
-  m_Layer: 17
+  m_Layer: 16
   m_Name: TreasureChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91148dbabc47744bbb9a924dd707004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 2923617304871261103}
   animator: {fileID: 3044535539477845581}
   col: {fileID: 5030769750309938709}
 --- !u!114 &8181478928964361721
@@ -283,8 +284,8 @@ MonoBehaviour:
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
-      m_Center: {x: 0, y: -0.15512085, z: 0}
-      m_Extent: {x: 0.5, y: 0.3448944, z: 0}
+      m_Center: {x: 0, y: -0.15621948, z: 0}
+      m_Extent: {x: 0.5, y: 0.34368896, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0
     m_FlipX: 0
