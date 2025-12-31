@@ -27,16 +27,18 @@ public class QuadLayerSetter : MonoBehaviour
     }
     void Apply()
     {
-        if (TryGetComponent<MeshRenderer>(out var _renderer))
+        if (RendererToTrack == null || !TryGetComponent<MeshRenderer>(out var _renderer))
         {
-            _renderer.sortingLayerID = SortingLayerID;
-            _renderer.sortingOrder = SortingOrder;
+            return;
         }
+
+        _renderer.sortingLayerID = SortingLayerID;
+        _renderer.sortingOrder = SortingOrder;
     }
 
     public void Sync()
     {
-        if (SortingLayerID == RendererToTrack.sortingLayerID && SortingOrder == RendererToTrack.sortingOrder)
+        if (RendererToTrack == null || SortingLayerID == RendererToTrack.sortingLayerID && SortingOrder == RendererToTrack.sortingOrder)
         {
             return;
         }
