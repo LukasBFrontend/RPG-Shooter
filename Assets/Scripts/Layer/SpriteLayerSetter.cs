@@ -1,11 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class SpriteLayerSetter : MonoBehaviour
 {
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] GameObject objectToSync;
     [Header("Optional")]
+    [SerializeField] bool assignSortLayer = true;
     [SerializeField] bool syncObjectLayer = true;
     [SerializeField] GameObject[] zLights;
     int trackedLayer = 0;
@@ -24,22 +24,25 @@ public class SpriteLayerSetter : MonoBehaviour
     {
         trackedLayer = objectToSync.layer;
 
-        switch (trackedLayer)
+        if (assignSortLayer)
         {
-            case 16:
-                spriteRenderer.sortingLayerName = "Character A";
-                SetSelfLight(0);
-                break;
-            case 17:
-                spriteRenderer.sortingLayerName = "Character B";
-                SetSelfLight(1);
-                break;
-            case 18:
-                spriteRenderer.sortingLayerName = "Character C";
-                SetSelfLight(2);
-                break;
-            default:
-                return;
+            switch (trackedLayer)
+            {
+                case 16:
+                    spriteRenderer.sortingLayerName = "Character A";
+                    SetSelfLight(0);
+                    break;
+                case 17:
+                    spriteRenderer.sortingLayerName = "Character B";
+                    SetSelfLight(1);
+                    break;
+                case 18:
+                    spriteRenderer.sortingLayerName = "Character C";
+                    SetSelfLight(2);
+                    break;
+                default:
+                    return;
+            }
         }
 
         if (syncObjectLayer)
