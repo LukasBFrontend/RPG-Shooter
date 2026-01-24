@@ -22,6 +22,7 @@ public static class GameState
 
     static Player _player;
     public static RunState Status { get; private set; } = RunState.Running;
+    public static bool InputDisabled { get; set; } = false;
     public static int Coins { get; set; }
 
     public static void AddCoins(int coins)
