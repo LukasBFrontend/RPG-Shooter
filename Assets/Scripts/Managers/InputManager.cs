@@ -4,6 +4,11 @@ public class InputManager : MonoBehaviour
 {
     void Update()
     {
+        if (GameState.InputDisabled)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             MenuEvents.ToggleLvlMenu();

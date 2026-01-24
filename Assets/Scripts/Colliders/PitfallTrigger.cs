@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pitfall : Trigger
+public class PitfallTrigger : DirectionalTrigger
 {
     [SerializeField] CompositeCollider2D col;
     [SerializeField] GameObject skullPrefab;

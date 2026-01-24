@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class TransitionCollider : Trigger
+public class CameraTransitionTrigger : DirectionalTrigger
 {
     [Serializable]
     struct TransitionConnection
@@ -12,6 +12,7 @@ public class TransitionCollider : Trigger
 
     [SerializeField] TransitionConnection connectA;
     [SerializeField] TransitionConnection connectB;
+    protected Direction _lastDirection = Direction.None;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -20,10 +21,10 @@ public class TransitionCollider : Trigger
             return;
         }
 
-        Direction _fromDirection = FromDirection(other);
+        Direction _fromDirection = ApproachDirection(other);
         _lastDirection = _fromDirection;
 
-        Room targetRoom = TargetRoom(OppositeDirection(_fromDirection));
+        Room targetRoom = TargetRoom(_fromDirection.Opposite());
         RoomManager.ActiveRoom = targetRoom;
         CameraMove.Instance.MoveToRoom(targetRoom);
     }
@@ -35,7 +36,7 @@ public class TransitionCollider : Trigger
             return;
         }
 
-        Direction fromDirection = FromDirection(other);
+        Direction fromDirection = ApproachDirection(other);
         if (fromDirection != _lastDirection)
         {
             _lastDirection = Direction.None;

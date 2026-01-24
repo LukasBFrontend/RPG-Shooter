@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(State))]
+[RequireComponent(typeof(Movement))]
 public class Character : MonoBehaviour
 {
     [System.Serializable]
@@ -33,6 +34,7 @@ public class Character : MonoBehaviour
         get { return characterFields.Collider; }
     }
     public State State { get { return GetComponent<State>(); } }
+    public Movement Movement { get { return GetComponent<Movement>(); } }
     public Vector2 FaceDir { get; private set; } = Vector2.down;
     public List<string> CollisionIgnoreTags { get; set; }
     public Action OnDeath { get; set; }

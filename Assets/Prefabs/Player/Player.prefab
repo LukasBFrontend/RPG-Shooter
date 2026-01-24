@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4787341220817011754}
   objectToSync: {fileID: 9167609637897018352}
+  assignSortLayer: 1
   syncObjectLayer: 0
   zLights: []
 --- !u!1 &860877003832624409
@@ -303,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 2176175051986176700}
   objectToSync: {fileID: 9167609637897018352}
+  assignSortLayer: 1
   syncObjectLayer: 0
   zLights: []
 --- !u!1 &4680552176083035226
@@ -889,6 +891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3411375398216578535}
   objectToSync: {fileID: 9167609637897018352}
+  assignSortLayer: 1
   syncObjectLayer: 0
   zLights: []
 --- !u!114 &1091288649982983849

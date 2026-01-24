@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StairTrigger : Trigger
+public class StairTrigger : DirectionalTrigger
 {
     [System.Serializable]
     struct StairLevel
@@ -24,7 +24,7 @@ public class StairTrigger : Trigger
         {
             return;
         }
-        if (FromDirection(other) == lowerLevel.Direction)
+        if (ApproachDirection(other) == lowerLevel.Direction)
         {
             SetZLayer(other.gameObject, higherLevel.ZLvl);
         }
@@ -37,7 +37,7 @@ public class StairTrigger : Trigger
             return;
         }
 
-        if (FromDirection(other) == lowerLevel.Direction)
+        if (ApproachDirection(other) == lowerLevel.Direction)
         {
             SetZLayer(other.gameObject, lowerLevel.ZLvl);
         }
