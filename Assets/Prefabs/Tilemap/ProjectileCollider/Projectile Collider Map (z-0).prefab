@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1505076766659740825, guid: 1103602b1d2729d449a9c166feebe6d6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4678773681792425423, guid: 1103602b1d2729d449a9c166feebe6d6, type: 3}
       propertyPath: m_Name
       value: Projectile Collider Map (z-0)

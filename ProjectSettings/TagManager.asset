@@ -66,8 +66,14 @@ TagManager:
   - name: Character C
     uniqueID: 155008737
     locked: 0
-  - name: Last
+  - name: Overlay A
     uniqueID: 3468105049
+    locked: 0
+  - name: Overlay B
+    uniqueID: 2521705683
+    locked: 0
+  - name: Overlay C
+    uniqueID: 3873284789
     locked: 0
   m_RenderingLayers:
   - Default

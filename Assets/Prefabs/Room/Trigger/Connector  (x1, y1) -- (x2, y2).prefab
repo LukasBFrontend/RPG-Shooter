@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2fa8dbd9749e8e4cbc590376d343366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collider: {fileID: 2218026983636171640}
   axis: 0
   connectA:
     Origin: 0
