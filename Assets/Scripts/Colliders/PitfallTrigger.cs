@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PitfallTrigger : DirectionalTrigger
+public class PitfallTrigger : MonoBehaviour
 {
     [SerializeField] CompositeCollider2D col;
     [SerializeField] GameObject skullPrefab;
@@ -36,7 +36,14 @@ public class PitfallTrigger : DirectionalTrigger
 
         if (_character is Player)
         {
-            Player.LastValidRespawn = NodeManager.Instance.ClosestNode((Vector2)other.transform.position).transform.position;
+            Node _closestNode = NodeManager.Instance.ClosestNode((Vector2)other.transform.position);
+
+            if (_closestNode == null)
+            {
+                Debug.LogError($"{typeof(NodeManager).Name}.Instance.ClosestNode() returned null. Respawn defaulted to (0, 0)");
+                Player.LastValidRespawn = Vector2.zero;
+            }
+            Player.LastValidRespawn = _closestNode.transform.position;
         }
 
         if (!_character || _fallTriggered)

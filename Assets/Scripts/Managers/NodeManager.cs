@@ -29,8 +29,10 @@ public class NodeManager : Singleton<NodeManager>
     {
         if (_nodeGrid.Count == 0)
         {
-
+            Debug.LogError($"{typeof(NodeManager).Name}.{nameof(_nodeGrid)} is not populated. Returning null");
+            return null;
         }
+
         int _cols = _nodeGrid.Count;
         int _rows = _nodeGrid.First().Count;
 
@@ -57,6 +59,7 @@ public class NodeManager : Singleton<NodeManager>
                 }
             }
         }
+
         return _closestCurrent;
     }
 

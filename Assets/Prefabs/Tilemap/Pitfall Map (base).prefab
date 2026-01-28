@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4686861024867286556}
   - component: {fileID: 3372508010222596977}
   - component: {fileID: 483809360100012716}
-  - component: {fileID: 1102418891432429363}
   - component: {fileID: 6015938251342460754}
   - component: {fileID: 8937961599821258496}
   m_Layer: 16
@@ -243,19 +242,6 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!114 &1102418891432429363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7617672627603344695}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2428f43fc440f7439605df36e1bf844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runtimeColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!50 &6015938251342460754
 Rigidbody2D:
   serializedVersion: 5
@@ -295,6 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c6943c145c4dc4cb89fb1c317fe0af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axis: 0
   col: {fileID: 3372508010222596977}
   skullPrefab: {fileID: 6732895027285408905, guid: bbde8dbb211ebe34ba46ed517bc4065b, type: 3}
+  DrawDebugLines: 0
