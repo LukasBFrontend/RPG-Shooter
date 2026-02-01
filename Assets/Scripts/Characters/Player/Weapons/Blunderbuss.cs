@@ -57,7 +57,6 @@ public class Blunderbuss : Weapon, IInventoryItem
         }
         Instantiate(fireVFX, (Vector2)gameObject.transform.position + GetAimDirection() * 1, GetAimAngle(), null);
         attack.Attempt(Wielder, fireArea.TargetsInRange.ToArray());
-
         Recoil();
     }
 }

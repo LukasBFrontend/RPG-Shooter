@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PitfallTrigger : MonoBehaviour
@@ -44,14 +45,48 @@ public class PitfallTrigger : MonoBehaviour
                 Player.LastValidRespawn = Vector2.zero;
             }
             Player.LastValidRespawn = _closestNode.transform.position;
+
         }
 
-        if (!_character || _fallTriggered)
+        if (!_character || _fallTriggered || _character.State.Status == CharacterStatus.Recoil)
         {
             return;
         }
 
-        InitiateFall(_character);
+        InitiateFall(_character, true);
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        Character _character = other.GetComponent<Character>();
+
+        if (!_character || _fallTriggered || _character.State.Status == CharacterStatus.Recoil)
+        {
+            return;
+        }
+
+        Vector2 _closest = col.ClosestPoint(_character.SpriteCenter());
+        float _distance = Vector2.Distance(_closest, _character.SpriteCenter());
+
+        InitiateFall(_character, !IsFullyInside(_character.SpriteRenderer));
+    }
+
+    bool IsFullyInside(SpriteRenderer spriteRenderer)
+    {
+        Physics2D.queriesHitTriggers = true;
+        foreach (Vector2 vertice in spriteRenderer.sprite.vertices)
+        {
+            Vector2 _worldPoint = vertice / 2 + (Vector2)spriteRenderer.bounds.center;
+            Collider2D[] _hits = Physics2D.OverlapPointAll(_worldPoint);
+
+            if (!_hits.Contains(col))
+            {
+                return false;
+            }
+        }
+        Physics2D.queriesHitTriggers = false;
+
+        return true;
     }
 
     IEnumerator FallSequence(Character character)
@@ -119,17 +154,21 @@ public class PitfallTrigger : MonoBehaviour
         _fallTriggered = false;
     }
 
-    void InitiateFall(Character character)
+    void InitiateFall(Character character, bool directional)
     {
         _fallTriggered = true;
 
         character.State.SetStatus(CharacterStatus.Falling, FALL_DURATION + .5f);
+
         Vector2 _target = Utils.ClosestPointOnPolygon(_insetVertices, character.SpriteCenter());
         Vector2 _dir = (_target - character.SpriteCenter()).normalized;
 
         Vector2 _fallVelocity = CalculateFallVelocity(_dir, FALL_SPEED);
 
-        character.Rigidbody.linearVelocity = _fallVelocity;
+        character.Rigidbody.linearVelocity = directional
+            ? _fallVelocity
+            : Vector2.zero
+        ;
 
         StartCoroutine(FallSequence(character));
     }
