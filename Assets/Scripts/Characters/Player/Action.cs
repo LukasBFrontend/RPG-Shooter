@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,10 @@ public class Actions : Singleton<Actions>
 
     public void HeldItemAction()
     {
+        if (_player.State.Status == CharacterStatus.Falling)
+        {
+            return;
+        }
         Player.Inventory.HeldItem().Use();
     }
 

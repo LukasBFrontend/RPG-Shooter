@@ -5,7 +5,7 @@ public enum CharacterStatus
     None,
     Recoil,
     Knockback,
-    Falling
+    Falling,
 }
 
 [RequireComponent(typeof(Character))]

@@ -9,7 +9,6 @@ public class Player : Character
     public static Inventory Inventory { get; private set; }
 
     public static Vector2 LastValidRespawn;
-
     void Start()
     {
         Cache();
