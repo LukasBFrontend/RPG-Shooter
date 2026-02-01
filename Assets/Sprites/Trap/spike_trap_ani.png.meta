@@ -1,0 +1,884 @@
+fileFormatVersion: 2
+guid: 690d9f67347574042881ed6bb3c62006
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6786398366308141015
+    second: spike_trap_ani_0
+  - first:
+      213: -8699129712523410793
+    second: spike_trap_ani_1
+  - first:
+      213: 2264166763518300219
+    second: spike_trap_ani_2
+  - first:
+      213: -1519032214136067915
+    second: spike_trap_ani_3
+  - first:
+      213: -6105200592924620903
+    second: spike_trap_ani_4
+  - first:
+      213: -588628458651422537
+    second: spike_trap_ani_5
+  - first:
+      213: -5770144629437124170
+    second: spike_trap_ani_6
+  - first:
+      213: 4507312224911118166
+    second: spike_trap_ani_7
+  - first:
+      213: -4245662462506092496
+    second: spike_trap_ani_8
+  - first:
+      213: -5630395779933407926
+    second: spike_trap_ani_9
+  - first:
+      213: -1483883750362720328
+    second: spike_trap_ani_10
+  - first:
+      213: 7002110043091511564
+    second: spike_trap_ani_11
+  - first:
+      213: 1199316958332304402
+    second: spike_trap_ani_12
+  - first:
+      213: -7283576631034175841
+    second: spike_trap_ani_13
+  - first:
+      213: -7332014549193314587
+    second: spike_trap_ani_14
+  - first:
+      213: -4220117488378186844
+    second: spike_trap_ani_15
+  - first:
+      213: -3310556468834143278
+    second: spike_trap_ani_16
+  - first:
+      213: 3530283569313824465
+    second: spike_trap_ani_17
+  - first:
+      213: 2544611182425757533
+    second: spike_trap_ani_18
+  - first:
+      213: 6612516518810972663
+    second: spike_trap_ani_19
+  - first:
+      213: -8326027890199381905
+    second: spike_trap_ani_20
+  - first:
+      213: -7559403487788783379
+    second: spike_trap_ani_21
+  - first:
+      213: -4270151415484792825
+    second: spike_trap_ani_22
+  - first:
+      213: 5847887339483662092
+    second: spike_trap_ani_23
+  - first:
+      213: 5361489788333114018
+    second: spike_trap_ani_24
+  - first:
+      213: -6001870664064412517
+    second: spike_trap_ani_25
+  - first:
+      213: 6806241273979943661
+    second: spike_trap_ani_26
+  - first:
+      213: -1587024245511024664
+    second: spike_trap_ani_27
+  - first:
+      213: -5515501980115380523
+    second: spike_trap_ani_28
+  - first:
+      213: 7480241996986089076
+    second: spike_trap_ani_29
+  - first:
+      213: 7185306406155775135
+    second: spike_trap_ani_30
+  - first:
+      213: 8637171613024101594
+    second: spike_trap_ani_31
+  - first:
+      213: -1871981545143071278
+    second: spike_trap_ani_32
+  - first:
+      213: 8219884839565236006
+    second: spike_trap_ani_33
+  - first:
+      213: 1148582919487670990
+    second: spike_trap_ani_34
+  - first:
+      213: -3312142255283888223
+    second: spike_trap_ani_35
+  - first:
+      213: -8125762870422618756
+    second: spike_trap_ani_36
+  - first:
+      213: -1638672041095387641
+    second: spike_trap_ani_37
+  - first:
+      213: 3449420017787843524
+    second: spike_trap_ani_38
+  - first:
+      213: 8458490568266609555
+    second: spike_trap_ani_39
+  - first:
+      213: 9023376227784766386
+    second: spike_trap_ani_40
+  - first:
+      213: 302866015998231136
+    second: spike_trap_ani_41
+  - first:
+      213: -7084365542209732122
+    second: spike_trap_ani_42
+  - first:
+      213: 254413013367507405
+    second: spike_trap_ani_43
+  - first:
+      213: -7583184319926402699
+    second: spike_trap_ani_44
+  - first:
+      213: 8386069271710257289
+    second: spike_trap_ani_45
+  - first:
+      213: -5311890184987177181
+    second: spike_trap_ani_46
+  - first:
+      213: 2965447175972019436
+    second: spike_trap_ani_47
+  - first:
+      213: -9005383315909626908
+    second: spike_trap_ani_48
+  - first:
+      213: 1552615231691260086
+    second: spike_trap_ani_49
+  - first:
+      213: -7925077333698532242
+    second: spike_trap_ani_50
+  - first:
+      213: -3790951421604253718
+    second: spike_trap_ani_51
+  - first:
+      213: 4467693707438378363
+    second: spike_trap_ani_52
+  - first:
+      213: -2095789891894234373
+    second: spike_trap_ani_53
+  - first:
+      213: -2577666467471612741
+    second: spike_trap_ani_54
+  - first:
+      213: 4007565194481530102
+    second: spike_trap_ani_55
+  - first:
+      213: 4362399826471923045
+    second: spike_trap_ani_56
+  - first:
+      213: -2220986418542523985
+    second: spike_trap_ani_57
+  - first:
+      213: -5102159742066886629
+    second: spike_trap_ani_58
+  - first:
+      213: -7665217788248948762
+    second: spike_trap_ani_59
+  - first:
+      213: 727043843580456962
+    second: spike_trap_ani_60
+  - first:
+      213: -8262578879035652456
+    second: spike_trap_ani_61
+  - first:
+      213: -1649737301388958526
+    second: spike_trap_ani_62
+  - first:
+      213: -463267490694086223
+    second: spike_trap_ani_63
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spike_trap_ani_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92879e744aed1d1a0800000000000000
+      internalID: -6786398366308141015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7920ffdcd9b764780800000000000000
+      internalID: -8699129712523410793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3011c3ecafeb6f10800000000000000
+      internalID: 2264166763518300219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b86b0adf305beae0800000000000000
+      internalID: -1519032214136067915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99749305868f54ba0800000000000000
+      internalID: -6105200592924620903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b075691985c4d7f0800000000000000
+      internalID: -588628458651422537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b1b5c3f7045cefa0800000000000000
+      internalID: -5770144629437124170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_7
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65f4a9976903d8e30800000000000000
+      internalID: 4507312224911118166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0383d1e1c706415c0800000000000000
+      internalID: -4245662462506092496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_9
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a45f5388ed0dcd1b0800000000000000
+      internalID: -5630395779933407926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b7d7ab479f286be0800000000000000
+      internalID: -1483883750362720328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c092aa44cfd7c2160800000000000000
+      internalID: 7002110043091511564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_12
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21cbf7a5b64d4a010800000000000000
+      internalID: 1199316958332304402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_13
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9e1fd4e4a98bea90800000000000000
+      internalID: -7283576631034175841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_14
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ee265b3d937f3a90800000000000000
+      internalID: -7332014549193314587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_15
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a3fdc2e0812f65c0800000000000000
+      internalID: -4220117488378186844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d3f4428e6a8e02d0800000000000000
+      internalID: -3310556468834143278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_17
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1de3959b3361ef030800000000000000
+      internalID: 3530283569313824465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_18
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5759f37366405320800000000000000
+      internalID: 2544611182425757533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_19
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f1712f3db064cb50800000000000000
+      internalID: 6612516518810972663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_20
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f68bbae3fb1047c80800000000000000
+      internalID: -8326027890199381905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_21
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de8208c449a971790800000000000000
+      internalID: -7559403487788783379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_22
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 700c5ee69ef5db4c0800000000000000
+      internalID: -4270151415484792825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_23
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c078d644d8ed72150800000000000000
+      internalID: 5847887339483662092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_ani_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a2ca7c5e86d76a40800000000000000
+      internalID: 5361489788333114018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d9f6718cc780f794e8c562fa5f25a1a6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      spike_trap_ani_0: -6786398366308141015
+      spike_trap_ani_1: -8699129712523410793
+      spike_trap_ani_10: -1483883750362720328
+      spike_trap_ani_11: 7002110043091511564
+      spike_trap_ani_12: 1199316958332304402
+      spike_trap_ani_13: -7283576631034175841
+      spike_trap_ani_14: -7332014549193314587
+      spike_trap_ani_15: -4220117488378186844
+      spike_trap_ani_16: -3310556468834143278
+      spike_trap_ani_17: 3530283569313824465
+      spike_trap_ani_18: 2544611182425757533
+      spike_trap_ani_19: 6612516518810972663
+      spike_trap_ani_2: 2264166763518300219
+      spike_trap_ani_20: -8326027890199381905
+      spike_trap_ani_21: -7559403487788783379
+      spike_trap_ani_22: -4270151415484792825
+      spike_trap_ani_23: 5847887339483662092
+      spike_trap_ani_24: 5361489788333114018
+      spike_trap_ani_3: -1519032214136067915
+      spike_trap_ani_4: -6105200592924620903
+      spike_trap_ani_5: -588628458651422537
+      spike_trap_ani_6: -5770144629437124170
+      spike_trap_ani_7: 4507312224911118166
+      spike_trap_ani_8: -4245662462506092496
+      spike_trap_ani_9: -5630395779933407926
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
