@@ -31,13 +31,39 @@ public class Inventory : Singleton<Inventory>
         }
 
         HeldIndex = index;
+
+        foreach (IInventoryItem item in Items)
+        {
+            if (item is Weapon weapon)
+            {
+                weapon.IsHolstered = false;
+            }
+        }
+
+        RenderHeldItem();
     }
 
     void RenderHeldItem()
     {
         for (int i = 0; i < Items.Count; i++)
         {
-            Items[i].GameObject.GetComponent<SpriteRenderer>().enabled = i == HeldIndex;
+            IInventoryItem _item = Items[i];
+            bool _isDisplayed = i == HeldIndex;
+
+            if (_item is Weapon weapon)
+            {
+                if (weapon.IsHolstered && _isDisplayed)
+                {
+                    Player.Config.Animator.SetBool("HoldingWeapon", false);
+                    _isDisplayed = false;
+                }
+                else if (!weapon.IsHolstered && _isDisplayed)
+                {
+                    Player.Config.Animator.SetBool("HoldingWeapon", true);
+                }
+            }
+
+            _item.GameObject.GetComponent<SpriteRenderer>().enabled = _isDisplayed;
         }
     }
 

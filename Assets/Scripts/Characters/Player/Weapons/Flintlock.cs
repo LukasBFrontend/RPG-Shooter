@@ -26,32 +26,25 @@ public class Flintlock : Weapon, IInventoryItem
     {
         get => sprite;
     }
-    bool _isFocusing;
 
 
     void LateUpdate()
     {
-        if (!_isFocusing)
-        {
-            AimWithMove();
-        }
         SetWeaponRotation();
-        _isFocusing = false;
     }
 
     public void Focus()
     {
-        AimWithMouse();
-        _isFocusing = true;
+        AimController.Instance.AimWithMouse();
     }
 
     public void Use()
     {
-        if (attack.OnCooldown)
+        if (attack.OnCooldown || IsHolstered)
         {
             return;
         }
-        Vector2 _aimDirection = GetAimDirection();
+        Vector2 _aimDirection = AimController.Instance.GetAimDirection();
 
         attack.Attempt(Wielder, _aimDirection);
 

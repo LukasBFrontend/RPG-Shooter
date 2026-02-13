@@ -48,6 +48,11 @@ public class InputManager : MonoBehaviour
         {
             Actions.Instance.Interact();
         }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Actions.Instance.HolsterWeapon();
+        }
     }
 
     void PlayerMoveInput(float inputX, float inputY)

@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     struct CharacterFields
     {
         public SpriteRenderer SpriteRenderer;
+        public Animator Animator;
         public Rigidbody2D Rigidbody;
         public Collider2D Collider;
         [Header("Stats")]
@@ -24,6 +25,10 @@ public class Character : MonoBehaviour
     public SpriteRenderer SpriteRenderer
     {
         get { return characterFields.SpriteRenderer; }
+    }
+    public Animator Animator
+    {
+        get { return characterFields.Animator; }
     }
     public Rigidbody2D Rigidbody
     {
