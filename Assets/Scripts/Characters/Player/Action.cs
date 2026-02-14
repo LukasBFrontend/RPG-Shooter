@@ -29,6 +29,14 @@ public class Actions : Singleton<Actions>
         FocusInteractables();
     }
 
+    public void HolsterWeapon()
+    {
+        if (Player.Inventory.HeldItem() is Weapon weapon)
+        {
+            weapon.ToggleHolstered();
+        }
+    }
+
     public void HeldItemAction()
     {
         if (_player.State.Status == CharacterStatus.Falling)

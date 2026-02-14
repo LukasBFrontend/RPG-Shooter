@@ -7,8 +7,9 @@ public class Player : Character
     public static Movement Movement { get; private set; }
     public static Actions Actions { get; private set; }
     public static Inventory Inventory { get; private set; }
-
+    public static AimController AimController { get; private set; }
     public static Vector2 LastValidRespawn;
+
     void Start()
     {
         Cache();
@@ -21,6 +22,7 @@ public class Player : Character
         Movement = GetComponent<Movement>();
         Actions = Actions.Instance;
         Inventory = Inventory.Instance;
+        AimController = AimController.Instance;
 
         CollisionIgnoreTags = Utils.PlayerTags;
         OnDeath = () =>
@@ -38,5 +40,4 @@ public class Player : Character
 
         Utils.FlickerSprite(SpriteRenderer, new Color(1, 1, 1, 0), 6, .5f);
     }
-
 }

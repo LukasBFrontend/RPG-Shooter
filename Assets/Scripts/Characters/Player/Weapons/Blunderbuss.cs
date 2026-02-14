@@ -27,35 +27,26 @@ public class Blunderbuss : Weapon, IInventoryItem
     {
         get => sprite;
     }
-    bool _isFocusing;
 
     void LateUpdate()
     {
-        if (!_isFocusing)
-        {
-            AimWithMove();
-        }
-
         SetWeaponRotation();
-        fireArea.transform.rotation = GetAimAngle();
-        _isFocusing = false;
     }
 
     public void Focus()
     {
-        AimWithMouse();
-        _isFocusing = true;
+        AimController.Instance.AimWithMouse();
     }
 
 
 
     public void Use()
     {
-        if (attack.OnCooldown)
+        if (attack.OnCooldown || IsHolstered)
         {
             return;
         }
-        Instantiate(fireVFX, (Vector2)gameObject.transform.position + GetAimDirection() * 1, GetAimAngle(), null);
+        Instantiate(fireVFX, (Vector2)gameObject.transform.position + AimController.Instance.GetAimDirection() * 1, AimController.Instance.GetAimAngle(), null);
         attack.Attempt(Wielder, fireArea.TargetsInRange.ToArray());
         Recoil();
     }

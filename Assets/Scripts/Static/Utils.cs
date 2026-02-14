@@ -37,6 +37,18 @@ public static class Utils
         ;
     }
 
+    public static float RotationIndexFromAngle(float angle, int frames)
+    {
+        float _adjustedAngle = angle;
+        if (_adjustedAngle < 0)
+        {
+            _adjustedAngle += 360f;
+        }
+
+        _adjustedAngle = (_adjustedAngle + 360f / (frames * 2)) % 360f;
+        return Mathf.FloorToInt(_adjustedAngle / (360 / frames));
+    }
+
     static IEnumerator ExecuteFlicker(SpriteRenderer sprite, Color color, float frequency, float duration)
     {
         Color _baseColor = sprite.color;
