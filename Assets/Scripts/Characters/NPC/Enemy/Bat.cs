@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(NPC_Controller))]
-public class Slug : NPC
+public class Bat : NPC
 {
     void Start()
     {
@@ -21,7 +18,5 @@ public class Slug : NPC
         }
 
         TryAttack();
-
-        TurnNPCSmooth();
     }
 }

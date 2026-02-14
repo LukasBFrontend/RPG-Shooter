@@ -5,7 +5,6 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 6;
     [Header("Optional")]
-    [SerializeField] Animator animator;
     public Vector2 Input { get; set; } = Vector2.zero;
     [Range(0, 5)]
     public float MovespeedMultiplier { get; set; } = 1f;

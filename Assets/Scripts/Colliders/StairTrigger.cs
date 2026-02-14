@@ -20,10 +20,12 @@ public class StairTrigger : DirectionalTrigger
 
     void OnTriggerEnter2D(Collider2D other)
     {
+
         if (!other.TryGetComponent<Character>(out var character))
         {
             return;
         }
+
         if (ApproachDirection(other) == lowerLevel.Direction)
         {
             SetZLayer(other.gameObject, higherLevel.ZLvl);
@@ -32,7 +34,7 @@ public class StairTrigger : DirectionalTrigger
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.TryGetComponent<Character>(out var character))
+        if (!other.TryGetComponent<Character>(out var character) || !character.UsesZDept)
         {
             return;
         }

@@ -15,12 +15,17 @@ public class Character : MonoBehaviour
         public Collider2D Collider;
         [Header("Stats")]
         public int Health;
+        public bool UsesZDepth;
     }
     [SerializeField] CharacterFields characterFields;
     public int Health
     {
         get { return characterFields.Health; }
         private set { characterFields.Health = value; }
+    }
+    public bool UsesZDept
+    {
+        get { return characterFields.UsesZDepth; }
     }
     public SpriteRenderer SpriteRenderer
     {

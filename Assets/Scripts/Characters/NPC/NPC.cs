@@ -1,9 +1,27 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NPC : Character
 {
+    [SerializeField] Attack[] attacks;
     Vector2 _previousFaceDir = new();
-    public void RenderFaceDirection()
+    List<Character> _charactersInRange = new();
+
+
+    protected void TryAttack()
+    {
+        if (_charactersInRange.Count == 0)
+        {
+            return;
+        }
+        attacks.First().Attempt(this, _charactersInRange.ToArray());
+    }
+
+    /// <summary>
+    /// Sets the NPC transform rotation equivalent to it's face direction, ignoring single frame changes
+    /// </summary>
+    protected void TurnNPCSmooth()
     {
         bool _isFaceDirSame = _previousFaceDir == FaceDir;
         _previousFaceDir = FaceDir;
@@ -25,6 +43,27 @@ public class NPC : Character
         {
             Debug.LogError($"No pixelate script found on {gameObject.name}, could not render face direction.");
         } */
+    }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Player player = other.GetComponentInChildren<Player>();
+
+        if (!player)
+        {
+            return;
+        }
+        _charactersInRange.Add(player);
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        Player player = other.GetComponent<Player>();
+
+        if (!player)
+        {
+            return;
+        }
+        _charactersInRange.Remove(player);
     }
 }

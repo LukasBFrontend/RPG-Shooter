@@ -53,6 +53,11 @@ public class PlayerUI : MonoBehaviour
     void RenderItems()
     {
         List<IInventoryItem> _inventoryItems = Player.Inventory.Items;
+        if (_inventoryItems == null)
+        {
+            return;
+        }
+
         int _heldItemIndex = Player.Inventory.HeldIndex;
         for (int i = 0; i < _inventoryItems.Count; i++)
         {
