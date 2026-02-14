@@ -23,7 +23,6 @@ public static class Utils
     }
     static Dictionary<SpriteRenderer, Coroutine> _spriteRoutines = new();
 
-
     public static bool VisibleToCamera(Transform transform, Camera camera)
     {
         Vector3 _viewPos = camera.WorldToViewportPoint(transform.position);

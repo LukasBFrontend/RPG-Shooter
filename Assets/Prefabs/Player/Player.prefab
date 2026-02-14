@@ -1077,6 +1077,7 @@ MonoBehaviour:
     Rigidbody: {fileID: 2295047555192363436}
     Collider: {fileID: 5274681652012101188}
     Health: 12
+    UsesZDepth: 1
 --- !u!114 &1058697600066434790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,7 +1131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  animator: {fileID: 5260403279140747566}
 --- !u!114 &2751773168325970177
 MonoBehaviour:
   m_ObjectHideFlags: 0
