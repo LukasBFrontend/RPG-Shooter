@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
 {
     public Player Wielder;
     [SerializeField] float recoilForce = 0f;
+    [SerializeField] Transform[] applyRotation;
     public SpriteRenderer Renderer { get; private set; }
     public bool IsHolstered { get; set; }
     Pixelate _pixelate;
@@ -45,6 +46,11 @@ public class Weapon : MonoBehaviour
         ;
         Renderer.sortingOrder = _playerSortOrder + _layerDifference;
         _pixelate.Rotation = _controller.GetAimAngleReversed();
+
+        foreach (Transform child in applyRotation)
+        {
+            child.transform.rotation = _controller.GetAimAngle();
+        }
 
         _animator.SetFloat("AimDirectionIndex", _aimDirectionIndex);
     }

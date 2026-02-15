@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
-  animator: {fileID: 0}
 --- !u!114 &1037664512359597822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,9 +161,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterFields:
     SpriteRenderer: {fileID: 4402573477637082577}
+    Animator: {fileID: 0}
     Rigidbody: {fileID: 210396239653824349}
     Collider: {fileID: 3169781852126179503}
     Health: 13
+    UsesZDepth: 1
   attacks:
   - name: Bite
     attackType: 0
@@ -190,6 +191,7 @@ MonoBehaviour:
   synchObjects:
   - {fileID: 3579488644888911044}
   - {fileID: 6734791793850459828}
+  synchPlayer: 0
 --- !u!114 &3396148417455133552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,6 +408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4402573477637082577}
   objectToSync: {fileID: 326359822869375177}
+  assignSortLayer: 1
   syncObjectLayer: 0
   zLights: []
 --- !u!114 &8118843418922691701

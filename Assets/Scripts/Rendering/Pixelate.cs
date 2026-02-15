@@ -19,8 +19,28 @@ public class Pixelate : MonoBehaviour
     [SerializeField] TransformSettings transformSettings;
     public Quaternion Rotation
     {
-        get => _pixelateCamera.transform.rotation;
-        set => _pixelateCamera.transform.rotation = value;
+        get
+        {
+            if (transformSettings.AutoRotationEnabled)
+            {
+                return Quaternion.Euler(0, 0, -_pixelateChildren.transform.rotation.z);
+            }
+            else
+            {
+                return _pixelateCamera.transform.rotation;
+            }
+        }
+        set
+        {
+            if (transformSettings.AutoRotationEnabled)
+            {
+                _pixelateChildren.transform.rotation = Quaternion.Euler(0, 0, -value.z);
+            }
+            else
+            {
+                _pixelateCamera.transform.rotation = value;
+            }
+        }
     }
 
     public float OrtographicSize
@@ -76,8 +96,7 @@ public class Pixelate : MonoBehaviour
 
         if (transformSettings.AutoRotationEnabled)
         {
-            Debug.Log(transformSettings.RefTransform.rotation.z);
-            Rotation = Quaternion.Euler(0, 0, -2 * transformSettings.RefTransform.rotation.z * Mathf.Rad2Deg);
+            Rotation = transform.rotation;
         }
     }
 

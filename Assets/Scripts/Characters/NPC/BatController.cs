@@ -5,6 +5,7 @@ using UnityEngine;
 public class BatController : MonoBehaviour
 {
     [SerializeField] float playerDetectionRange = 5;
+    public Vector2 ClusterSignal { get; set; }
     NPC _npc;
     Movement _movement;
     bool _isAwake = false;
@@ -39,8 +40,8 @@ public class BatController : MonoBehaviour
 
     void FlyPlayerStraight()
     {
-        Vector2 _playerToBat = Utils.PlayerToTransform(transform);
-        _movement.Input = _playerToBat;
+        Vector2 _playerToBat = Utils.PlayerToTransform(transform).normalized;
+        _movement.Input = _playerToBat + ClusterSignal;
         _npc.SetFacing(_playerToBat);
     }
 

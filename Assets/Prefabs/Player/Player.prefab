@@ -106,6 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Wielder: {fileID: 8167011348372212593}
   recoilForce: 5
+  applyRotation:
+  - {fileID: 7352816323946046685}
   attack:
     name: Fire
     attackType: 0
@@ -113,6 +115,15 @@ MonoBehaviour:
     origin: {fileID: 0}
     projectileVelocity: 10
     damage: 10
+    knockbackForce: 0
+    cooldown: 0.5
+  farAttack:
+    name: FireFar
+    attackType: 0
+    projectilePrefab: {fileID: 0}
+    origin: {fileID: 0}
+    projectileVelocity: 10
+    damage: 2
     knockbackForce: 0
     cooldown: 0.5
   fireVFX: {fileID: 163807421182032349, guid: f4443d992ccae014cb2ed55357049f4a, type: 3}
@@ -305,6 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Wielder: {fileID: 8167011348372212593}
   recoilForce: 0
+  applyRotation: []
   attack:
     name: Fire
     attackType: 1
@@ -334,7 +346,7 @@ MonoBehaviour:
     SpriteRenderer: {fileID: 2176175051986176700}
     ParticleSystem: {fileID: 0}
   transformSettings:
-    RefTransform: {fileID: 0}
+    RefTransform: {fileID: 4977019278214683287}
     AutoRotationEnabled: 0
 --- !u!114 &3654712071857307638
 MonoBehaviour:
@@ -718,10 +730,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 3, y: -1.5}
-      - {x: 1.25, y: -0.25}
-      - {x: 1.25, y: 0.25}
-      - {x: 3, y: 1.5}
+    - - {x: 3.5, y: -1.5}
+      - {x: 1, y: -0.25}
+      - {x: 1, y: 0.25}
+      - {x: 3.5, y: 1.5}
   m_UseDelaunayMesh: 0
 --- !u!114 &6578498940208647449
 MonoBehaviour:

@@ -47,6 +47,10 @@ public class PitfallTrigger : MonoBehaviour
             Player.LastValidRespawn = _closestNode.transform.position;
 
         }
+        else
+        {
+            return;
+        }
 
         if (!_character || _fallTriggered || _character.State.Status == CharacterStatus.Recoil)
         {
@@ -60,13 +64,15 @@ public class PitfallTrigger : MonoBehaviour
     {
         Character _character = other.GetComponent<Character>();
 
-        if (!_character || _fallTriggered || _character.State.Status == CharacterStatus.Recoil)
+        if (_character is not Player)
         {
             return;
         }
 
-        Vector2 _closest = col.ClosestPoint(_character.SpriteCenter());
-        float _distance = Vector2.Distance(_closest, _character.SpriteCenter());
+        if (!_character || _fallTriggered || _character.State.Status == CharacterStatus.Recoil)
+        {
+            return;
+        }
 
         InitiateFall(_character, !IsFullyInside(_character.SpriteRenderer));
     }
