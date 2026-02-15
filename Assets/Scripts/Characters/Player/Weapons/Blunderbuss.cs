@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Blunderbuss : Weapon, IInventoryItem
 {
     [SerializeField] Attack attack;
+    [SerializeField] Attack farAttack;
     [SerializeField] GameObject fireVFX;
     [SerializeField] FireArea fireArea;
     [Header("Inventory Item Info")]
@@ -28,6 +30,7 @@ public class Blunderbuss : Weapon, IInventoryItem
         get => sprite;
     }
 
+
     void LateUpdate()
     {
         SetWeaponRotation();
@@ -38,6 +41,8 @@ public class Blunderbuss : Weapon, IInventoryItem
         AimController.Instance.AimWithMouse();
     }
 
+    List<NPC> _targetsClose = new();
+    List<NPC> _targetsFar = new();
 
 
     public void Use()
@@ -47,7 +52,27 @@ public class Blunderbuss : Weapon, IInventoryItem
             return;
         }
         Instantiate(fireVFX, (Vector2)gameObject.transform.position + AimController.Instance.GetAimDirection() * 1, AimController.Instance.GetAimAngle(), null);
-        attack.Attempt(Wielder, fireArea.TargetsInRange.ToArray());
+
+        SubdivideTargets(fireArea.TargetsInRange);
+        attack.Attempt(Wielder, _targetsClose.ToArray());
+        farAttack.Attempt(Wielder, _targetsFar.ToArray());
         Recoil();
+    }
+
+    void SubdivideTargets(List<NPC> targets)
+    {
+        _targetsClose.Clear();
+        _targetsFar.Clear();
+        foreach (NPC npc in targets)
+        {
+            if (Vector2.Distance(npc.ColliderCenter(), Wielder.ColliderCenter()) < Vector2.Distance(fireArea.GetComponent<Collider2D>().bounds.center, Wielder.ColliderCenter()))
+            {
+                _targetsClose.Add(npc);
+            }
+            else
+            {
+                _targetsFar.Add(npc);
+            }
+        }
     }
 }
