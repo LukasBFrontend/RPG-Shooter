@@ -272,6 +272,7 @@ MonoBehaviour:
   - {fileID: 4239541334038204944}
   - {fileID: 4082455924960591255}
   - {fileID: 6043230518608418385}
+  Behavior: 0
   damage: 2
 --- !u!1 &2500959925269359177
 GameObject:

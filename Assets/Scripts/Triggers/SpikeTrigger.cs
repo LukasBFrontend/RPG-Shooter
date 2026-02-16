@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class SpikeTrigger : MonoBehaviour
 {
+    enum ActivationBehavior
+    {
+        AlwaysActive,
+        Reactive
+    }
     [SerializeField] Animator[] animators;
+    [SerializeField] ActivationBehavior Behavior;
     [Range(1, 10)]
     [SerializeField] int damage;
     List<Character> _charactersInCollider = new();
@@ -12,7 +18,7 @@ public class SpikeTrigger : MonoBehaviour
 
     void Update()
     {
-        if (_sequenceIsActive || _charactersInCollider.Count == 0)
+        if (_sequenceIsActive || _charactersInCollider.Count == 0 && Behavior == ActivationBehavior.Reactive)
         {
             return;
         }
@@ -65,6 +71,11 @@ public class SpikeTrigger : MonoBehaviour
             {
                 foreach (Character character in _charactersInCollider)
                 {
+                    if (character == null)
+                    {
+                        _charactersInCollider.Remove(character);
+                        continue;
+                    }
                     character.TakeDamage(damage);
                 }
 
