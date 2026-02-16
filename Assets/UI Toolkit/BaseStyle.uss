@@ -1,5 +1,5 @@
 .header {
-    font-size: 40px;
+    font-size: 50px;
     -unity-text-align: upper-left;
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
@@ -7,6 +7,7 @@
     border-right-width: 2px;
     border-bottom-width: 2px;
     border-left-width: 2px;
+    -unity-font-definition: url("project://database/Assets/Minecraft.ttf?fileID=12800000&guid=ae8683fb3924380448cb7ecdfef7e1bc&type=3#Minecraft");
 }
 
 .button {
@@ -81,10 +82,10 @@
     height: 100%;
     padding-right: 96px;
     padding-left: 96px;
-    border-top-width: 6px;
-    border-right-width: 6px;
-    border-bottom-width: 6px;
-    border-left-width: 6px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
     border-left-color: rgb(209, 114, 88);
     border-right-color: rgb(209, 114, 88);
     border-top-color: rgb(209, 114, 88);
