@@ -69,11 +69,12 @@ public class SpikeTrigger : MonoBehaviour
             }
             else if (!hasDoneDamage && _elapsed >= DAMAGE_FRAME)
             {
-                foreach (Character character in _charactersInCollider)
+                for (int i = 0; i < _charactersInCollider.Count; i++)
                 {
+                    Character character = _charactersInCollider[i];
                     if (character == null)
                     {
-                        _charactersInCollider.Remove(character);
+                        _charactersInCollider.RemoveAt(i);
                         continue;
                     }
                     character.TakeDamage(damage);
