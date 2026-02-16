@@ -75,7 +75,7 @@ public class SortItemManager : Singleton<SortItemManager>
         for (int i = 0; i < sortQue.Count; i++)
         {
             SpriteRenderer _sprite = sortQue[i].SpriteRenderer;
-            int _order = i * 2;
+            int _order = i * 2 + 2;
 
             _sprite.sortingOrder = _order;
         }
