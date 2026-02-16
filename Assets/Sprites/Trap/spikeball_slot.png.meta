@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 9c592e55eadcc0e4085bbb3a455f9c9d
+guid: 50ea49ed1b167c14faad85624f173e2c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 898549220578156626
-    second: spike_trap_up_0
-  - first:
-      213: -2256223872509063869
-    second: spike_trap_up_1
+      213: 3799030936247846691
+    second: spikeball_slot_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -99,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spike_trap_up_0
+      name: spikeball_slot_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 9
-        height: 16
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 250e3c161c9487c00800000000000000
-      internalID: 898549220578156626
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spike_trap_up_1
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 3
-        width: 9
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 34d4759875840b0e0800000000000000
-      internalID: -2256223872509063869
+      spriteID: 327c5c5228ed8b430800000000000000
+      internalID: 3799030936247846691
       vertices: []
       indices: 
       edges: []
@@ -150,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -160,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spike_trap_up_0: 898549220578156626
-      spike_trap_up_1: -2256223872509063869
+      spikeball_slot_0: 3799030936247846691
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

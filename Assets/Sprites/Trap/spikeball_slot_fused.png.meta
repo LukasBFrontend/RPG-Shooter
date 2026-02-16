@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 95ccd0088c3c77248befba53ce38d07f
+guid: ab578642c89d74f408a6d77ef2abbc0d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5753565807644149979
-    second: spike_trap_down_0
-  - first:
-      213: -7825087547587379621
-    second: spike_trap_down_1
-  - first:
-      213: -5620476130910749704
-    second: spike_trap_down_2
+      213: 7095109335035872964
+    second: spikeball_slot_fused_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -102,39 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spike_trap_down_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 6
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5277983b16a3720b0800000000000000
-      internalID: -5753565807644149979
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spike_trap_down_1
+      name: spikeball_slot_fused_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 9
-        height: 6
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b5eb8b5a554b76390800000000000000
-      internalID: -7825087547587379621
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spike_trap_down_2
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 3
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8fbb08cccbe0002b0800000000000000
-      internalID: -5620476130910749704
+      spriteID: 4c60f554954e67260800000000000000
+      internalID: 7095109335035872964
       vertices: []
       indices: 
       edges: []
@@ -175,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spike_trap_down_0: -5753565807644149979
-      spike_trap_down_1: -7825087547587379621
-      spike_trap_down_2: -5620476130910749704
+      spikeball_slot_fused_0: 7095109335035872964
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
