@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -30,7 +31,7 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!Sender.CollisionIgnoreTags.Contains(other.tag) && other.TryGetComponent<Character>(out var _character))
+        if (!IgnoreCollision(other) && other.TryGetComponent<Character>(out var _character))
         {
             _character.TakeDamage(Damage);
         }
@@ -40,6 +41,19 @@ public class Projectile : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    bool IgnoreCollision(Collider2D other)
+    {
+        if (Sender is Player)
+        {
+            return Sender.CollisionIgnoreTags.Contains(other.tag);
+        }
+        else if (Sender is NPC npc)
+        {
+            return npc.RaycastIgnore.Contains(other);
+        }
+        return false;
     }
 
     IEnumerator DestroyAfterSeconds(float seconds)

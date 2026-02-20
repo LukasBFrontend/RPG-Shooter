@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class SpikeBallController : MonoBehaviour
+public class SpikeBall : MonoBehaviour
 {
     [SerializeField] float MoveSpeed = 2;
     Rigidbody2D _rigidBody;

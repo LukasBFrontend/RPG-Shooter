@@ -1,19 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Character))]
 public class Movement : MonoBehaviour
 {
+    [SerializeField] Character character;
     [SerializeField] float moveSpeed = 6;
     [Header("Optional")]
     public Vector2 Input { get; set; } = Vector2.zero;
     [Range(0, 5)]
     public float MovespeedMultiplier { get; set; } = 1f;
-    Character _character;
-
-    void Start()
-    {
-        _character = GetComponent<Character>();
-    }
 
     void FixedUpdate()
     {
@@ -34,15 +28,15 @@ public class Movement : MonoBehaviour
         }
         if (_input.sqrMagnitude != 0)
         {
-            _character.SetFacing(_input);
+            character.SetFacing(_input);
         }
         _velocity = _input * moveSpeed * MovespeedMultiplier;
 
-        _character.Rigidbody.linearVelocity = _velocity;
+        character.Rigidbody.linearVelocity = _velocity;
     }
     bool IsMovementEnabled()
     {
-        switch (_character.State.Status)
+        switch (character.State.Status)
         {
             case CharacterStatus.Recoil:
                 return false;

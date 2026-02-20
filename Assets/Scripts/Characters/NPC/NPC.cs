@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class NPC : Character
 {
+    public Collider2D[] RaycastIgnore;
+    [SerializeField] float detectionRange = 10f;
     [SerializeField] Attack[] attacks;
     Vector2 _previousFaceDir = new();
     List<Character> _charactersInRange = new();
+    public float DetectionRange { get { return detectionRange; } }
 
 
     protected void TryAttack()

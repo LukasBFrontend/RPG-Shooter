@@ -14,6 +14,7 @@ public class AttackDrawer : PropertyDrawer
         var _projectileOrigin = property.FindPropertyRelative("origin");
         var _projectileVelocity = property.FindPropertyRelative("projectileVelocity");
         var _damage = property.FindPropertyRelative("damage");
+        var _windUp = property.FindPropertyRelative("windUp");
         var _knockbackForce = property.FindPropertyRelative("knockbackForce");
         var _cooldown = property.FindPropertyRelative("cooldown");
 
@@ -66,15 +67,18 @@ public class AttackDrawer : PropertyDrawer
         {
             EditorGUI.PropertyField(
                 new Rect(position.x + 6, y, position.width - 12, line),
-                _projectilePrefab,
-                new GUIContent("Prefab")
-            );
-            y += line + spacing;
-
-            EditorGUI.PropertyField(
-                new Rect(position.x + 6, y, position.width - 12, line),
                 _projectileOrigin,
                 new GUIContent("Origin")
+            );
+            y += line + spacing;
+        }
+
+        if ((Attack.AttackType)_attackType.enumValueIndex == Attack.AttackType.Lunge || (Attack.AttackType)_attackType.enumValueIndex == Attack.AttackType.Ranged)
+        {
+            EditorGUI.PropertyField(
+                new Rect(position.x + 6, y, position.width - 12, line),
+                _projectilePrefab,
+                new GUIContent("Projectile")
             );
             y += line + spacing;
 
@@ -90,6 +94,12 @@ public class AttackDrawer : PropertyDrawer
         EditorGUI.PropertyField(
             new Rect(position.x + 6, y, position.width - 12, line),
             _damage
+        );
+        y += line + spacing;
+
+        EditorGUI.PropertyField(
+            new Rect(position.x + 6, y, position.width - 12, line),
+            _windUp
         );
         y += line + spacing;
 
@@ -129,10 +139,14 @@ public class AttackDrawer : PropertyDrawer
             1 + // name
             1 + // attackType
             1 + // damage
+            1 + // windup
             1 + // knockback
             1;  // cooldown
 
         if ((Attack.AttackType)_attackType.enumValueIndex == Attack.AttackType.Ranged)
+            lines += 3; // prefab + velocity
+
+        if ((Attack.AttackType)_attackType.enumValueIndex == Attack.AttackType.Lunge)
             lines += 2; // prefab + velocity
 
         return lines * (EditorGUIUtility.singleLineHeight + 2f) + 4f;

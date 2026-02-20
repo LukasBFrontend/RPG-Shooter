@@ -77,4 +77,9 @@ public class SoundFXManager : Singleton<SoundFXManager>
         _audioSource.loop = true;
         _audioSource.Play();
     }
+
+    protected override void OnAwake()
+    {
+
+    }
 }

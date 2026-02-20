@@ -105,4 +105,9 @@ public class AimController : Singleton<AimController>
     {
         return Quaternion.Euler(0, 0, -_aimAngle - 180);
     }
+
+    protected override void OnAwake()
+    {
+
+    }
 }

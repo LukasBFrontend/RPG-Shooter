@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BatClusterController : MonoBehaviour
+public class NPCClusterController : MonoBehaviour
 {
-    List<BatController> _bats = new();
+    List<NPCStateMachine> _npc = new();
 
     void Start()
     {
@@ -18,28 +18,28 @@ public class BatClusterController : MonoBehaviour
 
     void Cache()
     {
-        _bats.AddRange(GetComponentsInChildren<BatController>());
+        _npc.AddRange(GetComponentsInChildren<NPCStateMachine>());
     }
 
     void SignalControllers()
     {
-        foreach (BatController x in _bats)
+        foreach (NPCStateMachine x in _npc)
         {
             if (x == null)
             {
-                _bats.Remove(x);
+                _npc.Remove(x);
                 continue;
             }
 
             Vector2 _position = x.transform.position;
-            BatController _closestBat = null;
+            NPCStateMachine _closestBat = null;
             float _closestDistance = Mathf.Infinity;
 
-            foreach (BatController y in _bats)
+            foreach (NPCStateMachine y in _npc)
             {
                 if (y == null)
                 {
-                    _bats.Remove(y);
+                    _npc.Remove(y);
                     continue;
                 }
                 if (x == y)

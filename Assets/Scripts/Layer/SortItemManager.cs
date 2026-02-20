@@ -81,4 +81,7 @@ public class SortItemManager : Singleton<SortItemManager>
         }
     }
 
+    protected override void OnAwake()
+    {
+    }
 }

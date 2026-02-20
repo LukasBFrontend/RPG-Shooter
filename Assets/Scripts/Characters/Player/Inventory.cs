@@ -85,4 +85,9 @@ public class Inventory : Singleton<Inventory>
             }
         }
     }
+
+    protected override void OnAwake()
+    {
+
+    }
 }

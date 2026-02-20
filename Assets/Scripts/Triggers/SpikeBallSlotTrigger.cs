@@ -3,21 +3,21 @@ using UnityEngine;
 public class SpikeBallSlotTrigger : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    SpikeBallController _spikeBallController;
+    SpikeBall _spikeBall;
     bool _isLocked = false;
     const float FUSE_THRESHOLD = .25f;
 
     void Update()
     {
-        if (_isLocked || _spikeBallController == null)
+        if (_isLocked || _spikeBall == null)
         {
             return;
         }
-        float _dist = Vector2.Distance(transform.position, _spikeBallController.transform.position);
+        float _dist = Vector2.Distance(transform.position, _spikeBall.transform.position);
 
         if (_dist < FUSE_THRESHOLD)
         {
-            Destroy(_spikeBallController.gameObject);
+            Destroy(_spikeBall.gameObject);
             animator.SetBool("IsFusing", true);
             _isLocked = true;
         }
@@ -25,17 +25,17 @@ public class SpikeBallSlotTrigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<SpikeBallController>(out var spikeBall))
+        if (other.TryGetComponent<SpikeBall>(out var spikeBall))
         {
-            _spikeBallController = spikeBall;
+            _spikeBall = spikeBall;
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.TryGetComponent<SpikeBallController>(out var spikeBall))
+        if (other.TryGetComponent<SpikeBall>(out var spikeBall))
         {
-            _spikeBallController = null;
+            _spikeBall = null;
         }
     }
 }

@@ -113,6 +113,7 @@ MonoBehaviour:
     attackType: 0
     projectilePrefab: {fileID: 0}
     origin: {fileID: 0}
+    windUp: 0
     projectileVelocity: 10
     damage: 10
     knockbackForce: 0
@@ -122,6 +123,7 @@ MonoBehaviour:
     attackType: 0
     projectilePrefab: {fileID: 0}
     origin: {fileID: 0}
+    windUp: 0
     projectileVelocity: 10
     damage: 2
     knockbackForce: 0
@@ -322,6 +324,7 @@ MonoBehaviour:
     attackType: 1
     projectilePrefab: {fileID: 1303844177401522025, guid: 37db1e6c3c5fec0469dd3f498402763e, type: 3}
     origin: {fileID: 4977019278214683287}
+    windUp: 0
     projectileVelocity: 18
     damage: 2
     knockbackForce: 0
@@ -664,7 +667,7 @@ GameObject:
   - component: {fileID: 6578498940208647449}
   m_Layer: 16
   m_Name: FireArea
-  m_TagString: Untagged
+  m_TagString: Player Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1130,6 +1133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbacda48ca2c8fb4e8e4fa3c18227581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 8167011348372212593}
 --- !u!114 &1116474325934901914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1142,6 +1146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fda4008b5004d47b71a1e2f3f2ab83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 8167011348372212593}
   moveSpeed: 5
 --- !u!114 &2751773168325970177
 MonoBehaviour:

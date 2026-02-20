@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8984971272506581063}
   - component: {fileID: 210396239653824349}
   - component: {fileID: 3169781852126179503}
-  - component: {fileID: 2848152341260453793}
+  - component: {fileID: 7577887360697377671}
   - component: {fileID: 6711021407010727959}
   - component: {fileID: 1037664512359597822}
   - component: {fileID: 312006339909304769}
@@ -114,7 +114,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
---- !u!114 &2848152341260453793
+--- !u!114 &7577887360697377671
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,17 +123,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 326359822869375177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 865c5a8fb5f6b4941bbccdb6b39d97ab, type: 3}
+  m_Script: {fileID: 11500000, guid: c769316d4a597e743885671d9fde16db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  col: {fileID: 3169781852126179503}
-  raycastIgnore:
-  - {fileID: 3169781852126179503}
-  - {fileID: 7701226993914206707}
-  - {fileID: 1115548988191880286}
+  stateFactoryType: 0
+  npc: {fileID: 1037664512359597822}
   debugRaycast: 0
-  CurrentNode: {fileID: 0}
-  Path: []
 --- !u!114 &6711021407010727959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fda4008b5004d47b71a1e2f3f2ab83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 1037664512359597822}
   moveSpeed: 1.5
 --- !u!114 &1037664512359597822
 MonoBehaviour:
@@ -161,16 +157,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterFields:
     SpriteRenderer: {fileID: 4402573477637082577}
-    Animator: {fileID: 0}
+    Animator: {fileID: 7454025428146522295}
     Rigidbody: {fileID: 210396239653824349}
     Collider: {fileID: 3169781852126179503}
     Health: 13
     UsesZDepth: 1
+  RaycastIgnore:
+  - {fileID: 3169781852126179503}
+  - {fileID: 7701226993914206707}
+  - {fileID: 1115548988191880286}
+  detectionRange: 10
   attacks:
   - name: Bite
     attackType: 0
     projectilePrefab: {fileID: 0}
     origin: {fileID: 0}
+    windUp: 0
     projectileVelocity: 0
     damage: 1
     knockbackForce: 0
@@ -204,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbacda48ca2c8fb4e8e4fa3c18227581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 1037664512359597822}
 --- !u!1 &3579488644888911044
 GameObject:
   m_ObjectHideFlags: 0

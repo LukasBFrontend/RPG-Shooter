@@ -6,7 +6,7 @@ MonoImporter:
   defaultReferences:
   - nodePrefab: {fileID: 4264010446842464048, guid: 8b460375b70bc214d8074dc84f1c6b7e, type: 3}
   - tilemapCollider: {instanceID: 0}
-  executionOrder: 0
+  executionOrder: -2
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

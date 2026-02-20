@@ -22,4 +22,9 @@ public class Config : Singleton<Config>
     {
         return SpriteRenderer.bounds.center;
     }
+
+    protected override void OnAwake()
+    {
+
+    }
 }

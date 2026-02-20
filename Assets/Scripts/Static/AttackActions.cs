@@ -44,4 +44,26 @@ public static class AttackActions
         _projectileRef.Damage = _damage;
         _projectileRef.Sender = _attacker;
     };
+
+    public static AttackAction Lunge { get; private set; } = (context) =>
+    {
+        Character _attacker = context.Attacker;
+        GameObject _projectile = context.Projectile;
+        Character[] _targets = context.Targets;
+        float _velocity = context.Velocity;
+        int _damage = context.Damage;
+        Vector2 _dir = _targets.Length > 0 ? (_targets[0].ColliderCenter() - _attacker.ColliderCenter()).normalized : context.Direction.normalized;
+
+        Rigidbody2D _rb = _attacker.Rigidbody;
+
+        _rb.linearVelocity = Vector2.zero;
+        _rb.AddForce(_dir * _velocity);
+
+        GameObject _projectileInstance = Object.Instantiate(_projectile, _attacker.ColliderCenter() + _dir, Quaternion.identity, _attacker.transform);
+        _projectileInstance.layer = _attacker.gameObject.layer;
+
+        Projectile _projectileRef = _projectileInstance.GetComponent<Projectile>();
+        _projectileRef.Damage = _damage;
+        _projectileRef.Sender = _attacker;
+    };
 }

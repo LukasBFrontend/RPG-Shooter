@@ -21,17 +21,20 @@ public class Attack
     public enum AttackType
     {
         Melee,
-        Ranged
+        Ranged,
+        Lunge
     }
     [SerializeField] string name;
-    [SerializeField] private AttackType attackType;
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] AttackType attackType;
+    [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform origin;
+    [Range(0, 2)]
+    [SerializeField] float windUp = 0f;
     [SerializeField] float projectileVelocity = 10f;
     [Range(0, 24)]
-    [SerializeField] private int damage;
-    [SerializeField] private float knockbackForce;
-    [SerializeField] private float cooldown;
+    [SerializeField] int damage;
+    [SerializeField] float knockbackForce;
+    [SerializeField] float cooldown;
 
     public string Name => name;
     public int Damage => damage;
@@ -40,6 +43,8 @@ public class Attack
 
     public AttackAction ActionAction { get; set; } = null;
     public bool OnCooldown { get; private set; } = false;
+    public bool IsWindingUp { get; private set; } = false;
+    bool _attackWasCancelled = false;
 
     public void Attempt(Character attacker, Character[] targets)
     {
@@ -47,6 +52,44 @@ public class Attack
         {
             return;
         }
+
+        attacker.StartCoroutine(AttemptTargets(attacker, targets));
+        attacker.StartCoroutine(CooldownTimer(Cooldown));
+    }
+
+    public void Attempt(Character attacker, Vector2 direction)
+    {
+        if (OnCooldown)
+        {
+            return;
+        }
+
+        attacker.StartCoroutine(AttemptDirectional(attacker, direction));
+        attacker.StartCoroutine(CooldownTimer(Cooldown));
+    }
+
+    public void TryCancel()
+    {
+        _attackWasCancelled = true;
+    }
+
+    IEnumerator AttemptTargets(Character attacker, Character[] targets)
+    {
+        IsWindingUp = true;
+        float _elapsed = 0f;
+
+        while (_elapsed < windUp)
+        {
+            if (_attackWasCancelled)
+            {
+                yield break;
+            }
+
+            yield return new WaitForEndOfFrame();
+            _elapsed += Time.deltaTime;
+        }
+        IsWindingUp = false;
+
         if (ActionAction == null)
         {
             switch (attackType)
@@ -56,6 +99,9 @@ public class Attack
                     break;
                 case AttackType.Ranged:
                     ActionAction = AttackActions.Ranged;
+                    break;
+                case AttackType.Lunge:
+                    ActionAction = AttackActions.Lunge;
                     break;
             }
         }
@@ -71,15 +117,25 @@ public class Attack
                 Velocity = projectileVelocity
             }
         );
-        attacker.StartCoroutine(CooldownTimer(Cooldown));
     }
 
-    public void Attempt(Character attacker, Vector2 direction)
+    IEnumerator AttemptDirectional(Character attacker, Vector2 direction)
     {
-        if (OnCooldown)
+        IsWindingUp = true;
+        float _elapsed = 0f;
+
+        while (_elapsed < windUp)
         {
-            return;
+            if (_attackWasCancelled)
+            {
+                yield break;
+            }
+
+            yield return new WaitForEndOfFrame();
+            _elapsed += Time.deltaTime;
         }
+        IsWindingUp = false;
+
         if (ActionAction == null)
         {
             switch (attackType)
@@ -89,6 +145,9 @@ public class Attack
                     break;
                 case AttackType.Ranged:
                     ActionAction = AttackActions.Ranged;
+                    break;
+                case AttackType.Lunge:
+                    ActionAction = AttackActions.Lunge;
                     break;
             }
         }
@@ -106,10 +165,7 @@ public class Attack
 
             }
         );
-        attacker.StartCoroutine(CooldownTimer(Cooldown));
     }
-
-
 
     IEnumerator CooldownTimer(float cooldown)
     {

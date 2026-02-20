@@ -281,4 +281,9 @@ public class CameraMove : Singleton<CameraMove>
             Debug.DrawLine(_pos, player.transform.position);
         }
     }
+
+    protected override void OnAwake()
+    {
+
+    }
 }

@@ -8,18 +8,17 @@ public enum CharacterStatus
     Falling,
 }
 
-[RequireComponent(typeof(Character))]
 public class State : MonoBehaviour
 {
+    [SerializeField] Character character;
     public CharacterStatus Status { get; private set; }
     public int Hearts { get; private set; } = 3;
-    public int Health { get { return _character.Health; } }
+    public int Health { get { return character.Health; } }
     float _statusTimer = 0f;
-    Character _character;
 
     void Start()
     {
-        _character = GetComponent<Character>();
+        character = GetComponent<Character>();
     }
 
     void Update()
@@ -38,7 +37,7 @@ public class State : MonoBehaviour
 
     public bool IsDamaged()
     {
-        return _character.IsDamaged();
+        return character.IsDamaged();
     }
 
     public void SetStatus(CharacterStatus status, float duration)
@@ -47,7 +46,7 @@ public class State : MonoBehaviour
 
         Status = status;
     }
-    public Node CurrentNode()
+    public Node ClosestNode()
     {
         return NodeManager.Instance.ClosestNode(transform.position);
     }

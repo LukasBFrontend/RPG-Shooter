@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4076749271353149441}
   - component: {fileID: 4950147618814779852}
   - component: {fileID: 7001604092884941751}
+  - component: {fileID: 2814532207648586787}
   - component: {fileID: 6421786997479563950}
-  - component: {fileID: 3741769648370267170}
   - component: {fileID: 966393657918306936}
   - component: {fileID: 4404961655591924075}
   m_Layer: 0
@@ -181,6 +181,21 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
+--- !u!114 &2814532207648586787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60888454366970267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c769316d4a597e743885671d9fde16db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateFactoryType: 1
+  npc: {fileID: 6421786997479563950}
+  debugRaycast: 0
 --- !u!114 &6421786997479563950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,28 +215,18 @@ MonoBehaviour:
     Collider: {fileID: 7001604092884941751}
     Health: 5
     UsesZDepth: 0
+  RaycastIgnore: []
+  detectionRange: 10
   attacks:
   - name: bite
     attackType: 0
     projectilePrefab: {fileID: 0}
     origin: {fileID: 0}
+    windUp: 0
     projectileVelocity: 0
     damage: 1
     knockbackForce: 0
     cooldown: 0.5
---- !u!114 &3741769648370267170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 60888454366970267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b50b6d8d2ea7443a214aa7f53fb875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerDetectionRange: 5
 --- !u!114 &966393657918306936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fda4008b5004d47b71a1e2f3f2ab83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 6421786997479563950}
   moveSpeed: 2.5
 --- !u!114 &4404961655591924075
 MonoBehaviour:
@@ -247,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbacda48ca2c8fb4e8e4fa3c18227581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 6421786997479563950}
 --- !u!1 &5612645959624447741
 GameObject:
   m_ObjectHideFlags: 0

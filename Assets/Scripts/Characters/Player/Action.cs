@@ -11,7 +11,7 @@ public class Actions : Singleton<Actions>
     Player _player;
     const float INTERACT_RANGE = 1.25f;
 
-    void Start()
+    protected override void OnAwake()
     {
         _player = GetComponent<Player>();
     }

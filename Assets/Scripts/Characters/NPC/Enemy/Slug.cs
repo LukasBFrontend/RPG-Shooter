@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(NPC_Controller))]
+
 public class Slug : NPC
 {
     void Start()
@@ -15,6 +15,7 @@ public class Slug : NPC
 
     void Update()
     {
+        return;
         if (Health <= 0)
         {
             Die();
