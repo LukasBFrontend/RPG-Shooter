@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class PlayerUI : MonoBehaviour
 {
+    const int HEALTH_PER_HEART = 4;
     [Header("Item Sprites")]
     [SerializeField] Sprite flintlock;
     [SerializeField] Sprite blunderbuss;
@@ -19,7 +20,6 @@ public class PlayerUI : MonoBehaviour
     List<VisualElement> _itemSlots;
     List<VisualElement> _itemImages;
     Label _coinsText;
-    const int HEALTH_PER_HEART = 4;
 
     void Start()
     {
@@ -52,13 +52,13 @@ public class PlayerUI : MonoBehaviour
 
     void RenderItems()
     {
-        List<IInventoryItem> _inventoryItems = Player.Inventory.Items;
+        List<IInventoryItem> _inventoryItems = GameState.Player.Inventory.Items;
         if (_inventoryItems == null)
         {
             return;
         }
 
-        int _heldItemIndex = Player.Inventory.HeldIndex;
+        int _heldItemIndex = GameState.Player.Inventory.HeldIndex;
         for (int i = 0; i < _inventoryItems.Count; i++)
         {
             Sprite _itemSprite = _inventoryItems[i].UI_Sprite;

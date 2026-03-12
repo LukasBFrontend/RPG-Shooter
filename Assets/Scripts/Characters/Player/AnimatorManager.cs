@@ -5,7 +5,7 @@ public class AnimatorManager : MonoBehaviour
 {
     [SerializeField] Animator animator;
     AimController _aimController;
-    Movement _moveController;
+    Controller _moveController;
     const float DEADZONE = 0.1f;
     void Start()
     {
@@ -18,8 +18,8 @@ public class AnimatorManager : MonoBehaviour
 
     void Cache()
     {
-        _aimController = Player.AimController;
-        _moveController = Player.Movement;
+        _aimController = GameState.Player.AimController;
+        _moveController = GameState.Player.Controller;
     }
 
 

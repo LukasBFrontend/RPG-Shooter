@@ -19,7 +19,7 @@ public class NodeManager : Singleton<NodeManager>
     Vector2 _startPoint, _size;
     List<List<Node>> _nodeGrid = new();
 
-    void Start()
+    protected override void OnAwake()
     {
         Generate();
         DisableObstructed();

@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class PitfallTrigger : MonoBehaviour
 {
+    const float FALL_SPEED = 2.25f;
+    const float FALL_DURATION = .8f;
     [SerializeField] CompositeCollider2D col;
     [SerializeField] GameObject skullPrefab;
     [SerializeField] bool DrawDebugLines;
-
-    const float FALL_SPEED = 2.25f;
-    const float FALL_DURATION = .8f;
 
     bool _fallTriggered = false;
 
@@ -42,9 +41,9 @@ public class PitfallTrigger : MonoBehaviour
             if (_closestNode == null)
             {
                 Debug.LogError($"{typeof(NodeManager).Name}.Instance.ClosestNode() returned null. Respawn defaulted to (0, 0)");
-                Player.LastValidRespawn = Vector2.zero;
+                GameState.Player.LastValidRespawn = Vector2.zero;
             }
-            Player.LastValidRespawn = _closestNode.transform.position;
+            GameState.Player.LastValidRespawn = _closestNode.transform.position;
 
         }
         else
@@ -238,7 +237,7 @@ public class PitfallTrigger : MonoBehaviour
             Debug.DrawLine(edgeA, edgeB);
         }
 
-        Vector2 playerPos = Player.Config.SpriteCenter();
+        Vector2 playerPos = GameState.Player.SpriteCenter();
         Vector2 pointA = Utils.ClosestPointOnPolygon(_insetVertices, playerPos);
         Debug.DrawLine(pointA, playerPos);
     }

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4076749271353149441}
   - component: {fileID: 4950147618814779852}
   - component: {fileID: 7001604092884941751}
-  - component: {fileID: 6421786997479563950}
-  - component: {fileID: 3741769648370267170}
+  - component: {fileID: 6163072913250467285}
+  - component: {fileID: 2814532207648586787}
   - component: {fileID: 966393657918306936}
   - component: {fileID: 4404961655591924075}
   m_Layer: 0
@@ -181,7 +181,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
---- !u!114 &6421786997479563950
+--- !u!114 &6163072913250467285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 60888454366970267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59bad58be1523d04388960f00118a9ac, type: 3}
+  m_Script: {fileID: 11500000, guid: e4822472268796947a2217446da2a79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterFields:
@@ -200,16 +200,33 @@ MonoBehaviour:
     Collider: {fileID: 7001604092884941751}
     Health: 5
     UsesZDepth: 0
-  attacks:
-  - name: bite
+  RaycastIgnore: []
+  detectionRange: 10
+  primaryAttack:
+    name: Bite
     attackType: 0
-    projectilePrefab: {fileID: 0}
-    origin: {fileID: 0}
-    projectileVelocity: 0
+    windUp: 0
     damage: 1
     knockbackForce: 0
     cooldown: 0.5
---- !u!114 &3741769648370267170
+    rangedAndLungeFields:
+      Origin: {fileID: 0}
+      Projectile: {fileID: 0}
+      Lifetime: 0
+      Velocity: 0
+  secondaryAttack:
+    name: __
+    attackType: 0
+    windUp: 0
+    damage: 1
+    knockbackForce: 0
+    cooldown: 0
+    rangedAndLungeFields:
+      Origin: {fileID: 0}
+      Projectile: {fileID: 0}
+      Lifetime: 0
+      Velocity: 0
+--- !u!114 &2814532207648586787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,10 +235,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 60888454366970267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b50b6d8d2ea7443a214aa7f53fb875, type: 3}
+  m_Script: {fileID: 11500000, guid: c769316d4a597e743885671d9fde16db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDetectionRange: 5
+  stateFactory: 2
+  bodyCollider: {fileID: 0}
+  debugRaycast: 0
 --- !u!114 &966393657918306936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbacda48ca2c8fb4e8e4fa3c18227581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 6163072913250467285}
 --- !u!1 &5612645959624447741
 GameObject:
   m_ObjectHideFlags: 0

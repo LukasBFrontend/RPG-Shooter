@@ -26,37 +26,37 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Actions.Instance.HeldItemAction();
+            GameState.Player.Actions.HeldItemAction();
         }
 
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            Actions.Instance.HeldItemFocus();
+            GameState.Player.Actions.HeldItemFocus();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Actions.Instance.SetSelectedItemSlot(0);
+            GameState.Player.Actions.SetSelectedItemSlot(0);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Actions.Instance.SetSelectedItemSlot(1);
+            GameState.Player.Actions.SetSelectedItemSlot(1);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Actions.Instance.Interact();
+            GameState.Player.Actions.Interact();
         }
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            Actions.Instance.HolsterWeapon();
+            GameState.Player.Actions.HolsterWeapon();
         }
     }
 
     void PlayerMoveInput(float inputX, float inputY)
     {
-        Player.Movement.Input = new Vector2(inputX, inputY);
+        GameState.Player.Controller.Move(new Vector2(inputX, inputY));
     }
 }

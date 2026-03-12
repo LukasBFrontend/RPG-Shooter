@@ -8,7 +8,7 @@ public static class Utils
 {
     public static List<string> CharacterTags { get; } = new() { "Enemy", "Player", };
     public static List<string> EnemyTags { get; } = new() { "Enemy" };
-    public static List<string> PlayerTags { get; } = new() { "Player", "Player Interact", "Player Trigger", "Player Body" };
+    public static List<string> PlayerTags { get; } = new() { "Player", "Player Interact", "Player Trigger", "Player Body", "Player Weapon" };
     class Runner : MonoBehaviour { }
     static Runner _runner;
     static Runner GetRunner()
@@ -285,9 +285,14 @@ public static class Utils
         return _bestNormal;
     }
 
-    public static Vector2 PlayerToClosestNode(Transform transform)
+    /// <summary>
+    /// Gets the player offset in relation to the transform's closest Node
+    /// </summary>
+    /// <param name="transform"></param>
+    /// <returns></returns>
+    public static Vector2 PlayerToTransformNode(Transform transform)
     {
-        Vector2 _playerPos = Player.Config.ColliderCenter();
+        Vector2 _playerPos = GameState.Player.ColliderCenter();
         Vector2 _pos = NodeManager.Instance.ClosestNode(transform.position).transform.position;
 
         return _playerPos - _pos;
@@ -295,7 +300,7 @@ public static class Utils
 
     public static Vector2 PlayerToTransform(Transform transform)
     {
-        Vector2 _playerPos = Player.Config.ColliderCenter();
+        Vector2 _playerPos = GameState.Player.ColliderCenter();
         Vector2 _pos = transform.position;
 
         return _playerPos - _pos;

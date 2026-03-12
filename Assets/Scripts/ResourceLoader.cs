@@ -33,4 +33,9 @@ public class ResourceLoader : Singleton<ResourceLoader>
     {
         SoundMixer.AudioMixer = audioMixer;
     }
+
+    protected override void OnAwake()
+    {
+
+    }
 }

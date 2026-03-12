@@ -65,4 +65,9 @@ public class PixelateLayerManager : Singleton<PixelateLayerManager>
             }
         }
     }
+
+    protected override void OnAwake()
+    {
+
+    }
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 [RequireComponent(typeof(Player))]
 public class AimController : Singleton<AimController>
 {
+    const float AIM_SPEED = 720f;
     public bool IsControlledWithMouse { get; private set; } = false;
     float _aimAngle;
     Vector2 _aimDirection;
     bool _isFocusing;
     Player _player;
-    const float AIM_SPEED = 720f;
 
     void Start()
     {
@@ -104,5 +104,10 @@ public class AimController : Singleton<AimController>
     public Quaternion GetAimAngleReversed()
     {
         return Quaternion.Euler(0, 0, -_aimAngle - 180);
+    }
+
+    protected override void OnAwake()
+    {
+
     }
 }

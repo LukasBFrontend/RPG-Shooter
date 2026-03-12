@@ -4,24 +4,32 @@ using UnityEngine;
 
 public class NPC : Character
 {
-    [SerializeField] Attack[] attacks;
+    public Collider2D[] RaycastIgnore;
+    [SerializeField] float detectionRange = 10f;
+    [SerializeField] Attack primaryAttack;
+    [SerializeField] Attack secondaryAttack;
     Vector2 _previousFaceDir = new();
-    List<Character> _charactersInRange = new();
-
-
-    protected void TryAttack()
+    public float DetectionRange { get { return detectionRange; } }
+    public Attack PrimaryAttack { get { return primaryAttack; } }
+    public Attack SecondaryAttack { get { return secondaryAttack; } }
+    void Awake()
     {
-        if (_charactersInRange.Count == 0)
+        OnDeath = () => Destroy(gameObject);
+    }
+
+    void Update()
+    {
+        if (Health < 0)
         {
-            return;
+            Die();
         }
-        attacks.First().Attempt(this, _charactersInRange.ToArray());
+        //TurnNPCSmooth();
     }
 
     /// <summary>
     /// Sets the NPC transform rotation equivalent to it's face direction, ignoring single frame changes
     /// </summary>
-    protected void TurnNPCSmooth()
+    void TurnNPCSmooth()
     {
         bool _isFaceDirSame = _previousFaceDir == FaceDir;
         _previousFaceDir = FaceDir;
@@ -47,23 +55,19 @@ public class NPC : Character
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Player player = other.GetComponentInChildren<Player>();
-
-        if (!player)
+        if (!other.TryGetComponent<Player>(out var player))
         {
             return;
         }
-        _charactersInRange.Add(player);
+        primaryAttack.CharactersInRange.Add(player);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Player player = other.GetComponent<Player>();
-
-        if (!player)
+        if (!other.TryGetComponent<Player>(out var player))
         {
             return;
         }
-        _charactersInRange.Remove(player);
+        primaryAttack.CharactersInRange.Remove(player);
     }
 }

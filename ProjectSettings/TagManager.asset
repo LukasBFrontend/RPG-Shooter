@@ -11,6 +11,7 @@ TagManager:
   - Player Interact
   - Player Body
   - Enemy Body
+  - Player Weapon
   layers:
   - Default
   - TransparentFX

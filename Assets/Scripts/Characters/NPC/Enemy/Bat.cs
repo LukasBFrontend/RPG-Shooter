@@ -17,6 +17,5 @@ public class Bat : NPC
             Die();
         }
 
-        TryAttack();
     }
 }
