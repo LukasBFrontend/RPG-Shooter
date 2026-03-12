@@ -1,14 +1,16 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Movement))]
+[RequireComponent(typeof(Controller))]
+[RequireComponent(typeof(Actions))]
+[RequireComponent(typeof(Inventory))]
+[RequireComponent(typeof(AimController))]
 public class Player : Character
 {
-    public static Config Config { get; private set; }
-    public static Movement Movement { get; private set; }
-    public static Actions Actions { get; private set; }
-    public static Inventory Inventory { get; private set; }
-    public static AimController AimController { get; private set; }
-    public static Vector2 LastValidRespawn;
+    public Controller Movement { get; private set; }
+    public Actions Actions { get; private set; }
+    public Inventory Inventory { get; private set; }
+    public AimController AimController { get; private set; }
+    public Vector2 LastValidRespawn;
 
     void Start()
     {
@@ -18,11 +20,10 @@ public class Player : Character
 
     void Cache()
     {
-        Config = Config.Instance;
-        Movement = GetComponent<Movement>();
-        Actions = Actions.Instance;
-        Inventory = Inventory.Instance;
-        AimController = AimController.Instance;
+        Movement = GetComponent<Controller>();
+        Actions = GetComponent<Actions>();
+        Inventory = GetComponent<Inventory>();
+        AimController = GetComponent<AimController>();
 
         CollisionIgnoreTags = Utils.PlayerTags;
         OnDeath = () =>
@@ -39,5 +40,16 @@ public class Player : Character
         transform.position = LastValidRespawn;
 
         Utils.FlickerSprite(SpriteRenderer, new Color(1, 1, 1, 0), 6, .5f);
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (!other.collider.TryGetComponent<Character>(out var character))
+        {
+            return;
+        }
+        Debug.Log($"Ignore collision between {Collider.name} and {other.collider.name}");
+
+        Physics2D.IgnoreCollision(Collider, other.collider);
     }
 }

@@ -7,12 +7,24 @@ public class BatStateFactory : NPCStateFactory
     {
         return new BatIdleState(_context, this);
     }
-    public override NPCBaseState Alert()
-    {
-        return new BatAlertState(_context, this);
-    }
+
     public override NPCBaseState Combat()
     {
         return new BatCombatState(_context, this);
+    }
+
+    public override NPCBaseState Alert()
+    {
+        return null;
+    }
+
+    public override NPCBaseState Jump()
+    {
+        return null;
+    }
+
+    public override NPCBaseState Grounded()
+    {
+        return null;
     }
 }

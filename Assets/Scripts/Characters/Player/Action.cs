@@ -5,11 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Player))]
 public class Actions : Singleton<Actions>
 {
+    const float INTERACT_RANGE = 1.25f;
     [SerializeField] Collider2D interactCollider;
     List<IInteractable> _interactablesCurrent = new();
     bool _interactionQued;
     Player _player;
-    const float INTERACT_RANGE = 1.25f;
 
     protected override void OnAwake()
     {
@@ -31,7 +31,7 @@ public class Actions : Singleton<Actions>
 
     public void HolsterWeapon()
     {
-        if (Player.Inventory.HeldItem() is Weapon weapon)
+        if (_player.Inventory.HeldItem() is Weapon weapon)
         {
             weapon.ToggleHolstered();
         }
@@ -43,17 +43,17 @@ public class Actions : Singleton<Actions>
         {
             return;
         }
-        Player.Inventory.HeldItem().Use();
+        _player.Inventory.HeldItem().Use();
     }
 
     public void HeldItemFocus()
     {
-        Player.Inventory.HeldItem().Focus();
+        _player.Inventory.HeldItem().Focus();
     }
 
     public void SetSelectedItemSlot(int index)
     {
-        Player.Inventory.SetSelectedItemSlot(index);
+        _player.Inventory.SetSelectedItemSlot(index);
     }
 
     public void Interact()

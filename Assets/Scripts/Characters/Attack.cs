@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public struct AttackContext
@@ -11,40 +12,63 @@ public struct AttackContext
     public GameObject Projectile;
     public Transform Origin;
     public Vector2 Direction;
+    public float Lifetime;
     public float Velocity;
 }
-public delegate void AttackAction(AttackContext context);
 
+public enum AttackType
+{
+    Melee,
+    Ranged,
+    Lunge
+}
 [Serializable]
 public class Attack
 {
-    public enum AttackType
+    [Serializable]
+    public struct RangedAndLungeFields
     {
-        Melee,
-        Ranged,
-        Lunge
+        public Transform Origin;
+        public GameObject Projectile;
+        public float Lifetime;
+        public float Velocity;
     }
     [SerializeField] string name;
     [SerializeField] AttackType attackType;
-    [SerializeField] GameObject projectilePrefab;
-    [SerializeField] Transform origin;
-    [Range(0, 2)]
     [SerializeField] float windUp = 0f;
-    [SerializeField] float projectileVelocity = 10f;
     [Range(0, 24)]
     [SerializeField] int damage;
     [SerializeField] float knockbackForce;
+    [Range(0, 10)]
     [SerializeField] float cooldown;
+    [SerializeField] RangedAndLungeFields rangedAndLungeFields;
+    bool _attackWasCancelled = false;
+    List<GameObject> _projectiles = new();
 
     public string Name => name;
     public int Damage => damage;
     public float KnockbackForce => knockbackForce;
+    public float WindUp => windUp;
     public float Cooldown => cooldown;
+    public AttackType AttackType => attackType;
+    public float Lifetime => rangedAndLungeFields.Lifetime;
 
     public AttackAction ActionAction { get; set; } = null;
     public bool OnCooldown { get; private set; } = false;
     public bool IsWindingUp { get; private set; } = false;
-    bool _attackWasCancelled = false;
+    public List<Character> CharactersInRange { get; set; } = new();
+
+    public void CleanUpProjectiles()
+    {
+        foreach (GameObject projectile in _projectiles)
+        {
+            if (projectile != null)
+            {
+                GameObject.Destroy(projectile);
+            }
+        }
+        _projectiles.Clear();
+    }
 
     public void Attempt(Character attacker, Character[] targets)
     {
@@ -113,18 +137,25 @@ public class Attack
                 Targets = targets,
                 Damage = damage,
                 KnockbackForce = knockbackForce,
-                Projectile = projectilePrefab,
-                Velocity = projectileVelocity
-            }
+                Projectile = rangedAndLungeFields.Projectile,
+                Velocity = rangedAndLungeFields.Velocity,
+                Lifetime = rangedAndLungeFields.Lifetime,
+            },
+            out GameObject _projectileInstance
         );
+
+        if (_projectileInstance != null)
+        {
+            _projectiles.Add(_projectileInstance);
+        }
     }
 
     IEnumerator AttemptDirectional(Character attacker, Vector2 direction)
     {
         IsWindingUp = true;
-        float _elapsed = 0f;
+        float _elapsedWindUp = 0f;
 
-        while (_elapsed < windUp)
+        while (_elapsedWindUp < windUp)
         {
             if (_attackWasCancelled)
             {
@@ -132,7 +163,7 @@ public class Attack
             }
 
             yield return new WaitForEndOfFrame();
-            _elapsed += Time.deltaTime;
+            _elapsedWindUp += Time.deltaTime;
         }
         IsWindingUp = false;
 
@@ -158,13 +189,20 @@ public class Attack
                 Attacker = attacker,
                 Damage = damage,
                 KnockbackForce = knockbackForce,
-                Projectile = projectilePrefab,
-                Origin = origin,
                 Direction = direction,
-                Velocity = projectileVelocity,
+                Origin = rangedAndLungeFields.Origin,
+                Projectile = rangedAndLungeFields.Projectile,
+                Velocity = rangedAndLungeFields.Velocity,
+                Lifetime = rangedAndLungeFields.Lifetime,
 
-            }
+            },
+            out GameObject _projectileInstance
         );
+
+        if (_projectileInstance != null)
+        {
+            _projectiles.Add(_projectileInstance);
+        }
     }
 
     IEnumerator CooldownTimer(float cooldown)

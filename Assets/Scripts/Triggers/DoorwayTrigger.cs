@@ -48,8 +48,8 @@ public class DoorwayTrigger : DirectionalTrigger
             Vector2 _target = path[0];
 
             float _t = Vector2.Distance(_characterPos, path[^1]) / _totalDistance;
-            character.Movement.MovespeedMultiplier = Mathf.Lerp(.75f, .6f, _t * _t);
-            character.Movement.Input = (_target - _characterPos).normalized;
+            character.Controller.MovespeedMultiplier = Mathf.Lerp(.75f, .6f, _t * _t);
+            character.Controller.Move(_target - _characterPos);
 
             if (Vector2.Distance(_characterPos, _target) < .075f)
             {
@@ -60,6 +60,6 @@ public class DoorwayTrigger : DirectionalTrigger
         }
 
         GameState.InputDisabled = false;
-        character.Movement.MovespeedMultiplier = 1f;
+        character.Controller.MovespeedMultiplier = 1f;
     }
 }

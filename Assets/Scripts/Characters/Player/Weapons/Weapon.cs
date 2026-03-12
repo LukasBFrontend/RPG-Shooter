@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
 
         foreach (Transform child in applyRotation)
         {
-            child.transform.rotation = _controller.GetAimAngle();
+            child.rotation = _controller.GetAimAngle();
         }
 
         _animator.SetFloat("AimDirectionIndex", _aimDirectionIndex);

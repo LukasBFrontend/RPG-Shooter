@@ -1,13 +1,13 @@
 public abstract class NPCBaseState
 {
-    protected bool _isRootState = false;
-    protected NPCStateMachine _ctx;
-    protected NPCStateFactory _factory;
+    bool _isRootState = false;
+    NPCStateMachine _ctx;
+    NPCStateFactory _factory;
     NPCBaseState _currentSuperState;
     NPCBaseState _currentSubState;
-    protected bool IsRootState { set { _isRootState = value; } }
+    protected bool IsRootState { get { return _isRootState; } set { _isRootState = value; } }
     protected NPCStateMachine Ctx { get { return _ctx; } }
-    protected NPCStateMachine Factory { get { return _ctx; } }
+    protected NPCStateFactory Factory { get { return _factory; } }
 
     public NPCBaseState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory)
     {
@@ -23,7 +23,7 @@ public abstract class NPCBaseState
     public void UpdateStates()
     {
         UpdateState();
-        _currentSubState?.UpdateState();
+        _currentSubState?.UpdateStates();
     }
 
     protected void SwitchState(NPCBaseState newState)
@@ -33,14 +33,12 @@ public abstract class NPCBaseState
 
         if (_isRootState)
         {
-            _ctx.CurrentState = newState;
+            Ctx.CurrentState = newState;
         }
-        else if (_currentSuperState != null)
+        else
         {
-            _currentSuperState.SetSubState(newState);
+            _currentSuperState?.SetSubState(newState);
         }
-
-        _ctx.CurrentState = newState;
     }
 
     protected void SetSuperState(NPCBaseState newSuperState)

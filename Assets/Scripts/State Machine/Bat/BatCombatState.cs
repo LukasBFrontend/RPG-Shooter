@@ -2,17 +2,26 @@ using UnityEngine;
 
 public class BatCombatState : NPCBaseState
 {
-    public BatCombatState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory) { }
+    Attack _attack;
+    Controller _movement;
+    public BatCombatState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory)
+    {
+        IsRootState = true;
+    }
     public override void EnterState()
     {
-        Debug.Log("Entered combat state!");
+        _attack = Ctx.NPC.PrimaryAttack;
+        _movement = Ctx.NPC.Controller;
         Ctx.Animator.SetBool("IsAwake", true);
     }
 
     public override void UpdateState()
     {
-        Ctx.FollowCharacter(Ctx.Player);
+        Debug.Log("Bat in combat state");
         AdjustMoveSpeed();
+        _movement.FollowCharacter(Ctx.Player, Ctx.ClusterSignal);
+        _attack.Attempt(Ctx.NPC, _attack.CharactersInRange.ToArray());
+
         CheckSwitchStates();
     }
 
@@ -28,6 +37,6 @@ public class BatCombatState : NPCBaseState
     void AdjustMoveSpeed()
     {
         float _t = -Mathf.Pow(Mathf.Clamp(Vector2.Distance(Ctx.Player.ColliderCenter(), Ctx.NPC.ColliderCenter()) - 1f, 0f, float.MaxValue) * 2f, 2f) + 1f;
-        Ctx.NPC.Movement.MovespeedMultiplier = Mathf.Lerp(1f, 0f, _t);
+        Ctx.NPC.Controller.MovespeedMultiplier = Mathf.Lerp(1f, 0f, _t);
     }
 }

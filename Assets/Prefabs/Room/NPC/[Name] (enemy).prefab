@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6310479763548030427}
   - component: {fileID: 6424216971890873635}
+  - component: {fileID: 4438513102787737788}
   m_Layer: 16
   m_Name: Attack Area
   m_TagString: Untagged
@@ -78,6 +79,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4438513102787737788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367670780848822658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0906a50fd325b824bb240e45199ee931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 8392943100153078429}
 --- !u!1 &4822092581742843810
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,12 +103,13 @@ GameObject:
   - component: {fileID: 9181335859650286586}
   - component: {fileID: 5830621268632925086}
   - component: {fileID: 5382338086635331670}
-  - component: {fileID: 1631154748163045584}
+  - component: {fileID: 5825717146859812261}
+  - component: {fileID: 8392943100153078429}
   - component: {fileID: 3186442112912570169}
   - component: {fileID: 1398066151340339909}
   - component: {fileID: 815771508591074289}
   m_Layer: 16
-  m_Name: _Name_ (enemy)
+  m_Name: '[Name] (enemy)'
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,7 +206,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
---- !u!114 &1631154748163045584
+--- !u!114 &5825717146859812261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,18 +215,60 @@ MonoBehaviour:
   m_GameObject: {fileID: 4822092581742843810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 865c5a8fb5f6b4941bbccdb6b39d97ab, type: 3}
+  m_Script: {fileID: 11500000, guid: c769316d4a597e743885671d9fde16db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npc: {fileID: 0}
-  col: {fileID: 5382338086635331670}
-  raycastIgnore:
+  stateFactory: 0
+  bodyCollider: {fileID: 8839989847140475804}
+  debugRaycast: 0
+--- !u!114 &8392943100153078429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4822092581742843810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4822472268796947a2217446da2a79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterFields:
+    SpriteRenderer: {fileID: 3403722770133317542}
+    Animator: {fileID: 6420573025549639189}
+    Rigidbody: {fileID: 5830621268632925086}
+    Collider: {fileID: 5382338086635331670}
+    Health: 5
+    UsesZDepth: 0
+  RaycastIgnore:
   - {fileID: 5382338086635331670}
   - {fileID: 7939453881364121682}
   - {fileID: 6424216971890873635}
-  debugRaycast: 0
-  CurrentNode: {fileID: 0}
-  Path: []
+  detectionRange: 10
+  primaryAttack:
+    name: <Attack>
+    attackType: 0
+    windUp: 0
+    damage: 1
+    knockbackForce: 0
+    cooldown: 0.5
+    rangedAndLungeFields:
+      Origin: {fileID: 9181335859650286586}
+      Projectile: {fileID: 0}
+      Lifetime: 0
+      Velocity: 0
+  secondaryAttack:
+    name: 
+    attackType: 0
+    windUp: 0
+    damage: 0
+    knockbackForce: 0
+    cooldown: 0
+    rangedAndLungeFields:
+      Origin: {fileID: 0}
+      Projectile: {fileID: 0}
+      Lifetime: 0
+      Velocity: 0
 --- !u!114 &3186442112912570169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fda4008b5004d47b71a1e2f3f2ab83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
   moveSpeed: 1.5
 --- !u!114 &1398066151340339909
 MonoBehaviour:
@@ -415,6 +471,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3261622267438113121}
   - component: {fileID: 7939453881364121682}
+  - component: {fileID: 8839989847140475804}
   m_Layer: 16
   m_Name: Body
   m_TagString: Enemy Body
@@ -473,3 +530,15 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
+--- !u!114 &8839989847140475804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5753484567987457503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150906a0c3ff98a468de1ee33d89ebb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

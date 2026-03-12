@@ -18,5 +18,13 @@ public class SlugStateFactory : NPCStateFactory
         return new SlugCombatState(_context, this);
     }
 
+    public override NPCBaseState Jump()
+    {
+        return null;
+    }
 
+    public override NPCBaseState Grounded()
+    {
+        return null;
+    }
 }

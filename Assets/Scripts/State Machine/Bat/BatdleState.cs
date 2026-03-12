@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class BatIdleState : NPCBaseState
 {
-    public BatIdleState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory) { }
+    public BatIdleState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory)
+    {
+        IsRootState = true;
+    }
     public override void EnterState()
     {
-        Debug.Log("Entered idle state!");
-        Ctx.NPC.Movement.Input = Vector2.zero;
+        Ctx.NPC.Controller.Move(Vector2.zero);
     }
 
     public override void UpdateState()
@@ -18,9 +20,12 @@ public class BatIdleState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Vector2.Distance(Ctx.NPC.transform.position, Ctx.Player.transform.position) < Ctx.DetectionRange)
+        float _distanceToPlayer = Vector2.Distance(Ctx.Position, Ctx.PlayerPosition);
+        Debug.Log($"Bat in combat state, distance to player: {_distanceToPlayer}");
+        Debug.Log($"Player position: {Ctx.PlayerPosition}, Bat position: {Ctx.Position}");
+        if (_distanceToPlayer < Ctx.DetectionRange)
         {
-            SwitchState(_factory.Combat());
+            SwitchState(Factory.Combat());
         }
     }
 

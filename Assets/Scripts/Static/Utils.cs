@@ -292,7 +292,7 @@ public static class Utils
     /// <returns></returns>
     public static Vector2 PlayerToTransformNode(Transform transform)
     {
-        Vector2 _playerPos = Player.Config.ColliderCenter();
+        Vector2 _playerPos = GameState.Player.ColliderCenter();
         Vector2 _pos = NodeManager.Instance.ClosestNode(transform.position).transform.position;
 
         return _playerPos - _pos;
@@ -300,7 +300,7 @@ public static class Utils
 
     public static Vector2 PlayerToTransform(Transform transform)
     {
-        Vector2 _playerPos = Player.Config.ColliderCenter();
+        Vector2 _playerPos = GameState.Player.ColliderCenter();
         Vector2 _pos = transform.position;
 
         return _playerPos - _pos;

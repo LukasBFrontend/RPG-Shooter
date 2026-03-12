@@ -53,7 +53,7 @@ public static class RoomManager
 
     public static bool PlayerWithinBounds(Room room)
     {
-        Vector2 _playerPos = Player.Config.transform.position;
+        Vector2 _playerPos = GameState.Player.transform.position;
         Vector2 _mapPos = room.transform.position;
         float _width = room.Size.x;
         float _height = room.Size.y;

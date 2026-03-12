@@ -4,6 +4,7 @@ using UnityEngine;
 public class BodyCollider : MonoBehaviour
 {
     public Collider2D Collider => GetComponent<Collider2D>();
+    public bool IsJumping { get; set; } = false;
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.collider.TryGetComponent<BodyCollider>(out var bodyCollider))
@@ -11,6 +12,6 @@ public class BodyCollider : MonoBehaviour
             return;
         }
 
-        Physics2D.IgnoreCollision(bodyCollider.Collider, this.Collider);
+        Physics2D.IgnoreCollision(bodyCollider.Collider, Collider);
     }
 }

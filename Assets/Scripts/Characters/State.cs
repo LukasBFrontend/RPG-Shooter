@@ -16,11 +16,6 @@ public class State : MonoBehaviour
     public int Health { get { return character.Health; } }
     float _statusTimer = 0f;
 
-    void Start()
-    {
-        character = GetComponent<Character>();
-    }
-
     void Update()
     {
         if (_statusTimer > 0f)
@@ -35,19 +30,10 @@ public class State : MonoBehaviour
         }
     }
 
-    public bool IsDamaged()
-    {
-        return character.IsDamaged();
-    }
-
     public void SetStatus(CharacterStatus status, float duration)
     {
         _statusTimer = duration;
 
         Status = status;
-    }
-    public Node ClosestNode()
-    {
-        return NodeManager.Instance.ClosestNode(transform.position);
     }
 }

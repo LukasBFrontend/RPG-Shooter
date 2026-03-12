@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(State))]
-[RequireComponent(typeof(Movement))]
+[RequireComponent(typeof(Controller))]
 public class Character : MonoBehaviour
 {
     [System.Serializable]
@@ -44,10 +44,15 @@ public class Character : MonoBehaviour
         get { return characterFields.Collider; }
     }
     public State State { get { return GetComponent<State>(); } }
-    public Movement Movement { get { return GetComponent<Movement>(); } }
+    public Controller Controller { get { return GetComponent<Controller>(); } }
     public Vector2 FaceDir { get; private set; } = Vector2.down;
+    public float FaceAngle
+    {
+        get => Mathf.Atan2(FaceDir.y, FaceDir.x) * Mathf.Rad2Deg;
+    }
     public List<string> CollisionIgnoreTags { get; set; }
     public Action OnDeath { get; set; }
+    public Node Node { get; set; }
     int _maxHealth;
 
     public bool IsDamaged()

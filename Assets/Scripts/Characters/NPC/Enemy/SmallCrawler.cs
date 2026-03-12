@@ -17,7 +17,7 @@ public class SmallCrawler : NPC
             Die();
         }
 
-        TryAttack();
+
 
         //TurnNPCSmooth();
     }

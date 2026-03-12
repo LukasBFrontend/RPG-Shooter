@@ -21,6 +21,7 @@ public class Room : MonoBehaviour
             return;
         }
 
+        const float WIDTH = 5;
         Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
 
         Vector3 _pos = transform.position;
@@ -28,7 +29,6 @@ public class Room : MonoBehaviour
         float _halfH = Size.y * 0.5f;
 
         Color _color = Color.yellow;
-        const float WIDTH = 5;
         Vector3 _topLeft = _pos + transform.TransformVector(new Vector3(-_halfW, _halfH, 0));
         Vector3 _topRight = _pos + transform.TransformVector(new Vector3(_halfW, _halfH, 0));
         Vector3 _bottomRight = _pos + transform.TransformVector(new Vector3(_halfW, -_halfH, 0));

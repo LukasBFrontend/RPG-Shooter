@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class SpikeBallSlotTrigger : MonoBehaviour
 {
+    const float FUSE_THRESHOLD = .25f;
     [SerializeField] Animator animator;
     SpikeBall _spikeBall;
     bool _isLocked = false;
-    const float FUSE_THRESHOLD = .25f;
 
     void Update()
     {

@@ -111,23 +111,27 @@ MonoBehaviour:
   attack:
     name: Fire
     attackType: 0
-    projectilePrefab: {fileID: 0}
-    origin: {fileID: 0}
     windUp: 0
-    projectileVelocity: 10
     damage: 10
     knockbackForce: 0
     cooldown: 0.5
+    rangedAndLungeFields:
+      Origin: {fileID: 0}
+      Projectile: {fileID: 0}
+      Lifetime: 0
+      Velocity: 0
   farAttack:
     name: FireFar
     attackType: 0
-    projectilePrefab: {fileID: 0}
-    origin: {fileID: 0}
     windUp: 0
-    projectileVelocity: 10
     damage: 2
     knockbackForce: 0
     cooldown: 0.5
+    rangedAndLungeFields:
+      Origin: {fileID: 0}
+      Projectile: {fileID: 0}
+      Lifetime: 0
+      Velocity: 0
   fireVFX: {fileID: 163807421182032349, guid: f4443d992ccae014cb2ed55357049f4a, type: 3}
   fireArea: {fileID: 6578498940208647449}
   sprite: {fileID: 21300000, guid: 73b80e102ecca6c4b936a5e146c6b4dd, type: 3}
@@ -322,13 +326,15 @@ MonoBehaviour:
   attack:
     name: Fire
     attackType: 1
-    projectilePrefab: {fileID: 1303844177401522025, guid: 37db1e6c3c5fec0469dd3f498402763e, type: 3}
-    origin: {fileID: 4977019278214683287}
     windUp: 0
-    projectileVelocity: 18
     damage: 2
     knockbackForce: 0
     cooldown: 0.2
+    rangedAndLungeFields:
+      Origin: {fileID: 7384055469393755570}
+      Projectile: {fileID: 1303844177401522025, guid: 37db1e6c3c5fec0469dd3f498402763e, type: 3}
+      Lifetime: 1.5
+      Velocity: 10
   sprite: {fileID: 21300000, guid: f563da00ff652e24e8a0a961d063f32e, type: 3}
   count: 1
 --- !u!114 &4902946085122026504
@@ -960,7 +966,6 @@ GameObject:
   - component: {fileID: 2295047555192363436}
   - component: {fileID: 5274681652012101188}
   - component: {fileID: 8167011348372212593}
-  - component: {fileID: 1058697600066434790}
   - component: {fileID: 8221779649133618376}
   - component: {fileID: 7438468600784246310}
   - component: {fileID: 1116474325934901914}
@@ -1093,21 +1098,7 @@ MonoBehaviour:
     Collider: {fileID: 5274681652012101188}
     Health: 12
     UsesZDepth: 1
---- !u!114 &1058697600066434790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9167609637897018352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121ffde879b2fd545b770488b5f97afb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Rigidbody: {fileID: 2295047555192363436}
-  Collider: {fileID: 5274681652012101188}
-  Animator: {fileID: 5260403279140747566}
+  LastValidRespawn: {x: 0, y: 0}
 --- !u!114 &8221779649133618376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,7 +1137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fda4008b5004d47b71a1e2f3f2ab83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 8167011348372212593}
   moveSpeed: 5
 --- !u!114 &2751773168325970177
 MonoBehaviour:

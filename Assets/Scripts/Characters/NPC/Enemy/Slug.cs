@@ -21,8 +21,6 @@ public class Slug : NPC
             Die();
         }
 
-        TryAttack();
 
-        TurnNPCSmooth();
     }
 }

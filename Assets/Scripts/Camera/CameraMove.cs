@@ -105,9 +105,9 @@ public class CameraMove : Singleton<CameraMove>
 
     Vector2 TrackPlayerSmooth()
     {
+        const float THRESHOLD = .1f;
         float _width = freeMovementBox.x;
         float _height = freeMovementBox.y;
-        const float THRESHOLD = .1f;
 
         Vector3 _cameraPos = transform.position;
         Vector2 _playerToCamera = player.transform.position - _cameraPos;

@@ -11,6 +11,8 @@ public static class Paths
 {
     public static List<Node> Straight(Node start, Node end)
     {
+        const float THRESHOLD = 0.05f;
+
         Vector2 _startPos = start.transform.position;
         Vector2 _endPos = end.transform.position;
         Vector2 _xFirstPos = new(_endPos.x, _startPos.y);
@@ -19,7 +21,6 @@ public static class Paths
         Node _xFirstNode = NodeManager.Instance.ClosestNode(_xFirstPos);
         Node _yFirstNode = NodeManager.Instance.ClosestNode(_yFirstPos);
 
-        const float THRESHOLD = 0.05f;
         float _xDist = Mathf.Abs((_endPos - _startPos).x);
         float _yDist = Mathf.Abs((_endPos - _startPos).y);
 

@@ -54,12 +54,12 @@ public class Inventory : Singleton<Inventory>
             {
                 if (weapon.IsHolstered && _isDisplayed)
                 {
-                    Player.Config.Animator.SetBool("HoldingWeapon", false);
+                    GameState.Player.Animator.SetBool("HoldingWeapon", false);
                     _isDisplayed = false;
                 }
                 else if (!weapon.IsHolstered && _isDisplayed)
                 {
-                    Player.Config.Animator.SetBool("HoldingWeapon", true);
+                    GameState.Player.Animator.SetBool("HoldingWeapon", true);
                 }
             }
 

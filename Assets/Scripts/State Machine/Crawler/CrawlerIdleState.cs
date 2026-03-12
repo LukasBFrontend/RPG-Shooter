@@ -1,11 +1,8 @@
 using UnityEngine;
 
-public class SlugIdleState : NPCBaseState
+public class CrawlerIdleState : NPCBaseState
 {
-    public SlugIdleState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory)
-    {
-        IsRootState = true;
-    }
+    public CrawlerIdleState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory) { }
     public override void EnterState()
     {
         Ctx.NPC.Controller.Move(Vector2.zero);

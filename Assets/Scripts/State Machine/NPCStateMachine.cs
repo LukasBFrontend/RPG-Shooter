@@ -5,37 +5,43 @@ using UnityEngine;
 
 public enum StateFactoryType
 {
-    Slug,
-    Bat,
+    SlugStateFactory,
+    CrawlerStateFactory,
+    BatStateFactory,
 }
+
+[RequireComponent(typeof(NPC))]
 public class NPCStateMachine : MonoBehaviour
 {
-    [SerializeField] StateFactoryType stateFactoryType;
-    [SerializeField] NPC npc;
+    [SerializeField] StateFactoryType stateFactory;
+    [SerializeField] BodyCollider bodyCollider;
     [SerializeField] bool debugRaycast = false;
+    NPC _npc;
     NPCBaseState _currentState;
     NPCStateFactory _states;
-    Movement _movement;
+    Controller _controller;
     Player _player;
     List<Node> _nodeGrid;
-    Node _currentNode;
     bool _seesPlayer = false;
     Vector2 _clusterSignal = new();
-    public Animator Animator { get { return npc.Animator; } }
+    public Animator Animator { get { return _npc.Animator; } }
     public NPCBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
-    public NPC NPC { get { return npc; } }
+    public NPC NPC { get { return _npc; } }
     public Player Player { get { return _player; } }
-    public Vector2 PlayerPosition { get { return _player.ColliderCenter(); } }
+    public Controller Controller { get { return _controller; } }
     public Vector2 Position { get { return NPC.ColliderCenter(); } }
+    public Vector2 PlayerPosition { get { return _player.ColliderCenter(); } }
+    public BodyCollider BodyCollider { get { return bodyCollider; } }
     public List<Node> NodeGrid { get { return _nodeGrid; } }
-    public Node CurrentNode { get { return _currentNode; } set { _currentNode = value; } }
-    public float DetectionRange { get { return npc.DetectionRange; } }
+    public Node CurrentNode { get { return _npc.Controller.CurrentNode; } }
+    public float DetectionRange { get { return _npc.DetectionRange; } }
     public Vector2 ClusterSignal { get { return _clusterSignal; } set { _clusterSignal = value; } }
+    public bool IsJumpPressed { get; set; }
 
     void Awake()
     {
         Cache();
-        _currentState = _states.Idle();
+        _currentState = _states.Grounded() ?? _states.Idle();
         _currentState.EnterState();
     }
     void Update()
@@ -45,23 +51,68 @@ public class NPCStateMachine : MonoBehaviour
 
     void Cache()
     {
-        _states = GetNPCStateFactory(stateFactoryType);
+        _npc = GetComponent<NPC>();
+        _states = GetNPCStateFactory(stateFactory);
         _nodeGrid = NodeManager.Instance.GetNodes();
         _player = GameState.Player;
-        _movement = npc.Movement;
+        _controller = _npc.Controller;
     }
 
     NPCStateFactory GetNPCStateFactory(StateFactoryType stateFactoryType)
     {
-        switch (stateFactoryType)
+        return stateFactoryType switch
         {
-            case StateFactoryType.Slug:
-                return new SlugStateFactory(this);
-            case StateFactoryType.Bat:
-                return new BatStateFactory(this);
-            default:
-                return new SlugStateFactory(this);
+            StateFactoryType.SlugStateFactory => new SlugStateFactory(this),
+            StateFactoryType.BatStateFactory => new BatStateFactory(this),
+            StateFactoryType.CrawlerStateFactory => new CrawlerStateFactory(this),
+            _ => new SlugStateFactory(this),
+        };
+    }
+
+    public bool IsPathClear(Vector2 origin, Vector2 direction, float distance)
+    {
+        Vector2 _dir = direction.normalized;
+        Vector2 _perp = new(-_dir.y, _dir.x);
+
+        float _extents = Mathf.Max(_npc.Collider.bounds.extents.x, _npc.Collider.bounds.extents.y);
+        float _side = _extents;
+        float _diagonal = Mathf.Sqrt(2 * Mathf.Pow(_extents, 2));
+
+        float _axisAlign = Mathf.Abs(_dir.x * _dir.y) * 4f;
+        _axisAlign = Mathf.Clamp01(_axisAlign);
+
+        float _offsetDist = Mathf.Lerp(_side, _diagonal, _axisAlign);
+        Vector2 _lateralOffset = _perp * _offsetDist;
+
+        if (distance <= 0)
+        {
+            distance = 0.1f;
         }
+
+        Physics2D.queriesHitTriggers = true;
+
+        RaycastHit2D[] _hitsMiddle = Physics2D.RaycastAll(origin, _dir, distance);
+        RaycastHit2D? _playerHit = IsPlayerHit(_hitsMiddle);
+        if (_playerHit == null)
+        {
+            Physics2D.queriesHitTriggers = false;
+            return false;
+        }
+        float _distanceToPlayerHit = Vector2.Distance(origin, _playerHit.Value.point);
+        RaycastHit2D[] _hitsLeft = Physics2D.RaycastAll(origin + _lateralOffset, _dir, _distanceToPlayerHit - .5f);
+        RaycastHit2D[] _hitsRight = Physics2D.RaycastAll(origin - _lateralOffset, _dir, _distanceToPlayerHit - .5f);
+        Physics2D.queriesHitTriggers = false;
+
+
+
+        float _obstructions = ObstaclesHit(_hitsLeft) + ObstaclesHit(_hitsRight);
+
+        if (debugRaycast)
+        {
+            DrawRaycasts(origin, _dir, distance, _lateralOffset, _hitsLeft, _hitsMiddle, _hitsRight);
+        }
+
+        return _obstructions == 0;
     }
 
     public bool SeesPlayer()
@@ -74,7 +125,7 @@ public class NPCStateMachine : MonoBehaviour
         Vector2 _dir = Utils.PlayerToTransformNode(transform).normalized;
         Vector2 _perp = new(-_dir.y, _dir.x);
 
-        float _extents = Mathf.Max(npc.Collider.bounds.extents.x, npc.Collider.bounds.extents.y);
+        float _extents = Mathf.Max(_npc.Collider.bounds.extents.x, _npc.Collider.bounds.extents.y);
         float _side = _extents;
         float _diagonal = Mathf.Sqrt(2 * Mathf.Pow(_extents, 2));
 
@@ -91,78 +142,64 @@ public class NPCStateMachine : MonoBehaviour
         }
 
         Physics2D.queriesHitTriggers = true;
-        RaycastHit2D[] _hitsLeft = Physics2D.RaycastAll(_origin + _lateralOffset, _dir, _dist);
-        RaycastHit2D[] _hitsRight = Physics2D.RaycastAll(_origin - _lateralOffset, _dir, _dist);
-        Physics2D.queriesHitTriggers = false;
-        RaycastHit2D[] _hitsDirect = Physics2D.RaycastAll(_origin, _dir, _dist);
 
-        int _obstacleCount = ObstaclesHit(_hitsLeft) + ObstaclesHit(_hitsRight);
+        RaycastHit2D[] _hitsMiddle = Physics2D.RaycastAll(_origin, _dir, _dist);
+        RaycastHit2D? _playerHit = IsPlayerHit(_hitsMiddle);
+        if (_playerHit == null)
+        {
+            Physics2D.queriesHitTriggers = false;
+            return false;
+        }
+        float _distanceToPlayerHit = Vector2.Distance(_origin, _playerHit.Value.point);
+        RaycastHit2D[] _hitsLeft = Physics2D.RaycastAll(_origin + _lateralOffset, _dir, _distanceToPlayerHit - .5f);
+        RaycastHit2D[] _hitsRight = Physics2D.RaycastAll(_origin - _lateralOffset, _dir, _distanceToPlayerHit - .5f);
+        Physics2D.queriesHitTriggers = false;
+
+        float _obstructions = ObstaclesHit(_hitsLeft) + ObstaclesHit(_hitsRight);
 
         if (debugRaycast)
         {
-            DrawRaycasts(_origin, _dir, _dist, _lateralOffset, _hitsLeft, _hitsDirect, _hitsRight);
+            DrawRaycasts(_origin, _dir, _dist, _lateralOffset, _hitsLeft, _hitsMiddle, _hitsRight);
         }
 
-        return _seesPlayer = _obstacleCount == 0 && IsPlayerHit(_hitsDirect);
-
+        return _obstructions == 0;
     }
 
-    public void FollowCharacter(Character character)
-    {
-        Vector2 _direction = (character.ColliderCenter() - npc.ColliderCenter()).normalized + _clusterSignal;
-        npc.SetFacing(_direction);
-        _movement.Input = _direction;
-    }
 
-    public void FollowPath(List<Node> path)
-    {
-        int x = 0;
-        Vector3 _targetPos = new(path[x].transform.position.x, path[x].transform.position.y, 0);
-        Vector2 _direction = (_targetPos - transform.position).normalized;
-        npc.SetFacing(_direction);
-
-        _movement.Input = _direction;
-
-        if (Vector2.Distance(transform.position, path[x].transform.position) < 0.1f)
-        {
-            _currentNode = path[x];
-            path.RemoveAt(x);
-        }
-    }
 
     int ObstaclesHit(RaycastHit2D[] hits)
     {
-        int _obstacleCount = 0;
+        int _hits = 0;
         foreach (RaycastHit2D hit in hits)
         {
-            if (npc.RaycastIgnore.Contains(hit.collider))
+            if (_npc.RaycastIgnore.Contains(hit.collider))
             {
                 continue;
             }
             else if (!Utils.PlayerTags.Contains(hit.collider.tag))
             {
-                _obstacleCount++;
+                _hits++;
             }
         }
 
-        return _obstacleCount;
+        return _hits;
     }
 
-    bool IsPlayerHit(RaycastHit2D[] hits)
+    RaycastHit2D? IsPlayerHit(RaycastHit2D[] hits)
     {
         foreach (RaycastHit2D hit in hits)
         {
-            if (npc.RaycastIgnore.Contains(hit.collider))
+            if (_npc.RaycastIgnore.Contains(hit.collider))
             {
                 continue;
             }
             else if (Utils.PlayerTags.Contains(hit.collider.tag))
             {
-                return true;
+                return hit;
             }
         }
 
-        return false;
+        return null;
     }
 
     void DrawRaycasts(Vector2 origin, Vector2 direction, float distance, Vector2 lateralOffset, RaycastHit2D[] hitsLeft, RaycastHit2D[] hitsMiddle, RaycastHit2D[] hitsRight)

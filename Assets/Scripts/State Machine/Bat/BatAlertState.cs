@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class BatAlertState : NPCBaseState
 {
-    public BatAlertState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory) { }
+    public BatAlertState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory)
+    {
+        IsRootState = true;
+    }
 
     public override void EnterState()
     {
-        Debug.Log("Entered alert state!");
     }
 
     public override void UpdateState()
