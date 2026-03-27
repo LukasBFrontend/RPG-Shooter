@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gizmosEnabled: 1
-  Size: {x: 4, y: 2}
+  Size: {x: 25, y: 21}
   ConnectedRooms: []
 --- !u!1 &2846116530339915988
 GameObject:
