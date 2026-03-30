@@ -24,10 +24,7 @@ public class Projectile : MonoBehaviour
         List<string> _collisionIgnoreTags = Sender.CollisionIgnoreTags;
 
         if (
-            _collisionIgnoreTags != null
-            && Sender.CollisionIgnoreTags.Contains(_col.tag)
-            || Sender is NPC npc
-            && npc.RaycastIgnore.Contains(_col)
+            _col.CompareTag("Player") || _col.CompareTag("Enemy")
         )
         {
             Physics2D.IgnoreCollision(_col, col);
@@ -43,9 +40,9 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!IgnoreCollision(other) && other.TryGetComponent<Character>(out var _character))
+        if (other.TryGetComponent<BodyTrigger>(out var body) && body.DamageableBy(Sender))
         {
-            _character.TakeDamage(Damage);
+            body.Character.TakeDamage(Damage);
         }
         else
         {

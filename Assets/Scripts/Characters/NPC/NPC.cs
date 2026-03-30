@@ -15,6 +15,7 @@ public class NPC : Character
     void Awake()
     {
         OnDeath = () => Destroy(gameObject);
+        CollisionIgnoreTags = Utils.EnemyTags;
     }
 
     void Update()
