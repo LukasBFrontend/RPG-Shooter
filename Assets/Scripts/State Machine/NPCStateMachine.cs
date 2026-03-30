@@ -8,6 +8,7 @@ public enum StateFactoryType
     SlugStateFactory,
     CrawlerStateFactory,
     BatStateFactory,
+    SpitterStateFactory,
 }
 
 [RequireComponent(typeof(NPC))]
@@ -65,6 +66,7 @@ public class NPCStateMachine : MonoBehaviour
             StateFactoryType.SlugStateFactory => new SlugStateFactory(this),
             StateFactoryType.BatStateFactory => new BatStateFactory(this),
             StateFactoryType.CrawlerStateFactory => new CrawlerStateFactory(this),
+            StateFactoryType.SpitterStateFactory => new SpitterStateFactory(this),
             _ => new SlugStateFactory(this),
         };
     }

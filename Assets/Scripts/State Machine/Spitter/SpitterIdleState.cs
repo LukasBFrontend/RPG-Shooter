@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class BatIdleState : NPCBaseState
+public class SpitterIdleState : NPCBaseState
 {
-    public BatIdleState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory)
+    public SpitterIdleState(NPCStateMachine currentContext, NPCStateFactory npcStateFactory) : base(currentContext, npcStateFactory)
     {
         IsRootState = true;
     }
